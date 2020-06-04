@@ -1,0 +1,22 @@
+nohup: ignoring input
+Traceback (most recent call last):
+  File "/home/pengjia/miniconda3/envs/smk/lib/python3.6/site-packages/snakemake/io.py", line 1293, in _load_configfile
+    with open(configpath) as f:
+FileNotFoundError: [Errno 2] No such file or directory: './conf/cluster.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pengjia/miniconda3/envs/smk/bin/snakemake", line 10, in <module>
+    sys.exit(main())
+  File "/home/pengjia/miniconda3/envs/smk/lib/python3.6/site-packages/snakemake/__init__.py", line 2018, in main
+    show_failed_logs=args.show_failed_logs,
+  File "/home/pengjia/miniconda3/envs/smk/lib/python3.6/site-packages/snakemake/__init__.py", line 325, in snakemake
+    configs = [load_configfile(f) for f in cluster_config]
+  File "/home/pengjia/miniconda3/envs/smk/lib/python3.6/site-packages/snakemake/__init__.py", line 325, in <listcomp>
+    configs = [load_configfile(f) for f in cluster_config]
+  File "/home/pengjia/miniconda3/envs/smk/lib/python3.6/site-packages/snakemake/io.py", line 1331, in load_configfile
+    config = _load_configfile(configpath)
+  File "/home/pengjia/miniconda3/envs/smk/lib/python3.6/site-packages/snakemake/io.py", line 1326, in _load_configfile
+    raise WorkflowError("{} file {} not found.".format(filetype, configpath))
+snakemake.exceptions.WorkflowError: Config file ./conf/cluster.json not found.

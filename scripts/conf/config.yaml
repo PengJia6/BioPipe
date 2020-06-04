@@ -1,0 +1,97 @@
+caseinfo: conf/caseinfo.csv
+#caseinfo: conf/HapLab.samples.csv
+pairedinfo: conf/paired.csv
+wrapper:  "file:/home/pengjia/ProjectSnake/snake-wrappers/bio/"
+mainEnv:  "/home/pengjia/miniconda3/envs/PQsnake/bin/" #path of software
+qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
+
+
+ref:
+  name: "GRCh38"
+  # Path to the reference genome, ideally as it is provided by the GATK bundle.
+  genome: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+#  genome: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.fa"
+  dbsnp: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/dbsnp_146.hg38.vcf.gz"
+  1KGomni: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/1000G_omni2.5.hg38.vcf.gz"
+  1KGp1snp: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz"
+  hapmap: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/hapmap_3.3.hg38.vcf.gz"
+  mills1KG: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+  germMutuct: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/Mutect2/af-only-gnomad.hg38.vcf.gz"
+
+
+threads:
+    fastqc: 4 
+    fastp: 4
+    trim: 1
+    multiqc: 1      #fixed
+
+    bwa: 8
+    samtools: 8     
+    biobambam: 
+        rmDup: 4
+    picard:
+        rmDup: 1       #fixed
+    gatk: 
+        preReAlign: 4
+        applyReAlign: 1  #fixed
+        preBQSR: 1
+        applyBQSR: 1
+        leftAlign: 1
+        fixMate: 1
+    msisensor:
+        2
+
+
+
+
+filtering:
+  # Set to true in order to apply machine learning based recalibration of
+  # quality scores instead of hard filtering.
+  vqsr: false
+  hard:
+    # hard filtering as outlined in GATK docs
+    # (https://gatkforums.broadinstitute.org/gatk/discussion/2806/howto-apply-hard-filters-to-a-call-set)
+    snvs:
+      "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0"
+    indels:
+      "QD < 2.0 || FS > 200.0 || ReadPosRankSum < -20.0"
+
+
+
+
+
+
+
+
+processing:
+  remove-duplicates: true
+  # Uncomment and point to a bed file with, e.g., captured regions if necessary,
+  # see https://gatkforums.broadinstitute.org/gatk/discussion/4133/when-should-i-use-l-to-pass-in-a-list-of-intervals.
+  # restrict-regions: captured_regions.bed
+  # If regions are restricted, uncomment this to enlarge them by the given value in order to include
+  # flanking areas.
+  # region-padding: 100
+
+params:
+  gatk:
+    HaplotypeCaller: ""
+    BaseRecalibrator: ""
+    GenotypeGVCFs: ""
+    VariantRecalibrator: ""
+  picard:
+    MarkDuplicates: "REMOVE_DUPLICATES=true"
+  trimmomatic:
+    pe:
+      trimmer:
+        # See trimmomatic manual for adding additional options, e.g. for adapter trimming.
+        - "LEADING:3"
+        - "TRAILING:3"
+        - "SLIDINGWINDOW:4:15"
+        - "MINLEN:36"
+    se:
+      trimmer:
+        # See trimmomatic manual for adding additional options, e.g. for adapter trimming.
+        - "LEADING:3"
+        - "TRAILING:3"
+        - "SLIDINGWINDOW:4:15"
+        - "MINLEN:36"

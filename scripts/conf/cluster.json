@@ -1,0 +1,130 @@
+{
+    "__default__" :
+    {
+        "t": "9999:00:00",
+        "n" : "1",
+        "node": "mu02",
+        "name": "{rule}.{wildcards}",
+    },
+
+    "fastqc" :
+    {
+        "t": "9999:00:00",
+        "n" : "4",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "fastp" :
+    {
+        "t": "9999:00:00",
+        "n" : "4",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "fastqc2" :
+    {
+        "t": "9999:00:00",
+        "n" : "4",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+
+
+    "bwa" :
+    {
+        "t": "9999:00:00",
+        "n" : "8",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+
+ 
+    "bammerge" :
+    {
+        "t": "9999:00:00",
+        "n" : "8",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "picardRmDup":
+    {
+        "t": "9999:00:00",
+        "n" : "4",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "bioRmDup":
+    {
+        "t": "9999:00:00",
+        "n" : "8",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "preReAlign":
+    {
+        "t": "9999:00:00",
+        "n" : "8",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "applyReAlign":
+    {
+        "t": "9999:00:00",
+        "n" : "5",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "preBQSR":
+    {
+        "t": "9999:00:00",
+        "n" : "5",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "applyBQSR":
+    {
+        "t": "9999:00:00",
+        "n" : "5",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+
+    "samtools_index":
+    {
+        "t": "9999:00:00",
+        "n" : "8",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+    "leftAlign":
+    {
+        "t": "9999:00:00",
+        "n" : "4",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+     "fixMate":
+    {
+        "t": "9999:00:00",
+        "n" : "4",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+   "msisensor":
+    {
+        "t": "9999:00:00",
+        "n" : "2",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+
+   "msisensor_pro":
+    {
+        "t": "9999:00:00",
+        "n" : "2",
+        "node": "1",
+        "name": "{rule}.{wildcards}",
+    },
+
+}
+
