@@ -64,7 +64,7 @@ def get_fastq(wildcards):
     fastqs = caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
     if len(fastqs) == 2:
         return {"R1": fastqs.fq1, "R2": fastqs.fq2}
-    return {"R1": fastqs.fq1}
+    return {"R1": fastqs.fq1, "R2": fastqs.fq2}
 
 
 def is_single_end(sample, unit):
@@ -77,8 +77,8 @@ def get_read_group(wildcards):
     return r"-R '@RG\tID:{case}_{sample}\tSM:{case}_{sample}\tPL:{platform}\tLB:{LB}'".format(
         sample=wildcards.sample,
         case=wildcards.case,
-        platform=caseinfo.loc[(wildcards.case,wildcards.sample, wildcards.unit), "PL"],
-        LB=caseinfo.loc[(wildcards.case,wildcards.sample, wildcards.unit), "LB"])
+        platform=caseinfo.loc[(wildcards.case,wildcards.sample, wildcards.unit), "PL"][0],
+        LB=caseinfo.loc[(wildcards.case,wildcards.sample, wildcards.unit), "LB"][0])
 
 def get_sample_bam(wildcards):
     units=list(set(caseinfo.loc[(wildcards.case,wildcards.sample),"unit"]))
