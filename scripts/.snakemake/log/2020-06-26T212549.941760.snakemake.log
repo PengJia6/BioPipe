@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 1 of /home/pengjia/ProjectSnake/DNAseq/scripts/rules/qc.smk:
+Missing input files for rule fastqc:
+/hme/DATA/NA12878/pipelineTest/fastq/HG001_1000G_chr20_1.fq
