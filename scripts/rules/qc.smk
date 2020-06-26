@@ -1,3 +1,13 @@
+rule pigz:
+    input: 
+        "{prefix}.fq"
+    output:
+        "{prefix}.fq.gz"
+    threads: config["threads"]["pigz"]
+    shell: 
+        config["mainEnv"]+"pigz -p {threads} -c {input} > {output}"
+rule loadrawData:
+
 rule fastqc:
     input:
         unpack(get_fastq)
