@@ -1,18 +1,30 @@
 rule pigz:
     input: 
-        "{prefix}.fq"
+        "{prefix}"
     output:
-        "{prefix}.fq.gz"
+        "{prefix}.gz"
     threads: config["threads"]["pigz"]
     shell: 
         config["mainEnv"]+"pigz -p {threads} -c {input} > {output}"
 rule loadrawData:
-
-rule fastqc:
     input:
         unpack(get_fastq)
     output:
-        html1="../data/qc/fastqc/{case}/{sample}/{case}_{sample}_{unit}_1_fastqc.html",
+        R1=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_1.fq.gz",
+        R2=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_2.fq.gz"
+    threads: config["threads"]["pigz"]
+    params:
+        path=config["mainEnv"]
+    wrapper:
+        config["wrapper"]+"loadfq"
+
+
+rule fastqc:
+    input:
+        R1=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_1.fq.gz",
+        R2=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_2.fq.gz"
+    output:
+        html1=path_data+"qc/fastqc/{case}/{sample}/{case}_{sample}_{unit}_1_fastqc.html",
         html2="../data/qc/fastqc/{case}/{sample}/{case}_{sample}_{unit}_2_fastqc.html",
         zip1="../data/qc/fastqc/{case}/{sample}/{case}_{sample}_{unit}_1_fastqc.zip",
         zip2="../data/qc/fastqc/{case}/{sample}/{case}_{sample}_{unit}_2_fastqc.zip"
@@ -29,7 +41,8 @@ rule fastqc:
 
 rule fastp: 
     input: 
-        unpack(get_fastq)
+        R1=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_1.fq.gz",
+        R2=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_2.fq.gz"
     output:
         R1="../data/cleandata/fastp/{case}/{sample}/{case}_{sample}_{unit}_fastp_1.fq.gz",
         R2="../data/cleandata/fastp/{case}/{sample}/{case}_{sample}_{unit}_fastp_2.fq.gz",
@@ -48,7 +61,8 @@ rule fastp:
 
 rule passqc: 
     input: 
-        unpack(get_fastq)
+        R1=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_1.fq.gz",
+        R2=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_2.fq.gz"
     output:
         R1="../data/cleandata/passqc/{case}/{sample}/{case}_{sample}_{unit}_passqc_1.fq.gz",
         R2="../data/cleandata/passqc/{case}/{sample}/{case}_{sample}_{unit}_passqc_2.fq.gz"

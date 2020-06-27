@@ -1,9 +1,10 @@
 import pandas as pd
 from snakemake.utils import validate
 report: "../reports/workflow.rst"
-
-###### Config file and sample sheets #####
 configfile: "conf/config.yaml"
+path_data = config["path_data"]
+path_data = path_data if path_data[-1]=="/" else path_data+"/"
+
 #validate(config, schema="../schemas/config.schema.yaml")
 
 caseinfo = pd.read_csv(config["caseinfo"]).set_index(["case","sample","unit"], drop=False)
@@ -12,6 +13,8 @@ caseinfo = pd.read_csv(config["caseinfo"]).set_index(["case","sample","unit"], d
 
 #units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
 caseinfo.index = caseinfo.index.set_levels([i.astype(str) for i in caseinfo.index.levels])  # enforce str in index
+
+
 #validate(units, schema="../schemas/units.schema.yaml")
 
 # contigs in reference genome

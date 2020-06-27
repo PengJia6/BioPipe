@@ -1,6 +1,7 @@
 caseinfo: conf/caseinfo.csv
 #caseinfo: conf/HapLab.samples.csv
 pairedinfo: conf/paired.csv
+path_data: "../../ngs_test_data/"
 wrapper:  "file:/home/pengjia/ProjectSnake/snake-wrappers/bio/"
 mainEnv:  "/home/pengjia/miniconda3/envs/PQsnake/bin/" #path of software
 qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
@@ -20,6 +21,7 @@ ref:
 
 
 threads:
+    pigz: 4
     fastqc: 4 
     fastp: 4
     trim: 1

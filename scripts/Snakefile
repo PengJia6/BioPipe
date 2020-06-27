@@ -1,9 +1,7 @@
-localrules: all
-#include: "rules/common.smk"
-include: "rules/common_preprocessing.smk"
+localrules: all, passqc
+include: "smk/common.smk"
 
 ##### Target rules #####
-
 rule all:
     input:
 #        "annotated/all.vcf.gz",
@@ -18,10 +16,12 @@ rule all:
 
 
 ##### Modules #####
+
+include: "smk/qc.smk"
+include: "smk/align.smk"
+
 #include: "rules/mapping.smk"
 #include: "rules/calling.smk"
 #include: "rules/filtering.smk"
 #include: "rules/stats.smk"
-include: "rules/qc.smk"
-include: "rules/align.smk"
 #include: "rules/annotation.smk"
