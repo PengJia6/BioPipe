@@ -1,63 +1,66 @@
 import pandas as pd
 from snakemake.utils import validate
+
 report: "../reports/workflow.rst"
 configfile: "conf/config.yaml"
 path_data = config["path_data"]
-path_data = path_data if path_data[-1]=="/" else path_data+"/"
+path_data = path_data if path_data[-1] == "/" else path_data + "/"
+path_log = config["path_log"]
+path_log = path_log if path_log[-1] == "/" else path_log + "/"
+path_bm = config["path_bm"]
+path_bm = path_bm if path_bm[-1] == "/" else path_bm + "/"
 
-#validate(config, schema="../schemas/config.schema.yaml")
+# validate(config, schema="../schemas/config.schema.yaml")
 
-caseinfo = pd.read_csv(config["caseinfo"]).set_index(["case","sample","unit"], drop=False)
-#sampleinfo= pd.read_csv(config["caseinfo"]).set_index(["case","sample"], drop=False)
-#validate(samples, schema="../schemas/samples.schema.yaml")
+caseinfo = pd.read_csv(config["caseinfo"]).set_index(["case", "sample", "unit"], drop=False)
+# sampleinfo= pd.read_csv(config["caseinfo"]).set_index(["case","sample"], drop=False)
+# validate(samples, schema="../schemas/samples.schema.yaml")
 
-#units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
+# units = pd.read_table(config["units"], dtype=str).set_index(["sample", "unit"], drop=False)
 caseinfo.index = caseinfo.index.set_levels([i.astype(str) for i in caseinfo.index.levels])  # enforce str in index
 
-
-#validate(units, schema="../schemas/units.schema.yaml")
+# validate(units, schema="../schemas/units.schema.yaml")
 
 # contigs in reference genome
 contigs = pd.read_table(config["ref"]["genome"] + ".fai2",
                         header=None, usecols=[0], squeeze=True, dtype=str)
 
-casedict={}
-for index,info in caseinfo.iterrows():
-    case=index[0]
-    sample=index[1]
+casedict = {}
+for index, info in caseinfo.iterrows():
+    case = index[0]
+    sample = index[1]
     if case not in casedict:
-        casedict[case]={}
-    casedict[case][sample]=""
-num=0
-sampleinfo=pd.DataFrame()
+        casedict[case] = {}
+    casedict[case][sample] = ""
+num = 0
+sampleinfo = pd.DataFrame()
 for case in casedict:
     for sample in casedict[case]:
-        num+=1
-        sampleinfo.loc[num,"case"]=case
-        sampleinfo.loc[num,"sample"]=sample
-        sampleinfo.loc[num,"id"]=case+sample
-sampleinfo=sampleinfo.set_index(["case","sample"])
+        num += 1
+        sampleinfo.loc[num, "case"] = case
+        sampleinfo.loc[num, "sample"] = sample
+        sampleinfo.loc[num, "id"] = case + sample
+sampleinfo = sampleinfo.set_index(["case", "sample"])
 sampleinfo.index = sampleinfo.index.set_levels([i.astype(str) for i in sampleinfo.index.levels])  # enforce str in index
 for case in casedict:
     for sample in casedict[case]:
-        num+=1
-        sampleinfo.loc[(case,sample),"case"]=case
-        sampleinfo.loc[(case,sample),"sample"]=sample
-
+        num += 1
+        sampleinfo.loc[(case, sample), "case"] = case
+        sampleinfo.loc[(case, sample), "sample"] = sample
 
 ##### Wildcard constraints #####
 wildcard_constraints:
-    vartype="snvs|indels",
-    qcpipe="fastp|trim|passqc",
-    aligner="bwa|bowtie",
-    rmDup="pcdRmDup|bioRmDup",
-    realign="reAlign|noReAlign",
-    R="1|2",
-    case="|".join(caseinfo["case"]),
-    sample="|".join(caseinfo["sample"]),
-    unit="|".join(caseinfo["unit"]),
-    LB="|".join(caseinfo["LB"]),
-    contig="|".join(contigs)
+    vartype = "snvs|indels",
+    qcpipe = "fastp|trim|passqc",
+    aligner = "bwa|bowtie",
+    markdup = "pcdRmDup|bioRmDup",
+    realign = "reAlign|noReAlign",
+    R = "1|2",
+    case = "|".join(caseinfo["case"]),
+    sample = "|".join(caseinfo["sample"]),
+    unit = "|".join(caseinfo["unit"]),
+    LB = "|".join(caseinfo["LB"]),
+    contig = "|".join(contigs)
 
 
 ##### Helper functions #####
@@ -80,22 +83,23 @@ def get_read_group(wildcards):
     return r"-R '@RG\tID:{case}_{sample}\tSM:{case}_{sample}\tPL:{platform}\tLB:{LB}'".format(
         sample=wildcards.sample,
         case=wildcards.case,
-        platform=caseinfo.loc[(wildcards.case,wildcards.sample, wildcards.unit), "PL"][0],
-        LB=caseinfo.loc[(wildcards.case,wildcards.sample, wildcards.unit), "LB"][0])
+        platform=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "PL"][0],
+        LB=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "LB"][0])
 
+# for bam_merge input
 def get_sample_bam(wildcards):
-    units=list(set(caseinfo.loc[(wildcards.case,wildcards.sample),"unit"]))
-    aligner=wildcards.aligner
-    case=wildcards.case
-    sample=wildcards.sample
-    qcpipe=wildcards.qcpipe
-    return [ "../data/align/"+aligner+"/"+case+"/"+sample+"/"+case+"_"+sample+"_"+str(i)+"_"+qcpipe+"_"+aligner+"_sorted.bam" for i in units]
+    units = list(set(caseinfo.loc[(wildcards.case, wildcards.sample), "unit"]))
+    aligner = wildcards.aligner
+    case = wildcards.case
+    sample = wildcards.sample
+    qcpipe = wildcards.qcpipe
+    return [path_data + "align/" + aligner + "/" + case + "/" + sample + "/" + case + "_" + sample + "_" + str(
+        i) + "_" + qcpipe + "_" + aligner + "_sorted.bam" for i in units]
 
-#    return units
-    return [str("../data/align/"+wildcards.aligner+"/"+wildcards.case+"/"+wildcards.sample+"/"+wildcards.case+"_"+wildcards.sample+"_"+unit+"_"+wildcards.qcpipe+"_"+wildcards.aligner+"_sorted.bam---") for unit in units]
-#return expand(["../data/align/"+wildcards.aligner+"/"+wildcards.case+"/"+wildcards.sample+"/"+wildcards.case+"_"+wildcards.sample+"_{unitD}_"+wildcards.qcpipe+"_"+wildcards.aligner+"_sorted.bam" ],unitD=["1","2"])
-#return expand(["../data/align/"+wildcards.aligner+"/"+wildcards.case+"/"+wildcards.sample+"/"+wildcards.case+"_"+wildcards.sample+"_{unitD}_"+wildcards.qcpipe+"_"+wildcards.aligner+"_sorted.bam" ],unitD=caseinfo.loc[(wildcards.case,wildcards.sample)].unit)
 
+
+# return expand(["../data/align/"+wildcards.aligner+"/"+wildcards.case+"/"+wildcards.sample+"/"+wildcards.case+"_"+wildcards.sample+"_{unitD}_"+wildcards.qcpipe+"_"+wildcards.aligner+"_sorted.bam" ],unitD=["1","2"])
+# return expand(["../data/align/"+wildcards.aligner+"/"+wildcards.case+"/"+wildcards.sample+"/"+wildcards.case+"_"+wildcards.sample+"_{unitD}_"+wildcards.qcpipe+"_"+wildcards.aligner+"_sorted.bam" ],unitD=caseinfo.loc[(wildcards.case,wildcards.sample)].unit)
 
 
 def get_trimmed_reads(wildcards):

@@ -1,15 +1,16 @@
 localrules: all, passqc
 include: "smk/common.smk"
+include: "smk/software.smk"
 
 ##### Target rules #####
 rule all:
     input:
 #        "annotated/all.vcf.gz",
-        "../data/qc/multiqc/multiqc.html",
- #       expand(["../data/align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_{u.unit}_fastp_bwa_sorted.bam"], u=caseinfo.itertuples()),
-#         expand(["../data/align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa.bam"], u=caseinfo.itertuples()),
-#         expand(["../data/align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup.bam.bai"], u=caseinfo.itertuples()),
-         expand(["../data/align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup_reAlign_BQSR_leftAlign.bam.bai"], u=caseinfo.itertuples()),
+        path_data + "qc/multiqc/multiqc.html",
+ #       expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_{u.unit}_fastp_bwa_sorted.bam"], u=caseinfo.itertuples()),
+#         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa.bam"], u=caseinfo.itertuples()),
+#         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup.bam.bai"], u=caseinfo.itertuples()),
+         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup_reAlign_BQSR_leftAlign.bam.bai"], u=caseinfo.itertuples()),
 
 #        "plots/depths.svg",
 #        "plots/allele-freqs.svg"

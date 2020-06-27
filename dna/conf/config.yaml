@@ -1,7 +1,8 @@
 caseinfo: conf/caseinfo.csv
-#caseinfo: conf/HapLab.samples.csv
 pairedinfo: conf/paired.csv
 path_data: "../../ngs_test_data/"
+path_log:  "../../ngs_test_log/"
+path_bm: "../../ngs_test_bm"
 wrapper:  "file:/home/pengjia/ProjectSnake/snake-wrappers/bio/"
 mainEnv:  "/home/pengjia/miniconda3/envs/PQsnake/bin/" #path of software
 qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
@@ -11,7 +12,7 @@ ref:
   name: "GRCh38"
   # Path to the reference genome, ideally as it is provided by the GATK bundle.
   genome: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
-#  genome: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.fa"
+  #  genome: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.fa"
   dbsnp: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/dbsnp_146.hg38.vcf.gz"
   1KGomni: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/1000G_omni2.5.hg38.vcf.gz"
   1KGp1snp: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz"
@@ -21,27 +22,27 @@ ref:
 
 
 threads:
-    pigz: 4
-    fastqc: 4 
-    fastp: 4
-    trim: 1
-    multiqc: 1      #fixed
+  pigz: 4
+  fastqc: 4
+  fastp: 4
+  trim: 1
+  multiqc: 1      #fixed
 
-    bwa: 8
-    samtools: 8     
-    biobambam: 
-        rmDup: 4
-    picard:
-        rmDup: 1       #fixed
-    gatk: 
-        preReAlign: 4
-        applyReAlign: 1  #fixed
-        preBQSR: 1
-        applyBQSR: 1
-        leftAlign: 1
-        fixMate: 1
-    msisensor:
-        2
+  bwa: 8
+  samtools: 8
+  biobambam:
+    rmDup: 4
+  picard:
+    rmDup: 1       #fixed
+  gatk:
+    preReAlign: 4
+    applyReAlign: 1  #fixed
+    preBQSR: 1
+    applyBQSR: 1
+    leftAlign: 1
+    fixMate: 1
+  msisensor:
+    2
 
 
 
