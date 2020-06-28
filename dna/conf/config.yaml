@@ -16,9 +16,9 @@ path_bm: "../../ngs_test_bm"
 ########################################################################################################################
 ### pipeline
 pipe:
-  trim: passqc # fastp, trim, passqc
+  trim: fastp # fastp, trim, passqc
   aligner: bwa # bwa, bowtie, bowtie2
-  markdup: bioMarkDup #"bioMarkDup|picardMarkDup|noneMarkDup"
+  markdup: noneMarkDup #"bioMarkDup|picardMarkDup|noneMarkDup"
   realign: noneReAlign #"reAlign|noneReAlign",
   bqsr: noneBQSR # noneBQSR, BQSR
   leftAlign: noneLeftAlign # noneLeftAlign, LeftAlign

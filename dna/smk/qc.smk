@@ -64,8 +64,11 @@ rule passqc:
           R2=path_data + "cleandata/passqc/{case}/{sample}/{case}_{sample}_{unit}_passqc_2.fq.gz"
     shell:
            """
-           ln -d {input.R1} {output.R1}
-           ln -d {input.R2} {output.R2}
+           ln -sr {input.R1} {output.R1}
+           ln -sr {input.R2} {output.R2}
+           slepp 60
+           touch -h {output.R1}
+           touch -h {output.R2}           
            """
 
 rule fastqc2:

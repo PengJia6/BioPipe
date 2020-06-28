@@ -92,7 +92,7 @@ def get_sample_bam(wildcards):
     case = wildcards.case
     sample = wildcards.sample
     qcpipe = wildcards.qcpipe
-    return [path_data + "align/" + aligner + "/" + case + "/" + sample + "/" + case + "_" + sample + "_" + str(
+    return [path_data + "align/" + case + "/" + sample + "/" + case + "_" + sample + "_" + str(
         i) + "_" + qcpipe + "_" + aligner + "_sorted.bam" for i in units]
 
 

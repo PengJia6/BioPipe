@@ -15,7 +15,7 @@ rule Bwa:
          R1=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_1.fq.gz",
          R2=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_2.fq.gz"
     output:
-          path_data + "align/bwa/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_bwa_sorted.bam",
+          path_data + "align/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_bwa_sorted.bam",
     log:
        path_log + "align/bwa/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_bwa.logs"
     benchmark:
@@ -26,8 +26,8 @@ rule Bwa:
           sort="samtools",
           sort_order="coordinate",
           sort_extra=" -m 2G ",
-          pathsamtools=config["mainEnv"],
-          pathbwa=config["mainEnv"]
+          pathsamtools=path_samtools,
+          pathbwa=path_bwa
     threads: 8
     wrapper:
            config["wrapper"] + "bwa/mem"
@@ -44,7 +44,7 @@ rule MergeBam:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.merge.tsv"
     threads: 8
     params:
-          path=config["mainEnv"],
+          path=path_samtools,
           extra=" ",
     wrapper:
            config["wrapper"] + "samtools/merge"
@@ -73,7 +73,12 @@ rule NoneMarkDup:
     output:
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_noneMarkDup.bam",
     shell:
-         "ln -d {input.bam} {output.bam}"
+         """
+         ln -sr {input.bam} {output.bam}
+         sleep 60
+         touch -h {output.bam}
+         """
+
 
 rule MarkDupWithBiobambam:
     input:
@@ -101,8 +106,11 @@ rule NoneRealign:
           bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.noneReAlign.bam.bai",
     shell:
          """
-          ln -d {input.bam} {output.bam}
-          ln -d {input.bai} {output.bai}
+          ln -sr {input.bam} {output.bam}
+          ln -sr {input.bai} {output.bai}
+          sleep 60
+          touch -h {output.bam}
+          touch -h {output.bai}
           """
 
 rule GATKReAlignPre:
@@ -170,8 +178,11 @@ rule NoneBQSR:
           bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_noneBQSR.bam.bai"
     shell:
          """
-         ln -d {input.bam} {output.bam}
-         ln -d {input.bai} {output.bai}
+         ln -sr {input.bam} {output.bam}
+         ln -sr {input.bai} {output.bai}
+         sleep 60
+         touch -h {output.bam}
+         touch -h {output.bai}
          """
 
 rule GATKBQSRPre:
@@ -225,6 +236,9 @@ rule NoneLeftALign:
          """
          ln -sr {input.bam} {output.bam}
          ln -sr {input.bai} {output.bai}
+         sleep 60
+         touch -h {output.bam}
+         touch -h {output.bai}
          """
 
 rule GATKLeftAlign:
@@ -254,8 +268,11 @@ rule NoneFixMate:
           bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_noneFixMate.bam.bai"
     shell:
          """
-             ln -d {input.bam} {output.bam}
-             ln -d {input.bai} {output.bai}
+             ln -sr {input.bam} {output.bam}
+             ln -sr {input.bai} {output.bai}
+             sleep 60
+             touch -h {output.bam}
+             touch -h {output.bai}
              """
 
 rule GATKFixMate:
@@ -288,7 +305,10 @@ rule LoadHQbam:
 
     shell:
          """
-         echo {input.bam} " ->" {output.bam} > {output.logs}
-         ln -d {input.bam} {output.bam}
-         ln -d {input.bai} {output.bai}
+         echo `readlink -f {input.bam}` " ->" {output.bam} > {output.logs}
+         ln -sr {input.bam} {output.bam}
+         ln -sr {input.bai} {output.bai}
+         sleep 60
+         touch -h {output.bam}
+         touch -h {output.bai}
          """
