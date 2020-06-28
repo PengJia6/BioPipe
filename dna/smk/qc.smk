@@ -1,3 +1,5 @@
+localrules: passqc
+
 rule loadrawData:
     input:
          unpack(get_fastq)
@@ -60,9 +62,11 @@ rule passqc:
     output:
           R1=path_data + "cleandata/passqc/{case}/{sample}/{case}_{sample}_{unit}_passqc_1.fq.gz",
           R2=path_data + "cleandata/passqc/{case}/{sample}/{case}_{sample}_{unit}_passqc_2.fq.gz"
-    threads: 1
-    wrapper:
-           config["wrapper"] + "passqc"
+    shell:
+           """
+           ln -d {input.R1} {output.R1}
+           ln -d {input.R2} {output.R2}
+           """
 
 rule fastqc2:
     input:

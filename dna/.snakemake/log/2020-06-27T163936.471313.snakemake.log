@@ -1,3 +1,0 @@
-WorkflowError in line 2 of /home/pengjia/ProjectSnake/DNAseq/dna/Snakefile:
-Failed to open /home/pengjia/ProjectSnake/DNAseq/dna/smk/common.smk.
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 2, in <module>

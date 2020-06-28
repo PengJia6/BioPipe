@@ -1,28 +1,32 @@
 localrules: all, passqc
 include: "smk/common.smk"
-include: "smk/software.smk"
 
+
+bam_suffix = "_".join([config["pipe"]["trim"], config["pipe"]["aligner"], config["pipe"]["markdup"],
+                       config["pipe"]["realign"],config["pipe"]["bqsr"],config["pipe"]["leftAlign"],
+                       config["pipe"]["fixMate"],])
 ##### Target rules #####
 rule all:
     input:
-#        "annotated/all.vcf.gz",
-        path_data + "qc/multiqc/multiqc.html",
- #       expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_{u.unit}_fastp_bwa_sorted.bam"], u=caseinfo.itertuples()),
-#         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa.bam"], u=caseinfo.itertuples()),
-#         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup.bam.bai"], u=caseinfo.itertuples()),
-         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup_reAlign_BQSR_leftAlign.bam.bai"], u=caseinfo.itertuples()),
+         #        "annotated/all.vcf.gz",
+         #        path_data + "qc/multiqc/multiqc.html",
+         #       expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_{u.unit}_fastp_bwa_sorted.bam"], u=caseinfo.itertuples()),
+         #         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa.bam"], u=caseinfo.itertuples()),
+         #         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup.bam.bai"], u=caseinfo.itertuples()),
+         expand([path_data + "HQbam/{u.case}-{u.sample}.bam.bai"], u=caseinfo.itertuples()),
 
+#        "plots/depths.svg",
 #        "plots/depths.svg",
 #        "plots/allele-freqs.svg"
 
 
 ##### Modules #####
-
+include: "smk/software.smk"
 include: "smk/qc.smk"
 include: "smk/align.smk"
 
-#include: "rules/mapping.smk"
-#include: "rules/calling.smk"
-#include: "rules/filtering.smk"
-#include: "rules/stats.smk"
-#include: "rules/annotation.smk"
+       #include: "rules/mapping.smk"
+       #include: "rules/calling.smk"
+       #include: "rules/filtering.smk"
+       #include: "rules/stats.smk"
+       #include: "rules/annotation.smk"

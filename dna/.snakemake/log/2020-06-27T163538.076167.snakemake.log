@@ -1,9 +1,0 @@
-Building DAG of jobs...
-MissingInputException in line 95 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/qc.smk:
-Missing input files for rule multiqc:
-../data/qc/fastqc/HG001/N1/HG001_N1_L2_1_fastqc.zip
-../data/qc/fastqc/HG001/N1/HG001_N1_L1_2_fastqc.zip
-../data/qc/fastqc/HG001/N/HG001_N_L1_1_fastqc.zip
-../data/qc/fastqc/HG001/N1/HG001_N1_L2_2_fastqc.zip
-../data/qc/fastqc/HG001/N/HG001_N_L1_2_fastqc.zip
-../data/qc/fastqc/HG001/N1/HG001_N1_L1_1_fastqc.zip

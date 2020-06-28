@@ -1,4 +1,0 @@
-Building DAG of jobs...
-MissingInputException in line 23 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/align.smk:
-Missing input files for rule bammerge:
-../data/align/bwa/HG001/N/HG001_N_L1_fastp_bwa_sorted.bam

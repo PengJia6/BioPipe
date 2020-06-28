@@ -1,4 +1,0 @@
-Building DAG of jobs...
-MissingInputException in line 1 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/qc.smk:
-Missing input files for rule pigz:
-../data/cleandata/fastp/HG001/N/HG001_N_L1_fastp_1.fq

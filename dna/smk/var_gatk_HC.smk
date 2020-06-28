@@ -5,6 +5,7 @@ import pandas as pd
 contigs = pd.read_table(config["ref"]["genome"] + ".fai",
 		     	header=None,usecols=[0] , squeeze = True, dtype = str)
 contigs = contigs.loc[contigs.index[:3]]
+
 samples = pd.read_csv(config["bam"], index_col=0, dtype=str)
 
 def get_one_sample_bam(wildcards):
