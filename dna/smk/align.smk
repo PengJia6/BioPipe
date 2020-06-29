@@ -31,7 +31,7 @@ rule Bwa:
           sort_extra=" -m 2G ",
           pathsamtools=path_samtools,
           pathbwa=path_bwa
-    threads: 8
+    threads: config["threads"]["Bwa"]
     wrapper:
            config["wrapper"] + "bwa/mem"
 
@@ -45,7 +45,7 @@ rule MergeBam:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.merge.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.merge.tsv"
-    threads: 8
+    threads: config["threads"]["MergeBam"]
     params:
           path=path_samtools,
           extra=" ",
@@ -62,7 +62,7 @@ rule MarkDupWithPicard:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_picardMarkDup.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_picardMarkDup.tsv"
-    threads: config["threads"]["picard"]["rmDup"]
+    threads: config["threads"]["MarkDupWithPicard"]
     params:
           path=path_picard,
           java_opts=" -Xmx10G ",
@@ -92,7 +92,7 @@ rule MarkDupWithBiobambam:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_bioMarkDup.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bioMarkDup.tsv"
-    threads: config["threads"]["biobambam"]["rmDup"]
+    threads: config["threads"]["MarkDupWithBiobambam"]
     params:
           path=path_biobambam,
           extra=" tmpfile=../data/align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_bioMarkDup_tmp ",
@@ -131,7 +131,7 @@ rule GATKReAlignPre:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign.tsv"
-    threads: config["threads"]["gatk"]["preReAlign"]
+    threads: config["threads"]["GATKReAlignPre"]
     params:
           path=path_gatk3,
           extra="",  # optional
@@ -158,7 +158,7 @@ rule GATKReAlign:
           do=r"reAlign",  # reAlign or noAlign
           extra="",  # optional
           java_opts=" -Xmx10G ",
-    threads: config["threads"]["gatk"]["applyReAlign"]
+    threads: config["threads"]["GATKReAlign"]
     wrapper:
            config["wrapper"] + "/gatk3/indelrealigner"
 
@@ -167,7 +167,7 @@ rule BamIndex:
          "{prefix}.bam"
     output:
           "{prefix}.bam.bai"
-    threads:config["threads"]["samtools"]
+    threads:config["threads"]["BamIndex"]
     params:
           path=path_samtools,
           extra=""
@@ -207,7 +207,7 @@ rule GATKBQSRPre:
           path=path_gatk,
           extra=" --tmp-dir ../data/align/{case}/{sample}/ ",  # optional
           java_opts=" -Xmx10G ",
-    threads: config["threads"]["gatk"]["preBQSR"]
+    threads: config["threads"]["GATKBQSRPre"]
     wrapper:
            config["wrapper"] + "/gatk/baserecalibrator"
 
@@ -227,7 +227,7 @@ rule GATKBQSR:
           path=path_gatk,
           extra=" --tmp-dir ../data/align/{case}/{sample}/ ",  # optional
           java_opts=" -Xmx10G ",
-    threads: config["threads"]["gatk"]["applyBQSR"]
+    threads: config["threads"]["GATKBQSR"]
     wrapper:
            config["wrapper"] + "/gatk/applyBQSR"
 rule NoneLeftALign:
@@ -261,7 +261,7 @@ rule GATKLeftAlign:
           path=path_gatk,
           extra=" --tmp-dir ../data/align/{case}/{sample}/ ",
           java_opts=" -Xmx10G ",
-    threads: config["threads"]["gatk"]["leftAlign"]
+    threads: config["threads"]["GATKLeftAlign"]
     wrapper:
            config["wrapper"] + "/gatk/leftAlignIndels"
 rule NoneFixMate:
@@ -295,7 +295,7 @@ rule GATKFixMate:
           path=path_gatk,
           extra=" --TMP_DIR ../data/align/{case}/{sample}/ ",
           java_opts=" -Xmx10G ",
-    threads: config["threads"]["gatk"]["fixMate"]
+    threads: config["threads"]["GATKFixMate"]
     wrapper:
            config["wrapper"] + "/gatk/fixMateInformation"
 

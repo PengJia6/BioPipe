@@ -24,7 +24,7 @@ caseinfo.index = caseinfo.index.set_levels([i.astype(str) for i in caseinfo.inde
 # validate(units, schema="../schemas/units.schema.yaml")
 
 # contigs in reference genome
-contigs = pd.read_table(config["ref"]["genome"] + ".fai2",
+contigs = pd.read_table(config["ref"]["genome"] + ".fai_chrom",
                         header=None, usecols=[0], squeeze=True, dtype=str)
 #
 # casedict = {}
@@ -73,7 +73,7 @@ def getHQbamsample(wildcards):
         return {"bam": bam, "bai": bam + ".bai"}
 
     else:
-        bam = path_data + "HQbam/{bam_sample}.bam.bai".format(bam_sample=wildcards.bam_sample)
+        bam = path_data + "HQbam/{bam_sample}.bam".format(bam_sample=wildcards.bam_sample)
 
         return {"bam": bam, "bai": bam + ".bai"}
 
@@ -195,6 +195,7 @@ def get_sample_bams2222(wildcards):
 path_genome = str(path_data + "genome/" + config["ref"]["name"] + "/" + config["ref"]["genome"].split("/")[-1])
 path_dict = path_genome.replace("fa", "dict").replace("fasta", "dict")
 path_dict_orginal = config["ref"]["genome"].replace("fa", "dict").replace("fasta", "dict")
+path_genome_list=[ path_genome+".fai",path_genome+".bwt",path_dict,path_dict+"_chrom"]
 rule LoadGenome:
     input:
          config["ref"]["genome"]

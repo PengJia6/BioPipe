@@ -1,0 +1,4 @@
+Building DAG of jobs...
+MissingInputException in line 1 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_gatk_HC.smk:
+Missing input files for rule HC_CallVar:
+../../ngs_test_data/HQbam/HG001_N.bam.bai.bai

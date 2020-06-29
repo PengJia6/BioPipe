@@ -17,7 +17,7 @@ path_bm: "../../ngs_test_bm"
 
 ########################################################################################################################
 ### pipeline
-loadBamFormat: csv # csv, up
+loadBamFormat: up # csv, up
 bamsample: "conf/bamsample.csv"  # if loadBamFormat is csv, you need to provide a csv file of sample bam files.
 
 pipe:
@@ -42,13 +42,13 @@ pipe:
     - deepvariant
 
 
-        #  snpindel:
-        #    - HC    GATK HaplotypeCaller
-        #    - samtools
-        #    - pindel
-        #    - varscan
-        #    - freebayes
-        #    - deepvariant
+      #  snpindel:
+      #    - HC    GATK HaplotypeCaller
+      #    - samtools
+      #    - pindel
+      #    - varscan
+      #    - freebayes
+    #    - deepvariant
 
 
 
@@ -80,52 +80,67 @@ ref:
 ########################################################################################################################
 ### threads for cluster
 threads:
-  pigz: 4
+  ########## qc.smk #########
+  loadrawData: 4  # pigz
   fastqc: 4
   fastp: 4
-  trim: 1
+  passqc: 1
+  fastqc2: 4
   multiqc: 1      #fixed
 
-  bwa: 8
-  samtools: 8
-  biobambam:
-    rmDup: 4
-  picard:
-    rmDup: 1       #fixed
-  gatk:
-    preReAlign: 4
-    applyReAlign: 1  #fixed
-    preBQSR: 1
-    applyBQSR: 1
-    leftAlign: 1
-    fixMate: 1
-  msisensor:
-    2
+  ########## align.smk #########
+  Bwa: 8
+  MergeBam: 8
+  MarkDupWithPicard: 1
+  NoneMarkDup: 1
+  MarkDupWithBiobambam: 4
+  NoneRealign: 1
+  GATKReAlignPre: 4
+  GATKReAlign: 1
+  BamIndex: 8
+  NoneBQSR: 1
+  GATKBQSRPre: 1
+  GATKBQSR: 1
+  NoneLeftALign: 1
+  GATKLeftAlign: 1
+  NoneFixMate: 1
+  GATKFixMate: 1
+  LoadHQbam: 1
 
-
-
-
-#filtering:
-#  # Set to true in order to apply machine learning based recalibration of
-#  # quality scores instead of hard filtering.
-#  vqsr: false
-#  hard:
-#    # hard filtering as outlined in GATK docs
-#    # (https://gatkforums.broadinstitute.org/gatk/discussion/2806/howto-apply-hard-filters-to-a-call-set)
-#    snvs:
-#      "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0"
-#    indels:
-#      "QD < 2.0 || FS > 200.0 || ReadPosRankSum < -20.0"
-
+  ########## var_gatk_HC.smk #########
+  HC_CallVar: 4
+  HC_GT: 4
+  HC_MergeVCF: 4
+  HC_CombineCalls: 4
+  HC_GT_jointCall: 4
+  HC_MergeVCF_jointCall: 4
 
 
 
 
 
 
+  #filtering:
+  #  # Set to true in order to apply machine learning based recalibration of
+  #  # quality scores instead of hard filtering.
+  #  vqsr: false
+  #  hard:
+  #    # hard filtering as outlined in GATK docs
+  #    # (https://gatkforums.broadinstitute.org/gatk/discussion/2806/howto-apply-hard-filters-to-a-call-set)
+  #    snvs:
+  #      "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0"
+  #    indels:
+  #      "QD < 2.0 || FS > 200.0 || ReadPosRankSum < -20.0"
 
-#processing:
-#  remove-duplicates: true
+
+
+
+
+
+
+
+  #processing:
+  #  remove-duplicates: true
   # Uncomment and point to a bed file with, e.g., captured regions if necessary,
   # see https://gatkforums.broadinstitute.org/gatk/discussion/4133/when-should-i-use-l-to-pass-in-a-list-of-intervals.
   # restrict-regions: captured_regions.bed

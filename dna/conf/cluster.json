@@ -1,130 +1,182 @@
 {
-    "__default__" :
-    {
+    "__default__": {
         "t": "9999:00:00",
-        "n" : "1",
-        "node": "mu02",
-        "name": "{rule}.{wildcards}",
-    },
-
-    "fastqc" :
-    {
-        "t": "9999:00:00",
-        "n" : "4",
+        "n": "1",
         "node": "1",
-        "name": "{rule}.{wildcards}",
+        "name": "{rule}.{wildcards}"
     },
-    "fastp" :
-    {
+    "loadrawData": {
         "t": "9999:00:00",
-        "n" : "4",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "fastqc2" :
-    {
+    "fastqc": {
         "t": "9999:00:00",
-        "n" : "4",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-
-
-    "bwa" :
-    {
+    "fastp": {
         "t": "9999:00:00",
-        "n" : "8",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-
- 
-    "bammerge" :
-    {
+    "passqc": {
         "t": "9999:00:00",
-        "n" : "8",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "picardRmDup":
-    {
+    "fastqc2": {
         "t": "9999:00:00",
-        "n" : "4",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "bioRmDup":
-    {
+    "multiqc": {
         "t": "9999:00:00",
-        "n" : "8",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "preReAlign":
-    {
+    "Bwa": {
         "t": "9999:00:00",
-        "n" : "8",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 8,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "applyReAlign":
-    {
+    "MergeBam": {
         "t": "9999:00:00",
-        "n" : "5",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 8,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "preBQSR":
-    {
+    "MarkDupWithPicard": {
         "t": "9999:00:00",
-        "n" : "5",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "applyBQSR":
-    {
+    "NoneMarkDup": {
         "t": "9999:00:00",
-        "n" : "5",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-
-    "samtools_index":
-    {
+    "MarkDupWithBiobambam": {
         "t": "9999:00:00",
-        "n" : "8",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-    "leftAlign":
-    {
+    "NoneRealign": {
         "t": "9999:00:00",
-        "n" : "4",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-     "fixMate":
-    {
+    "GATKReAlignPre": {
         "t": "9999:00:00",
-        "n" : "4",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-   "msisensor":
-    {
+    "GATKReAlign": {
         "t": "9999:00:00",
-        "n" : "2",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-
-   "msisensor_pro":
-    {
+    "BamIndex": {
         "t": "9999:00:00",
-        "n" : "2",
-        "node": "1",
-        "name": "{rule}.{wildcards}",
+        "n": 8,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
     },
-
+    "NoneBQSR": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "GATKBQSRPre": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "GATKBQSR": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "NoneLeftALign": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "GATKLeftAlign": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "NoneFixMate": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "GATKFixMate": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "LoadHQbam": {
+        "t": "9999:00:00",
+        "n": 1,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "HC_CallVar": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "HC_GT": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "HC_MergeVCF": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "HC_CombineCalls": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "HC_GT_jointCall": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    },
+    "HC_MergeVCF_jointCall": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}"
+    }
 }
-

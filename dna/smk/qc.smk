@@ -7,7 +7,7 @@ rule loadrawData:
           R1=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_1.fq.gz",
           R2=path_data + "rawdata/{case}/{sample}/{case}_{sample}_{unit}_2.fq.gz"
     threads:
-           config["threads"]["pigz"]
+           config["threads"]["loadrawData"]
     log:
        path_log + "qc/loadRawdata/{case}/{sample}/{case}_{sample}_{unit}_loaddata.log"
     params:

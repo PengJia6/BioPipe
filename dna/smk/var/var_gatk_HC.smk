@@ -1,27 +1,16 @@
-# def get_regions_param(regions=config["processing"].get("restrict-regions"), default=""):
-#     if regions:
-#         params = "--intervals '{}' ".format(regions)
-#         padding = config["processing"].get("region-padding")
-#         if padding:
-#             params += "--interval-padding {}".format(padding)
-#         return params
-#     return default
-#
-# def get_call_variants_params(wildcards, input):
-#     return (get_regions_param(regions=input.regions, default="--intervals {}".format(wildcards.contig)) +
-# #             config["params"]["gatk"]["HaplotypeCaller"])
-
 rule HC_CallVar:
     input:
          unpack(getHQbamsample),
          # bai=unpack(),
          ref=path_genome,
+         sindex=path_genome+".fai",
          dict=path_dict,
 
     output:
           gvcf=path_data + "germlineVar/HC/perContig/{bam_sample}/{bam_sample}.{contig}.g.vcf.gz"
     log:
        path_log + "gremlineVar/HC/perContig/{bam_sample}/{bam_sample}.HC.{contig}.logs"
+    threads: config["threads"]["HC_CallVar"]
     benchmark:
              path_bm + "gremlineVar/HC/perContig/{bam_sample}/{bam_sample}.HC.{contig}.tsv"
     params:
@@ -46,6 +35,8 @@ rule HC_GT:
           extra="",
           java_options=""
           # extra=config["params"]["gatk"]["GenotypeGVCFs"]
+    threads: config["threads"]["HC_GT"]
+
     log:
        path_log + "gremlineVar/HC/perContig/{bam_sample}/{bam_sample}.HC.genotype_variants.{contig}.logs"
     benchmark:
@@ -63,6 +54,7 @@ rule HC_MergeVCF:
     params:
           extra="",
           java_options=""
+    threads: config["threads"]["HC_MergeVCF"]
     log:
        path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.MergeVcf.logs"
     benchmark:
@@ -82,6 +74,7 @@ rule HC_CombineCalls:
     params:
           extra="",
           java_options=""
+    threads: config["threads"]["HC_CombineCalls"]
     log:
        path_log + "gremlineVar/HC/jointCall/perContig/{contig}.CombineCalls.logs"
     benchmark:
@@ -105,6 +98,7 @@ rule HC_GT_jointCall:
     params:
           extra="",
           java_options=""
+    threads: config["threads"]["HC_GT_jointCall"]
     log:
        path_log + "gremlineVar/HC/jointCall/perContig/{contig}.GT.logs"
     benchmark:
@@ -122,6 +116,7 @@ rule HC_MergeVCF_jointCall:
     params:
           extra="",
           java_options=""
+    threads: config["threads"]["HC_MergeVCF_jointCall"]
     log:
        path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC.MergeVcf.logs"
     benchmark:
@@ -132,59 +127,3 @@ rule HC_MergeVCF_jointCall:
         shell("{path_picard}picard MergeVcfs {params.extra} "
               " {inputs} OUTPUT={output} 2>{log} 1>{log}")
 
-#
-# rule merge_variants:
-#     input:
-#         vcf=expand("../data/germlineVar/HC/jointCall/joint.{contig}.vcf.gz", contig=contigs)
-#     output:
-#         vcf="../data/germlineVar/HC/joint.HC.vcf.gz"
-#     log:
-#         "../logs/gremlineVar/HC/all.genotype.logs"
-#     wrapper:
-#         config["wrapper"]+"picard/mergevcfs"
-
-"""
-def get_vartype_arg(wildcards):
-    return wildcards.vartype
-
-
-rule VQSR:
-    input:
-        vcf="../../../data/vcf/germline/HC/all.rmdup.indelrealign.BQSR.HC.vcf.gz",
-        ref=config["ref"]["genome"],
-        # resources have to be given as named input files
-        hapmap=config["ref"]["hapmap"],
-        omni=config["ref"]["1KGomni"],
-        g1k=config["ref"]["1KGp1snp"],
-        dbsnp=config["ref"]["dbsnp"],
-        mills=config["ref"]["mills1KG"],
-        # use aux to e.g. download other necessary file
-        aux=[config["ref"]["hapmap"]+".tbi",
-		config["ref"]["1KGomni"]+".tbi",
-        	config["ref"]["1KGp1snp"]+".tbi",
-	        config["ref"]["dbsnp"]+".tbi" ,
-		config["ref"]["mills1KG"]+".tbi",]
-        
-    output:
-        vcf="../../../data/vcf/germline/HC/all.rmdup.indelrealign.BQSR.HC.VQSR.{vartype}.recal.vcf",
-        HQvcf="../../../data/vcf/germline/HC/all.rmdup.indelrealign.BQSR.HC.VQSR.{vartype}.HQ.vcf",
-        tranches="../../../data/vcf/germline/HC/all.rmdup.indelrealign.BQSR.HC.VQSR.{vartype}.tranches",
-	rscriptfile ="../../../data/vcf/germline/HC/all.rmdup.indelrealign.BQSR.HC.VQSR.{vartype}.R"
-    log:
-        "../../../logs/vcf/gremline/HC/all.VQSR.{vartype}.logs"
-    params:
-        mode=get_vartype_arg,  # set mode, must be either SNP, INDEL or BOTH
-        # resource parameter definition. Key must match named input files from above.
-        resources={"hapmap": {"known": False, "training": True, "truth": True, "prior": 15.0},
-                   "omni":   {"known": False, "training": True, "truth": False, "prior": 12.0},
-                   "g1k":   {"known": False, "training": True, "truth": False, "prior": 10.0},
-                   "dbsnp":  {"known": True, "training": False, "truth": False, "prior": 2.0},
-		   "mills":  {"known": False, "training": True, "truth": True, "prior": 14.0}
-		},
-        annotation=["QD", "FisherStrand","DP","FS","SOR","ReadPosRankSum","MQRankSum"],  # which fields to use with -an (see VariantRecalibrator docs)
-        extra=" -tranche 100.0 -tranche 99.9 -tranche 99.0 -tranche 95.0 -tranche 90.0 ",  # optional
-        java_opts="", # optional
-    wrapper:
-        config["wrapper"]+"gatk/variantrecalibrator"
-
-"""

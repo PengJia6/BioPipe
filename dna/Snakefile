@@ -13,7 +13,9 @@ rule all:
          # expand([path_data + "HQbam/{u.case}-{u.sample}.bam.bai"], u=caseinfo.itertuples()),
          # path_dict,
          # path_HQbamList,
-         path_raw_vcf
+         path_genome_list,
+         path_raw_vcf,
+
          # path_data + "germlineVar/HC/jointCall/jointCall/"+config["project"]["name"]+".HC.vcf.gz"
 
 #        "plots/depths.svg",
