@@ -13,7 +13,10 @@ ruleorder: NoneRealign > BamIndex
 rule Bwa:
     input:
          R1=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_1.fq.gz",
-         R2=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_2.fq.gz"
+         R2=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_2.fq.gz",
+         ref=path_genome,
+         sindex=path_genome+".fai",
+         bindex=path_genome+".bwt"
     output:
           path_data + "align/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_bwa_sorted.bam",
     log:
@@ -21,7 +24,7 @@ rule Bwa:
     benchmark:
              path_bm + "align/bwa/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}.bwa.tsv"
     params:
-          index=config["ref"]["genome"],
+          index=path_genome,
           extra=get_read_group,
           sort="samtools",
           sort_order="coordinate",
@@ -53,19 +56,19 @@ rule MarkDupWithPicard:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bam",
     output:
-          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_pcdRmDup.bam",
-          metrics=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_pcdRmDup.metrics",
+          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_picardMarkDup.bam",
+          metrics=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_picardMarkDup.metrics",
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_picardMarkDup.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_picardMarkDup.tsv"
     threads: config["threads"]["picard"]["rmDup"]
     params:
-          path=config["mainEnv"],
+          path=path_picard,
           java_opts=" -Xmx10G ",
           extra=""
     wrapper:
-           config["wrapper"] + "gatk/markduplicates"
+           config["wrapper"] + "picard/markduplicates"
 
 rule NoneMarkDup:
     input:
@@ -79,7 +82,6 @@ rule NoneMarkDup:
          touch -h {output.bam}
          """
 
-
 rule MarkDupWithBiobambam:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bam",
@@ -92,10 +94,13 @@ rule MarkDupWithBiobambam:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bioMarkDup.tsv"
     threads: config["threads"]["biobambam"]["rmDup"]
     params:
-          path=config["mainEnv"],
+          path=path_biobambam,
           extra=" tmpfile=../data/align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_bioMarkDup_tmp ",
-    wrapper:
-           config["wrapper"] + "biobambam/bammarkduplicates"
+
+    run:
+        shell("{path_biobambam}bammarkduplicates I={input} O={output.bam} M={output.metrics} "
+              "markthreads={threads} {params.extra} 1>{log} 2>{log}")
+           # config["wrapper"] + "biobambam/bammarkduplicates"
 
 rule NoneRealign:
     input:
@@ -117,7 +122,7 @@ rule GATKReAlignPre:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam.bai",
-         ref=config["ref"]["genome"],
+         ref=path_genome,
          known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
                 config["ref"]["mills1KG"]],
     output:
@@ -128,7 +133,7 @@ rule GATKReAlignPre:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign.tsv"
     threads: config["threads"]["gatk"]["preReAlign"]
     params:
-          path=config["mainEnv"],
+          path=path_gatk3,
           extra="",  # optional
           java_opts=" -Xmx10G ",
     wrapper:
@@ -138,7 +143,7 @@ rule GATKReAlign:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam.bai",
-         ref=config["ref"]["genome"],
+         ref=path_genome,
          known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
                 config["ref"]["mills1KG"]],
          target_intervals=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign.intervals"
@@ -149,7 +154,7 @@ rule GATKReAlign:
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign-apply.tsv"
     params:
-          path=config["mainEnv"],
+          path=path_gatk3,
           do=r"reAlign",  # reAlign or noAlign
           extra="",  # optional
           java_opts=" -Xmx10G ",
@@ -164,7 +169,7 @@ rule BamIndex:
           "{prefix}.bam.bai"
     threads:config["threads"]["samtools"]
     params:
-          path=config["mainEnv"],
+          path=path_samtools,
           extra=""
     wrapper:
            config["wrapper"] + "samtools/index"
@@ -172,7 +177,7 @@ rule BamIndex:
 rule NoneBQSR:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
-         bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam"
+         bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam.bai"
     output:
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_noneBQSR.bam",
           bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_noneBQSR.bam.bai"
@@ -189,7 +194,7 @@ rule GATKBQSRPre:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
-         ref=config["ref"]["genome"],
+         ref=path_genome,
          known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
                 config["ref"]["mills1KG"]],
     output:
@@ -199,7 +204,7 @@ rule GATKBQSRPre:
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_preBQSR.tsv"
     params:
-          path=config["mainEnv"],
+          path=path_gatk,
           extra=" --tmp-dir ../data/align/{case}/{sample}/ ",  # optional
           java_opts=" -Xmx10G ",
     threads: config["threads"]["gatk"]["preBQSR"]
@@ -210,7 +215,7 @@ rule GATKBQSR:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
-         ref=config["ref"]["genome"],
+         ref=path_genome,
          target_intervals=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSR.intervals"
     output:
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSR.bam",
@@ -219,7 +224,7 @@ rule GATKBQSR:
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_applyBQSR.tsv"
     params:
-          path=config["mainEnv"],
+          path=path_gatk,
           extra=" --tmp-dir ../data/align/{case}/{sample}/ ",  # optional
           java_opts=" -Xmx10G ",
     threads: config["threads"]["gatk"]["applyBQSR"]
@@ -245,7 +250,7 @@ rule GATKLeftAlign:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}.bam.bai",
-         ref=config["ref"]["genome"]
+         ref=path_genome
     output:
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_leftAlign.bam"
     log:
@@ -253,7 +258,7 @@ rule GATKLeftAlign:
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_leftAlign.tsv"
     params:
-          path=config["mainEnv"],
+          path=path_gatk,
           extra=" --tmp-dir ../data/align/{case}/{sample}/ ",
           java_opts=" -Xmx10G ",
     threads: config["threads"]["gatk"]["leftAlign"]
@@ -277,7 +282,7 @@ rule NoneFixMate:
 
 rule GATKFixMate:
     input:
-         ref=config["ref"]["genome"],
+         ref=path_genome,
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam.bai"
     output:
@@ -287,7 +292,7 @@ rule GATKFixMate:
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_fixMate.tsv"
     params:
-          path=config["mainEnv"],
+          path=path_gatk,
           extra=" --TMP_DIR ../data/align/{case}/{sample}/ ",
           java_opts=" -Xmx10G ",
     threads: config["threads"]["gatk"]["fixMate"]
@@ -299,9 +304,9 @@ rule LoadHQbam:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_" + bam_suffix + ".bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_" + bam_suffix + ".bam.bai"
     output:
-          bam=path_data + "HQbam/{case}-{sample}.bam",
-          bai=path_data + "HQbam/{case}-{sample}.bam.bai",
-          logs=path_data + "HQbam/changeLogs/{case}-{sample}.logs"
+          bam=path_data + "HQbam/{case}_{sample}.bam",
+          bai=path_data + "HQbam/{case}_{sample}.bam.bai",
+          logs=path_data + "HQbam/changeLogs/{case}_{sample}.logs"
 
     shell:
          """

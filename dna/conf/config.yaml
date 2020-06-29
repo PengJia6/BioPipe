@@ -1,4 +1,6 @@
 caseinfo: conf/caseinfo.csv
+project:
+  name: preTest
 ########################################################################################################################
 ### software path
 
@@ -15,15 +17,51 @@ path_bm: "../../ngs_test_bm"
 
 ########################################################################################################################
 ### pipeline
+loadBamFormat: csv # csv, up
+bamsample: "conf/bamsample.csv"  # if loadBamFormat is csv, you need to provide a csv file of sample bam files.
+
 pipe:
+  ## qc
   trim: fastp # fastp, trim, passqc
+
+  ## align
   aligner: bwa # bwa, bowtie, bowtie2
-  markdup: noneMarkDup #"bioMarkDup|picardMarkDup|noneMarkDup"
+  markdup: picardMarkDup #"bioMarkDup|picardMarkDup|noneMarkDup"
   realign: noneReAlign #"reAlign|noneReAlign",
   bqsr: noneBQSR # noneBQSR, BQSR
   leftAlign: noneLeftAlign # noneLeftAlign, LeftAlign
   fixMate: noneFixMate # noneFixMate, FixMate
 
+  ## small variants (SNP and Indel)
+  snpindel:
+    - HC
+    - samtools
+    - pindel
+    - varscan
+    - freebayes
+    - deepvariant
+
+
+        #  snpindel:
+        #    - HC    GATK HaplotypeCaller
+        #    - samtools
+        #    - pindel
+        #    - varscan
+        #    - freebayes
+        #    - deepvariant
+
+
+
+  ## large variants (SV and CNV)
+  svcnv:
+    - metasv
+    - delly
+    - lumpy
+    - breakdancer
+    - cnvnator
+    - pindel
+
+  ## annotation
 
 ########################################################################################################################
 ### reference genome and database
