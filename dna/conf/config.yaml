@@ -11,9 +11,9 @@ qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
 
 ########################################################################################################################
 ### output path
-path_data: "../../ngs_test_data/"
-path_log:  "../../ngs_test_log/"
-path_bm: "../../ngs_test_bm"
+path_data: "../../Pipeline_test/data/"
+path_log:  "../../Pipeline_test/logs/"
+path_bm: "../../Pipeline_test/benchmark/"
 
 ########################################################################################################################
 ### pipeline

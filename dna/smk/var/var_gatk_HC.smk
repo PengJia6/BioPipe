@@ -4,7 +4,9 @@ rule HC_CallVar:
          # bai=unpack(),
          ref=path_genome,
          sindex=path_genome+".fai",
+         sindex2=path_genome+".fai_chrom",
          dict=path_dict,
+
 
     output:
           gvcf=path_data + "germlineVar/HC/perContig/{bam_sample}/{bam_sample}.{contig}.g.vcf.gz"
