@@ -13,6 +13,80 @@ path_log = path_log if path_log[-1] == "/" else path_log + "/"
 path_bm = config["path_bm"]
 path_bm = path_bm if path_bm[-1] == "/" else path_bm + "/"
 
+########################################################################################################################
+## Load genome and build index for alignment and gatk
+path_genome = str(path_data + "genome/" + config["ref"]["name"] + "/" + config["ref"]["genome"].split("/")[-1])
+path_dict = path_genome.replace("fa", "dict").replace("fasta", "dict")
+path_dict_orginal = config["ref"]["genome"].replace("fa", "dict").replace("fasta", "dict")
+path_genome_list = [path_genome + ".fai", path_genome + ".bwt", path_dict, path_dict + "_chrom"]
+rule LoadGenome:
+    input:
+         config["ref"]["genome"]
+    output:
+          path_genome
+    shell:
+         """
+         ln -sr {input} {output}
+         touch -h {output}
+         """
+rule GenomeIndexSamtools:
+    input:
+         path_genome
+    output:
+          fai=path_genome + ".fai",  # samtools faidx
+          fai_chrom=path_genome + ".fai_chrom",  # samtools faidx
+
+    log:
+       path_log + "genomeindex/genomeindex_samtools.log"
+    run:
+        if os.path.exists(config["ref"]["genome"] + ".fai"):
+            shell("ln -sr {orign_ref}.fai {path_genome}.fai".format(orign_ref=config["ref"]["genome"],
+                                                                    path_genome=path_genome))
+        else:
+            shell("{path_samtools}samtools faidx {input}  2>{log} 1>{log} ")
+
+        if os.path.exists(config["ref"]["genome"] + ".fai_chrom"):
+            shell("ln -sr {orign_ref}.fai_chrom {path_genome}.fai_chrom".format(orign_ref=config["ref"]["genome"],
+                                                                                path_genome=path_genome))
+        else:
+            shell("head -n {num} {path_genome}.fai > {path_genome}.fai_chrom".format(num=config["ref"]["chrom_num"],
+                                                                                     path_genome=path_genome))
+
+rule GenomeIndexBwa:
+    input:
+         path_genome
+    output:
+          path_genome + ".amb",  # for bwa
+          path_genome + ".bwt",  # for bwa
+          path_genome + ".pac",  # for bwa
+          path_genome + ".ann",  # for bwa
+          path_genome + ".sa",  # for bwa
+    log:
+       path_log + "genomeindex/genomeindex_bwa.log"
+    run:
+        bwt_suffix = ["amb", "ann", "bwt", "pac", "sa"]
+        bwt_stat = []
+        for i in bwt_suffix:
+            bwt_stat.append(os.path.exists(config["ref"]["genome"] + "." + i))
+        if (False in bwt_stat):
+            shell("{path_bwa}bwa index {input}  2>{log} 1>{log}")
+        else:
+            for i in bwt_suffix:
+                shell("ln -sr " + config["ref"]["genome"] + "." + i + " " + path_genome + "." + i)
+                shell("touch -h {path_genome}.{i}")
+rule GenomeIndexPicard:
+    input:
+         path_genome
+    output:
+          path_dict  # for gatk
+    log:
+       path_log + "genomeindex/genomeindex_picard.log"
+    run:
+        if os.path.exists(path_dict_orginal):
+            shell("ln -sr {path_dict_orginal} {path_dict}")
+        else:
+            shell("{path_picard}picard CreateSequenceDictionary R={path_genome} O={path_dict}  2>{log} 1>{log} ")
+
 # validate(config, schema="../schemas/config.schema.yaml")
 caseinfo = pd.read_csv(config["caseinfo"]).set_index(["case", "sample", "unit"], drop=False)
 # sampleinfo= pd.read_csv(config["caseinfo"]).set_index(["case","sample"], drop=False)
@@ -24,7 +98,7 @@ caseinfo.index = caseinfo.index.set_levels([i.astype(str) for i in caseinfo.inde
 # validate(units, schema="../schemas/units.schema.yaml")
 
 # contigs in reference genome
-contigs = pd.read_table(config["ref"]["genome"] + ".fai_chrom",
+contigs = pd.read_table(path_genome + ".fai_chrom",
                         header=None, usecols=[0], squeeze=True, dtype=str)
 #
 # casedict = {}
@@ -155,7 +229,6 @@ def get_sample_bams2222(wildcards):
                   sample=wildcards.sample,
                   unit=units.loc[wildcards.sample].unit)
 
-
 #
 # def get_regions_param(regions=config["processing"].get("restrict-regions"), default=""):
 #     if regions:
@@ -188,69 +261,3 @@ def get_sample_bams2222(wildcards):
 #             return []
 #     else:
 #         return f
-
-
-########################################################################################################################
-## Load genome and build index for alignment and gatk
-path_genome = str(path_data + "genome/" + config["ref"]["name"] + "/" + config["ref"]["genome"].split("/")[-1])
-path_dict = path_genome.replace("fa", "dict").replace("fasta", "dict")
-path_dict_orginal = config["ref"]["genome"].replace("fa", "dict").replace("fasta", "dict")
-path_genome_list=[ path_genome+".fai",path_genome+".bwt",path_dict,path_dict+"_chrom"]
-rule LoadGenome:
-    input:
-         config["ref"]["genome"]
-    output:
-          path_genome
-    shell:
-         """
-         ln -sr {input} {output}
-         touch -h {output}
-         """
-rule GenomeIndexSamtools:
-    input:
-         path_genome
-    output:
-          path_genome + ".fai",  # samtools faidx
-    log:
-       path_log + "genomeindex/genomeindex_samtools.log"
-    run:
-        if os.path.exists(config["ref"]["genome"] + ".fai"):
-            shell("ln -sr {orign_ref}.fai {path_genome}.fai".format(orign_ref=config["ref"]["genome"],
-                                                                    path_genome=path_genome))
-        else:
-            shell("{path_samtools}samtools faidx {input}  2>{log} 1>{log} ")
-
-rule GenomeIndexBwa:
-    input:
-         path_genome
-    output:
-          path_genome + ".amb",  # for bwa
-          path_genome + ".bwt",  # for bwa
-          path_genome + ".pac",  # for bwa
-          path_genome + ".ann",  # for bwa
-          path_genome + ".sa",  # for bwa
-    log:
-       path_log + "genomeindex/genomeindex_bwa.log"
-    run:
-        bwt_suffix = ["amb", "ann", "bwt", "pac", "sa"]
-        bwt_stat = []
-        for i in bwt_suffix:
-            bwt_stat.append(os.path.exists(config["ref"]["genome"] + "." + i))
-        if (False in bwt_stat):
-            shell("{path_bwa}bwa index {input}  2>{log} 1>{log}")
-        else:
-            for i in bwt_suffix:
-                shell("ln -sr " + config["ref"]["genome"] + "." + i + " " + path_genome + "." + i)
-                shell("touch -h {path_genome}.{i}")
-rule GenomeIndexPicard:
-    input:
-         path_genome
-    output:
-          path_dict  # for gatk
-    log:
-       path_log + "genomeindex/genomeindex_picard.log"
-    run:
-        if os.path.exists(path_dict_orginal):
-            shell("ln -sr {path_dict_orginal} {path_dict}")
-        else:
-            shell("{path_picard}picard CreateSequenceDictionary R={path_genome} O={path_dict}  2>{log} 1>{log} ")
