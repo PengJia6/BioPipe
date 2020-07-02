@@ -5,6 +5,7 @@
 * add pigz rules for gzip (√)
 
 ## Doing
+* Process error and output of pbs 
 * remove the dependence of wrapper, use run and shell
 * add more caller for pipeline
 * add qc report 
