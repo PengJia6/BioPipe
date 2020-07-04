@@ -159,7 +159,14 @@ if "HC" in config["pipe"]["snpindel"]:
     # single sample calling
     for i in bam_sample_list:
         path_raw_vcf.append(
-            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.vcf.gz".format(bam_sample=i))
+            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.raw.vcf.gz".format(bam_sample=i))
+if "freebayes" in config["pipe"]["snpindel"]:
+    for i in bam_sample_list:
+        path_raw_vcf.append(
+            path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf.gz".format(bam_sample=i))
+        path_raw_vcf.append(
+            path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.pass.vcf.gz".format(bam_sample=i))
+
 ##### Wildcard constraints #####
 wildcard_constraints:
                     vartype="snvs|indels",

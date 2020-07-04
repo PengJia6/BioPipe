@@ -52,7 +52,7 @@ rule HC_MergeVCF:
     input:
          expand(path_data + "germlineVar/HC/perContig/{{bam_sample}}/{{bam_sample}}.{contig}.vcf.gz", contig=contigs)
     output:
-          path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.vcf.gz"
+          path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.raw.vcf.gz"
     params:
           extra="",
           java_options=""

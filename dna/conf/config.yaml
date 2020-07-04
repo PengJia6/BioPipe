@@ -11,9 +11,9 @@ qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
 
 ########################################################################################################################
 ### output path
-path_data: "../../Pipeline_test/data/"
-path_log:  "../../Pipeline_test/logs/"
-path_bm: "../../Pipeline_test/benchmark/"
+path_data: "../../ngs_test_data/"
+path_log:  "../../ngs_test_log/"
+path_bm: "../../ngs_test_bm"
 
 ########################################################################################################################
 ### pipeline
@@ -115,6 +115,23 @@ threads:
   HC_CombineCalls: 4
   HC_GT_jointCall: 4
   HC_MergeVCF_jointCall: 4
+  ########## var_freebayes.smk #########
+  FB_CallVar: 4
+  FB_Filter: 4
+
+  ########## var_varscan.smk ##########
+
+  ########## var_samtools.smk #########
+
+  ########## var_pindel.smk ###########
+
+  ########## var_delly.smk ############
+
+  ########## var_lumpy.smk ############
+
+  ########## var_breakdancer.smk ######
+
+  #####################
 
 
 
