@@ -8,7 +8,7 @@ rule FB_CallVar:
          ref=path_genome,
          sindex=path_genome + ".fai"
     output:
-          vcf=path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf",
+          vcf=temp(path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf"),
           vcfgz=path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf.gz"
     params:
           extra="",
@@ -28,7 +28,7 @@ rule FB_Filter:
     input:
          vcf=path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf"
     output:
-          vcf=path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.pass.vcf",
+          vcf=temp(path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.pass.vcf"),
           vcfgz=path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.pass.vcf.gz"
     params:
           extra="",

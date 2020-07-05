@@ -3,180 +3,245 @@
         "t": "9999:00:00",
         "n": "1",
         "node": "1",
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "loadrawData": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "fastqc": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "fastp": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "passqc": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "fastqc2": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "multiqc": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "Bwa": {
         "t": "9999:00:00",
         "n": 8,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "MergeBam": {
         "t": "9999:00:00",
         "n": 8,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "MarkDupWithPicard": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "NoneMarkDup": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "MarkDupWithBiobambam": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "NoneRealign": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "GATKReAlignPre": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "GATKReAlign": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "BamIndex": {
         "t": "9999:00:00",
         "n": 8,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "NoneBQSR": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "GATKBQSRPre": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "GATKBQSR": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "NoneLeftALign": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "GATKLeftAlign": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "NoneFixMate": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "GATKFixMate": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "LoadHQbam": {
         "t": "9999:00:00",
         "n": 1,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "HC_CallVar": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "HC_GT": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "HC_MergeVCF": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "HC_CombineCalls": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "HC_GT_jointCall": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     },
     "HC_MergeVCF_jointCall": {
         "t": "9999:00:00",
         "n": 4,
         "node": 1,
-        "name": "{rule}.{wildcards}"
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
+    },
+    "FB_CallVar": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
+    },
+    "FB_Filter": {
+        "t": "9999:00:00",
+        "n": 4,
+        "node": 1,
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
+    },
+    "Samtools_Mpileup": {
+        "t": "9999:00:00",
+        "n": 2,
+        "node": 1,
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
+    },
+    "Samtools_Call": {
+        "t": "9999:00:00",
+        "n": 2,
+        "node": 1,
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
+    },
+    "Samtools_Filter": {
+        "t": "9999:00:00",
+        "n": 2,
+        "node": 1,
+        "name": "{rule}.{wildcards}",
+        "log": "mnt/project/ProjectSnake/DNAseq/ngs_test_log/cluster_oe"
     }
 }

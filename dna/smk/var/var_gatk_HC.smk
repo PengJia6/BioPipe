@@ -1,13 +1,13 @@
+# Gatk HaplotypeCaller
+# https://gatk.broadinstitute.org/
 rule HC_CallVar:
     input:
          unpack(getHQbamsample),
          # bai=unpack(),
          ref=path_genome,
-         sindex=path_genome+".fai",
-         sindex2=path_genome+".fai_chrom",
+         sindex=path_genome + ".fai",
+         sindex2=path_genome + ".fai_chrom",
          dict=path_dict,
-
-
     output:
           gvcf=path_data + "germlineVar/HC/perContig/{bam_sample}/{bam_sample}.{contig}.g.vcf.gz"
     log:
@@ -114,7 +114,7 @@ rule HC_MergeVCF_jointCall:
     input:
          expand(path_data + "germlineVar/HC/jointCall/perContig/{contig}.vcf.gz", contig=contigs)
     output:
-          path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.vcf.gz"
+          path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.raw.vcf.gz"
     params:
           extra="",
           java_options=""
@@ -129,3 +129,142 @@ rule HC_MergeVCF_jointCall:
         shell("{path_picard}picard MergeVcfs {params.extra} "
               " {inputs} OUTPUT={output} 2>{log} 1>{log}")
 
+## Filter variant
+# https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering
+
+rule HC_JointCall_SelectSNV:
+    input: rules.HC_MergeVCF_jointCall.output
+    output: path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.vcf.gz"
+    threads: config["threads"]["HC_JointCall_SelectSNV"]
+    log:
+       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectSNV.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectSNV.tsv"
+    run:
+        shell("{path_gatk}gatk SelectVariants -V {input} -select-type SNP -O {output}"
+              " 2>{log} 1>{log}")
+rule HC_JointCall_SelectIndel:
+    input: rules.HC_MergeVCF_jointCall.output
+    output: path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.vcf.gz"
+    threads: config["threads"]["HC_JointCall_SelectIndel"]
+    log:
+       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectIndel.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectIndel.tsv"
+    run:
+        shell("{path_gatk}gatk SelectVariants -V {input} -select-type INDEL -O {output}"
+              " 2>{log} 1>{log}")
+
+rule HC_JointCall_FileterSNVHard:
+    input:
+         rules.HC_JointCall_SelectSNV.output
+    output:
+          path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.passh.vcf.gz"
+    threads: config["threads"]["HC_JointCall_FileterSNVHard"]
+    log:
+       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterSNVHard.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterSNVHard.tsv"
+    run:
+        shell('{path_gatk}gatk VariantFiltration '
+              ' -V {input} '
+              ' -filter "QD < 2.0"  --filter-name "QD2" '
+              ' -filter "QUAL < 30.0" --filter-name "QUAL30" '
+              ' -filter "SOR > 3.0" --filter-name "SOR3" '
+              ' -filter "FS > 60.0" --filter-name "FS60" '
+              ' -filter "MQ < 40.0" --filter-name "MQ40" '
+              ' -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" '
+              ' -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"  '
+              ' -O {output} '
+              ' 2>{log} 1>{log}')
+
+rule HC_JointCall_FileterINDElHard:
+    input:
+         rules.HC_JointCall_SelectSNV.output
+    output:
+          path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.passh.vcf.gz"
+    threads: config["threads"]["HC_JointCall_FileterINDElHard"]
+    log:
+       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterINDElHard.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterINDElHard.tsv"
+    run:
+        shell('{path_gatk}gatk VariantFiltration '
+              ' -V {input} '
+              ' -filter "QD < 2.0"  --filter-name "QD2" '
+              ' -filter "QUAL < 30.0" --filter-name "QUAL30" '
+              ' -filter "FS > 200.0" --filter-name "FS200" '
+              ' -filter "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20"  '
+              ' -O {output} '
+              ' 2>{log} 1>{log}')
+
+########################################################################################################################
+####### Hard Filtering for single sample
+rule HC_SelectSNV:
+    input: rules.HC_MergeVCF.output
+    output:
+          path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.vcf.gz"
+    threads: config["threads"]["HC_SelectSNV"]
+    log:
+       path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_SelectSNV.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_SelectSNV.tsv"
+    run:
+        shell("{path_gatk}gatk SelectVariants -V {input} -select-type SNP -O {output}"
+              " 2>{log} 1>{log}")
+rule HC_SelectIndel:
+    input: rules.HC_MergeVCF_jointCall.output
+    output:path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.vcf.gz"
+
+    threads: config["threads"]["HC_SelectIndel"]
+    log:
+       path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_SelectIndel.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_SelectIndel.tsv"
+    run:
+        shell("{path_gatk}gatk SelectVariants -V {input} -select-type INDEL -O {output}"
+              " 2>{log} 1>{log}")
+
+rule HC_FileterSNVHard:
+    input:
+         rules.HC_JointCall_SelectSNV.output
+    output:
+          path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.passh.vcf.gz"
+    threads: config["threads"]["HC_FileterSNVHard"]
+    log:
+       path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterSNVHard.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterSNVHard.tsv"
+    run:
+        shell('{path_gatk}gatk VariantFiltration '
+              ' -V {input} '
+              ' -filter "QD < 2.0"  --filter-name "QD2" '
+              ' -filter "QUAL < 30.0" --filter-name "QUAL30" '
+              ' -filter "SOR > 3.0" --filter-name "SOR3" '
+              ' -filter "FS > 60.0" --filter-name "FS60" '
+              ' -filter "MQ < 40.0" --filter-name "MQ40" '
+              ' -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" '
+              ' -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8"  '
+              ' -O {output} '
+              ' 2>{log} 1>{log}')
+
+rule HC_FileterINDElHard:
+    input:
+         rules.HC_JointCall_SelectSNV.output
+    output:
+          path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz"
+
+    threads: config["threads"]["HC_FileterINDElHard"]
+    log:
+       path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterINDElHard.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterINDElHard.tsv"
+    run:
+        shell('{path_gatk}gatk VariantFiltration '
+              ' -V {input} '
+              ' -filter "QD < 2.0"  --filter-name "QD2" '
+              ' -filter "QUAL < 30.0" --filter-name "QUAL30" '
+              ' -filter "FS > 200.0" --filter-name "FS200" '
+              ' -filter "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20"  '
+              ' -O {output} '
+              ' 2>{log} 1>{log}')

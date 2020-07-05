@@ -151,21 +151,40 @@ def getHQbamsample(wildcards):
 
         return {"bam": bam, "bai": bam + ".bai"}
 
-
-path_raw_vcf = []
-if "HC" in config["pipe"]["snpindel"]:
-    # joint calling
-    path_raw_vcf.append(path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.vcf.gz")
-    # single sample calling
-    for i in bam_sample_list:
-        path_raw_vcf.append(
-            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.raw.vcf.gz".format(bam_sample=i))
-if "freebayes" in config["pipe"]["snpindel"]:
-    for i in bam_sample_list:
-        path_raw_vcf.append(
-            path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf.gz".format(bam_sample=i))
-        path_raw_vcf.append(
-            path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.pass.vcf.gz".format(bam_sample=i))
+#
+# path_raw_vcf = []
+# if "HC" in config["pipe"]["snpindel"]:
+#     # single sample calling
+#     for i in bam_sample_list:
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.raw.vcf.gz".format(bam_sample=i))
+# if "HC_Hard_filter" in config["pipe"]["snpindel"]:
+#     for i in bam_sample_list:
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.passh.vcf.gz".format(bam_sample=i))
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz".format(bam_sample=i))
+# if "HC_Joint" in config["pipe"]["snpindel"]:
+#     # joint calling
+#     path_raw_vcf.append(path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.raw.vcf.gz")
+#
+# if "HC_Jonit_Hard_filter" in config["pipe"]["snpindel"]:
+#      path_raw_vcf.append(path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.passh.vcf.gz")
+#      path_raw_vcf.append(path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.passh.vcf.gz")
+#
+# if "freebayes" in config["pipe"]["snpindel"]:
+#     for i in bam_sample_list:
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf.gz.tbi".format(bam_sample=i))
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.pass.vcf.gz.tbi".format(bam_sample=i))
+# if "samtools" in config["pipe"]["snpindel"]:
+#     for i in bam_sample_list:
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/Samtools/perSample/{bam_sample}/{bam_sample}.Samtools.raw.vcf.gz.tbi".format(bam_sample=i))
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/Samtools/perSample/{bam_sample}/{bam_sample}.Samtools.pass.vcf.gz.tbi".format(bam_sample=i))
+#
 
 ##### Wildcard constraints #####
 wildcard_constraints:
@@ -216,55 +235,3 @@ def get_sample_bam(wildcards):
         i) + "_" + qcpipe + "_" + aligner + "_sorted.bam" for i in units]
 
 
-# return expand(["../data/align/"+wildcards.aligner+"/"+wildcards.case+"/"+wildcards.sample+"/"+wildcards.case+"_"+wildcards.sample+"_{unitD}_"+wildcards.qcpipe+"_"+wildcards.aligner+"_sorted.bam" ],unitD=["1","2"])
-# return expand(["../data/align/"+wildcards.aligner+"/"+wildcards.case+"/"+wildcards.sample+"/"+wildcards.case+"_"+wildcards.sample+"_{unitD}_"+wildcards.qcpipe+"_"+wildcards.aligner+"_sorted.bam" ],unitD=caseinfo.loc[(wildcards.case,wildcards.sample)].unit)
-
-
-def get_trimmed_reads(wildcards):
-    """Get trimmed reads of given sample-unit."""
-    if not is_single_end(**wildcards):
-        # paired-end sample
-        return expand("trimmed/{sample}-{unit}.{group}.fastq.gz",
-                      group=[1, 2], **wildcards)
-    # single end sample
-    return "trimmed/{sample}-{unit}.fastq.gz".format(**wildcards)
-
-
-def get_sample_bams2222(wildcards):
-    """Get all aligned reads of given sample."""
-    return expand("recal/{sample}-{unit}.bam",
-                  sample=wildcards.sample,
-                  unit=units.loc[wildcards.sample].unit)
-
-#
-# def get_regions_param(regions=config["processing"].get("restrict-regions"), default=""):
-#     if regions:
-#         params = "--intervals '{}' ".format(regions)
-#         padding = config["processing"].get("region-padding")
-#         if padding:
-#             params += "--interval-padding {}".format(padding)
-#         return params
-#     return default
-
-#
-# def get_call_variants_params(wildcards, input):
-#     return (get_regions_param(regions=input.regions, default="--intervals {}".format(wildcards.contig)) +
-#             config["params"]["gatk"]["HaplotypeCaller"])
-#
-#
-# def get_recal_input(bai=False):
-#     # case 1: no duplicate removal
-#     f = "mapped/{sample}-{unit}.sorted.bam"
-#     if config["processing"]["remove-duplicates"]:
-#         # case 2: remove duplicates
-#         f = "dedup/{sample}-{unit}.bam"
-#     if bai:
-#         if config["processing"].get("restrict-regions"):
-#             # case 3: need an index because random access is required
-#             f += ".bai"
-#             return f
-#         else:
-#             # case 4: no index needed
-#             return []
-#     else:
-#         return f

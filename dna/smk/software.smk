@@ -19,4 +19,5 @@ path_gatk = default
 path_freebayes = default
 path_bgzip=default
 path_vcflib=default
+path_tabix=default
 

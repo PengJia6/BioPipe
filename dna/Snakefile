@@ -1,5 +1,6 @@
 localrules: all, passqc
 include: "smk/common.smk"
+include: "smk/var/var_output.smk"
 
 SNPINDEL = ""
 ##### Target rules #####

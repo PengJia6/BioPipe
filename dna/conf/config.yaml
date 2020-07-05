@@ -18,7 +18,7 @@ path_bm: "../../ngs_test_bm"
 ########################################################################################################################
 ### pipeline
 loadBamFormat: up # csv, up
-bamsample: "conf/bamsample.csv"  # if loadBamFormat is csv, you need to provide a csv file of sample bam files.
+bamsample: "conf/bamsample.csv"  # if loadBamFormat is csv, you need to provide var_bcftools.smk csv file of sample bam files.
 
 pipe:
   ## qc
@@ -35,6 +35,11 @@ pipe:
   ## small variants (SNP and Indel)
   snpindel:
     - HC
+    - HC_Hard_filter
+    - HC_VQSR
+    - HC_Joint
+    - HC_Jonit_Hard_filter
+    - HC_Joint_VQSR
     - samtools
     - pindel
     - varscan
@@ -115,13 +120,23 @@ threads:
   HC_CombineCalls: 4
   HC_GT_jointCall: 4
   HC_MergeVCF_jointCall: 4
+  HC_JointCall_SelectSNV: 4
+  HC_JointCall_SelectIndel: 4
+  HC_JointCall_FileterSNVHard: 4
+  HC_JointCall_FileterINDElHard: 4
+  HC_SelectSNV: 4
+  HC_SelectIndel: 4
+  HC_FileterSNVHard: 4
+  HC_FileterINDElHard: 4
   ########## var_freebayes.smk #########
   FB_CallVar: 4
   FB_Filter: 4
-
   ########## var_varscan.smk ##########
 
-  ########## var_samtools.smk #########
+  ########## var_bcftools.smk #########
+  Samtools_Mpileup: 2
+  Samtools_Call: 2
+  Samtools_Filter: 2
 
   ########## var_pindel.smk ###########
 
@@ -159,7 +174,7 @@ threads:
 
   #processing:
   #  remove-duplicates: true
-  # Uncomment and point to a bed file with, e.g., captured regions if necessary,
+  # Uncomment and point to var_bcftools.smk bed file with, e.g., captured regions if necessary,
   # see https://gatkforums.broadinstitute.org/gatk/discussion/4133/when-should-i-use-l-to-pass-in-a-list-of-intervals.
   # restrict-regions: captured_regions.bed
   # If regions are restricted, uncomment this to enlarge them by the given value in order to include
