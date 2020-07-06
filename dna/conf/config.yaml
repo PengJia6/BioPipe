@@ -40,7 +40,7 @@ pipe:
     - HC_Joint
     - HC_Jonit_Hard_filter
     - HC_Joint_VQSR
-    - samtools
+    - bcftools
     - pindel
     - varscan
     - freebayes
@@ -132,11 +132,18 @@ threads:
   FB_CallVar: 4
   FB_Filter: 4
   ########## var_varscan.smk ##########
-
-  ########## var_bcftools.smk #########
   Samtools_Mpileup: 2
-  Samtools_Call: 2
-  Samtools_Filter: 2
+  Varscan_Call: 2
+  Varscan_Filter: 2
+  Varscan_Call_SNV: 2
+  Varscan_Filter_SNV: 2
+  Varscan_Call_INDEL: 2
+  Varscan_Filter_INDEL: 2
+  ########## var_bcftools.smk #########
+  Bcftools_Mpileup: 2
+
+  Bcftools_Call: 2
+  Bcftools_Filter: 2
 
   ########## var_pindel.smk ###########
 

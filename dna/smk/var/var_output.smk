@@ -24,10 +24,20 @@ if "freebayes" in config["pipe"]["snpindel"]:
             path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.raw.vcf.gz.tbi".format(bam_sample=i))
         path_raw_vcf.append(
             path_data + "germlineVar/FB/perSample/{bam_sample}/{bam_sample}.FB.pass.vcf.gz.tbi".format(bam_sample=i))
-if "samtools" in config["pipe"]["snpindel"]:
+if "bcftools" in config["pipe"]["snpindel"]:
     for i in bam_sample_list:
         path_raw_vcf.append(
-            path_data + "germlineVar/Samtools/perSample/{bam_sample}/{bam_sample}.Samtools.raw.vcf.gz.tbi".format(bam_sample=i))
+            path_data + "germlineVar/Bcftools/perSample/{bam_sample}/{bam_sample}.Bcftools.raw.vcf.gz.tbi".format(bam_sample=i))
         path_raw_vcf.append(
-            path_data + "germlineVar/Samtools/perSample/{bam_sample}/{bam_sample}.Samtools.pass.vcf.gz.tbi".format(bam_sample=i))
+            path_data + "germlineVar/Bcftools/perSample/{bam_sample}/{bam_sample}.Bcftools.pass.vcf.gz.tbi".format(bam_sample=i))
+if "varscan" in config["pipe"]["snpindel"]:
+    for i in bam_sample_list:
+        path_raw_vcf.append(
+            path_data + "germlineVar/varscan/perSample/{bam_sample}/{bam_sample}.varscan.raw.vcf.gz.tbi".format(bam_sample=i))
+        path_raw_vcf.append(
+            path_data + "germlineVar/varscan/perSample/{bam_sample}/{bam_sample}.varscan.pass.vcf.gz.tbi".format(bam_sample=i))
+        path_raw_vcf.append(
+            path_data + "germlineVar/varscan/perSample/{bam_sample}/{bam_sample}.varscan.SNV.pass.vcf.gz.tbi".format(bam_sample=i))
+        path_raw_vcf.append(
+            path_data + "germlineVar/varscan/perSample/{bam_sample}/{bam_sample}.varscan.INDEL.pass.vcf.gz.tbi".format(bam_sample=i))
 

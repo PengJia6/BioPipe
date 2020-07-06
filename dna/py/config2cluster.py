@@ -12,7 +12,7 @@ args = parser.parse_args()
 configfile = args.config[0]
 cluster_configfile = args.cluster[0]
 configfile_yaml = yaml.load(open(configfile))
-path_log = os.path.abspath(configfile_yaml["path_log"].strip("/") + "/cluster_oe/").strip("/")
+path_log = os.path.abspath(configfile_yaml["path_log"].rstrip("/") + "/cluster_oe/").rstrip("/")
 if not os.path.exists(path_log):
     os.makedirs(path_log)
 # print(path_log)

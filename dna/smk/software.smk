@@ -17,7 +17,7 @@ path_bedtools = default
 path_gatk3 = default  # conda install and gatk3-register; the GenomeAnalysisTK.jar is jar package with version 3.8
 path_gatk = default
 path_freebayes = default
-path_bgzip=default
-path_vcflib=default
-path_tabix=default
-
+path_varscan = default
+path_bgzip = default
+path_vcflib = default
+path_tabix = default

@@ -30,8 +30,10 @@ rule HC_CallVar:
 rule HC_GT:
     input:
          ref=path_genome,
-         gvcf=path_data + "germlineVar/HC/perContig/{bam_sample}/{bam_sample}.{contig}.g.vcf.gz"
+         # gvcf=path_data + "germlineVar/HC/perContig/{bam_sample}/{bam_sample}.{contig}.g.vcf.gz"
+         gvcf=rules.HC_CallVar.output.gvcf
     output:
+          # vcf=rules.HC_CallVar.output.gvcf
           vcf=path_data + "germlineVar/HC/perContig/{bam_sample}/{bam_sample}.{contig}.vcf.gz"
     params:
           extra="",
@@ -94,7 +96,8 @@ rule HC_CombineCalls:
 rule HC_GT_jointCall:
     input:
          ref=path_genome,
-         gvcf=path_data + "germlineVar/HC/jointCall/perContig/{contig}.g.vcf.gz"
+         # gvcf=path_data + "germlineVar/HC/jointCall/perContig/{contig}.g.vcf.gz"
+         gvcf=rules.HC_CombineCalls.output
     output:
           vcf=path_data + "germlineVar/HC/jointCall/perContig/{contig}.vcf.gz"
     params:
@@ -133,9 +136,12 @@ rule HC_MergeVCF_jointCall:
 # https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering
 
 rule HC_JointCall_SelectSNV:
-    input: rules.HC_MergeVCF_jointCall.output
-    output: path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.vcf.gz"
-    threads: config["threads"]["HC_JointCall_SelectSNV"]
+    input:
+         rules.HC_MergeVCF_jointCall.output
+    output:
+          path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.vcf.gz"
+    threads:
+           config["threads"]["HC_JointCall_SelectSNV"]
     log:
        path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectSNV.logs"
     benchmark:
@@ -144,9 +150,12 @@ rule HC_JointCall_SelectSNV:
         shell("{path_gatk}gatk SelectVariants -V {input} -select-type SNP -O {output}"
               " 2>{log} 1>{log}")
 rule HC_JointCall_SelectIndel:
-    input: rules.HC_MergeVCF_jointCall.output
-    output: path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.vcf.gz"
-    threads: config["threads"]["HC_JointCall_SelectIndel"]
+    input:
+         rules.HC_MergeVCF_jointCall.output
+    output:
+          path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.vcf.gz"
+    threads:
+           config["threads"]["HC_JointCall_SelectIndel"]
     log:
        path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectIndel.logs"
     benchmark:
