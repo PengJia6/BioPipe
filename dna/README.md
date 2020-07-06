@@ -28,7 +28,7 @@
 * gatk hc (need VQSR filter)
 * samtools （√）
 * freebayse （√）
-* varscan 
+* varscan （√）
 * ...
 
 #### somatic 
