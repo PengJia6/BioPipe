@@ -19,6 +19,9 @@ path_genome = str(path_data + "genome/" + config["ref"]["name"] + "/" + config["
 path_dict = path_genome.replace("fa", "dict").replace("fasta", "dict")
 path_dict_orginal = config["ref"]["genome"].replace("fa", "dict").replace("fasta", "dict")
 path_genome_list = [path_genome + ".fai", path_genome + ".bwt", path_dict, path_dict + "_chrom"]
+path_orginal_genome_prefix = config["ref"]["genome"].rstrip("fa").rstrip("fasta")
+path_genome_prefix = str(path_data + "genome/" + config["ref"]["name"] + "/" +
+                         config["ref"]["genome"].split("/")[-1].rstrip("fa").rstrip("fasta"))
 rule LoadGenome:
     input:
          config["ref"]["genome"]
@@ -29,6 +32,19 @@ rule LoadGenome:
          ln -sr {input} {output}
          touch -h {output}
          """
+rule LoadGenomeFile:
+    input:
+        sv_excul=path_orginal_genome_prefix+"exclude.cnvnator.bed"
+    output:
+        sv_excul=path_genome_prefix+"exclude.cnvnator.bed"
+    shell:
+         """
+         ln -sr {input.sv_excul} {output.sv_excul}
+         touch -h {output}
+         """
+
+
+
 rule GenomeIndexSamtools:
     input:
          path_genome
@@ -74,6 +90,8 @@ rule GenomeIndexBwa:
             for i in bwt_suffix:
                 shell("ln -sr " + config["ref"]["genome"] + "." + i + " " + path_genome + "." + i)
                 shell("touch -h {path_genome}.{i}")
+
+# TODO check
 rule GenomeIndexPicard:
     input:
          path_genome
@@ -85,7 +103,7 @@ rule GenomeIndexPicard:
         if os.path.exists(path_dict_orginal):
             shell("ln -sr {path_dict_orginal} {path_dict}")
         else:
-            shell("{path_picard}picard CreateSequenceDictionary R={path_genome} O={path_dict}  2>{log} 1>{log} ")
+            shell("{path_picard}picard CreateSequenceDictionary R={input} O={output}  2>{log} 1>{log} ")
 
 # validate(config, schema="../schemas/config.schema.yaml")
 caseinfo = pd.read_csv(config["caseinfo"]).set_index(["case", "sample", "unit"], drop=False)
@@ -150,6 +168,7 @@ def getHQbamsample(wildcards):
         bam = path_data + "HQbam/{bam_sample}.bam".format(bam_sample=wildcards.bam_sample)
 
         return {"bam": bam, "bai": bam + ".bai"}
+
 
 #
 # path_raw_vcf = []
@@ -233,5 +252,3 @@ def get_sample_bam(wildcards):
     qcpipe = wildcards.qcpipe
     return [path_data + "align/" + case + "/" + sample + "/" + case + "_" + sample + "_" + str(
         i) + "_" + qcpipe + "_" + aligner + "_sorted.bam" for i in units]
-
-

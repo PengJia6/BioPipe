@@ -1,0 +1,5 @@
+KeyError in line 50 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_delly.smk:
+'Delly_GT'
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 31, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk", line 5, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_delly.smk", line 50, in <module>

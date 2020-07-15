@@ -11,9 +11,9 @@ qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
 
 ########################################################################################################################
 ### output path
-path_data: "../../ngs_test_data/"
-path_log:  "../../ngs_test_log/"
-path_bm: "../../ngs_test_bm"
+path_data: "../../ngs_test_data/data/"
+path_log:  "../../ngs_test_data/logs/"
+path_bm: "../../ngs_test_data/benchmark/"
 
 ########################################################################################################################
 ### pipeline
@@ -61,10 +61,12 @@ pipe:
   svcnv:
     - metasv
     - delly
-    - lumpy
+#    - lumpy
+    - smoove
     - breakdancer
     - cnvnator
     - pindel
+    - metasv
 
   ## annotation
 
@@ -141,15 +143,19 @@ threads:
   Varscan_Filter_INDEL: 2
   ########## var_bcftools.smk #########
   Bcftools_Mpileup: 2
-
   Bcftools_Call: 2
   Bcftools_Filter: 2
 
+  ########## var_metasv.smk ###########
+  MetaSV: 20
   ########## var_pindel.smk ###########
 
   ########## var_delly.smk ############
-
-  ########## var_lumpy.smk ############
+  Delly_Call: 2
+  Delly_GT: 2
+  Delly2Bcf2vcfgz: 2
+  ########## var_smoove.smk ############
+  Smoove: 2
 
   ########## var_breakdancer.smk ######
 

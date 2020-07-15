@@ -1,0 +1,111 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 15
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	4	BamIndex
+	2	Bcftools_Call
+	2	Bcftools_Filter
+	2	Bcftools_Mpileup
+	3	Bwa
+	2	Delly2Bcf2vcfgz
+	2	Delly_Call
+	2	Delly_GT
+	2	FB_CallVar
+	2	FB_Filter
+	1	GenomeIndexBwa
+	1	GenomeIndexPicard
+	1	GenomeIndexSamtools
+	50	HC_CallVar
+	25	HC_CombineCalls
+	2	HC_FileterINDElHard
+	2	HC_FileterSNVHard
+	50	HC_GT
+	25	HC_GT_jointCall
+	1	HC_JointCall_FileterINDElHard
+	1	HC_JointCall_FileterSNVHard
+	1	HC_JointCall_SelectSNV
+	2	HC_MergeVCF
+	1	HC_MergeVCF_jointCall
+	1	LoadGenome
+	2	LoadHQbam
+	2	MarkDupWithPicard
+	2	MergeBam
+	2	NoneBQSR
+	2	NoneFixMate
+	2	NoneLeftALign
+	2	NoneRealign
+	2	Samtools_Mpileup
+	2	Smoove
+	2	Varscan_Call
+	2	Varscan_Call_INDEL
+	2	Varscan_Call_SNV
+	2	Varscan_Filter
+	2	Varscan_Filter_INDEL
+	2	Varscan_Filter_SNV
+	1	all
+	16	tabix
+	234
+
+[Tue Jul 14 21:30:03 2020]
+localrule LoadGenome:
+    input: /home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    jobid: 125
+
+[Tue Jul 14 21:30:04 2020]
+Finished job 125.
+1 of 234 steps (0.43%) done
+
+[Tue Jul 14 21:30:04 2020]
+rule GenomeIndexPicard:
+    input: ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    log: ../../ngs_test_log/genomeindex/genomeindex_picard.log
+    jobid: 216
+
+[Tue Jul 14 21:30:04 2020]
+rule GenomeIndexSamtools:
+    input: ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom
+    log: ../../ngs_test_log/genomeindex/genomeindex_samtools.log
+    jobid: 126
+
+[Tue Jul 14 21:30:05 2020]
+rule GenomeIndexBwa:
+    input: ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.amb, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.bwt, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.pac, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.ann, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.sa
+    log: ../../ngs_test_log/genomeindex/genomeindex_bwa.log
+    jobid: 235
+
+[Tue Jul 14 21:30:11 2020]
+Finished job 126.
+2 of 234 steps (0.85%) done
+[Tue Jul 14 21:30:22 2020]
+Finished job 235.
+3 of 234 steps (1%) done
+
+[Tue Jul 14 21:30:22 2020]
+rule Bwa:
+    input: ../../ngs_test_data/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_1.fq.gz, ../../ngs_test_data/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_2.fq.gz, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.bwt
+    output: ../../ngs_test_data/align/HG001/N1/HG001_N1_L1_fastp_bwa_sorted.bam
+    log: ../../ngs_test_log/align/bwa/HG001/N1/HG001_N1_L1_fastp_bwa.logs
+    jobid: 231
+    benchmark: ../../ngs_test_bm/align/bwa/HG001/N1/HG001_N1_L1_fastp.bwa.tsv
+    wildcards: case=HG001, sample=N1, unit=L1, qcpipe=fastp
+    threads: 8
+
+Job failed, going on with independent jobs.
+Terminating processes on user request, this might take some time.
+[Tue Jul 14 21:30:46 2020]
+Error in rule Bwa:
+    jobid: 231
+    output: ../../ngs_test_data/align/HG001/N1/HG001_N1_L1_fastp_bwa_sorted.bam
+    log: ../../ngs_test_log/align/bwa/HG001/N1/HG001_N1_L1_fastp_bwa.logs (check log file(s) for error message)
+
+RuleException:
+CalledProcessError in line 36 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/align.smk:
+Command 'set -euo pipefail;  /home/pengjia/miniconda3/envs/default/bin/python3.7 /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/scripts/tmp_jtmm8_z.wrapper.py' returned non-zero exit status 1.
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/align.smk", line 36, in __rule_Bwa
+  File "/home/pengjia/miniconda3/envs/default/lib/python3.7/concurrent/futures/thread.py", line 57, in run
