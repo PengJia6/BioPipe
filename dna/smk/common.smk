@@ -1,4 +1,4 @@
-localrules: LoadGenome
+localrules: LoadGenome,LoadGenomeFile,GenomeIndexSamtools,GenomeIndexPicard
 from snakemake.io import expand
 import pandas as pd
 import os
@@ -40,7 +40,7 @@ rule LoadGenomeFile:
     shell:
          """
          ln -sr {input.sv_excul} {output.sv_excul}
-         touch -h {output}
+         touch -h {output.sv_excul}
          """
 
 

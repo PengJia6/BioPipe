@@ -12,25 +12,35 @@
 # ruleorder: a > b
 
 
-# rules: TODO
+# rules: CNVnator
 # description: TODO
 # input: TODO
 # output: TODO
-rule TODO:
+rule CNVnator:
     input:
-         "",
+         unpack(getHQbamsample),
+         ref=path_genome,
+         sindex=path_genome + ".fai"
     output:
-          "",
+         root=path_data + "germlineVar/cnvnator/perSample/{bam_sample}/{bam_sample}.cnvnator.root",
+         out=path_data + "germlineVar/cnvnator/perSample/{bam_sample}/{bam_sample}.raw.cnvnator"
+
     log:
-       ""
+       path_log + "gremlineVar/cnvnator/perSample/{bam_sample}/{bam_sample}.cnvnator.logs"
     benchmark:
-             ""
-    threads: 8
+             path_bm + "gremlineVar/cnvnator/perSample/{bam_sample}/{bam_sample}.cnvnator.tsv"
+    threads: config["threads"]["CNVnator"]
     params:
           extra="",
-    run:
-        shell("command 1")
-        shell("command 2")
+    shell:
+        """
+        {path_cnvnator}cnvnator -root {output.root} -tree {input.bam} -unique 2>{log} 1>{log}
+        {path_cnvnator}cnvnator -root {output.root} -d {input.ref} -his 100 2>{log} 1>{log}
+        {path_cnvnator}cnvnator -root {output.root} -stat 100 2>{log} 1>{log}
+        {path_cnvnator}cnvnator -root {output.root} -partition 100 2>{log} 1>{log}
+        {path_cnvnator}cnvnator -root {output.root} -call 100 > {output.out}
+        """
+        # shell("command 2")
 
 # rules: TODO
 # description: TODO

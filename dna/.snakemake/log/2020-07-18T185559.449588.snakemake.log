@@ -1,0 +1,117 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	2	Lumpy_Get_Discordants
+	2	Lumpy_Get_SplitReads
+	2	Lumpyexpress
+	1	all
+	7
+
+[Sat Jul 18 18:56:01 2020]
+rule Lumpy_Get_Discordants:
+    input: ../../ngs_test_data/data/HQbam/HG001_N1.bam, ../../ngs_test_data/data/HQbam/HG001_N1.bam.bai
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.discordants.bam
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.discordants.logs
+    jobid: 125
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.discordants.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sat Jul 18 18:56:01 2020]
+rule Lumpy_Get_SplitReads:
+    input: ../../ngs_test_data/data/HQbam/HG001_N.bam, ../../ngs_test_data/data/HQbam/HG001_N.bam.bai
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.splitters.bam
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.splitters.logs
+    jobid: 132
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N/HG001_N.splitters.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sat Jul 18 18:56:01 2020]
+rule Lumpy_Get_Discordants:
+    input: ../../ngs_test_data/data/HQbam/HG001_N.bam, ../../ngs_test_data/data/HQbam/HG001_N.bam.bai
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.discordants.bam
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.discordants.logs
+    jobid: 131
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N/HG001_N.discordants.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sat Jul 18 18:56:01 2020]
+rule Lumpy_Get_SplitReads:
+    input: ../../ngs_test_data/data/HQbam/HG001_N1.bam, ../../ngs_test_data/data/HQbam/HG001_N1.bam.bai
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.splitters.bam
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.splitters.logs
+    jobid: 126
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.splitters.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sat Jul 18 18:56:06 2020]
+Finished job 131.
+1 of 7 steps (14%) done
+[Sat Jul 18 18:56:10 2020]
+Finished job 125.
+2 of 7 steps (29%) done
+[Sat Jul 18 18:56:11 2020]
+Finished job 132.
+3 of 7 steps (43%) done
+
+[Sat Jul 18 18:56:11 2020]
+rule Lumpyexpress:
+    input: ../../ngs_test_data/data/HQbam/HG001_N.bam, ../../ngs_test_data/data/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.discordants.bam, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.splitters.bam, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N_tmp, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.logs
+    jobid: 29
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sat Jul 18 18:56:18 2020]
+Finished job 126.
+4 of 7 steps (57%) done
+
+[Sat Jul 18 18:56:18 2020]
+rule Lumpyexpress:
+    input: ../../ngs_test_data/data/HQbam/HG001_N1.bam, ../../ngs_test_data/data/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.discordants.bam, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.splitters.bam, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1_tmp, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.logs
+    jobid: 28
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sat Jul 18 18:56:22 2020]
+Error in rule Lumpyexpress:
+    jobid: 29
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N_tmp, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.logs (check log file(s) for error message)
+    shell:
+        
+         export PATH=/home/pengjia/miniconda3/envs/ngs27/bin/:$PATH
+         mkdir ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N_tmp
+         /home/pengjia/miniconda3/envs/ngs27/bin/lumpyexpress -B ../../ngs_test_data/data/HQbam/HG001_N.bam -S ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.splitters.bam -D ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.discordants.bam -o ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf -x ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed -T ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N_tmp 2>../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.logs 1>../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.logs
+           /home/pengjia/miniconda3/envs/ngs/bin/bgzip -c ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf > ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf.gz 
+         
+        (exited with non-zero exit code)
+
+[Sat Jul 18 18:56:28 2020]
+Error in rule Lumpyexpress:
+    jobid: 28
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1_tmp, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.logs (check log file(s) for error message)
+    shell:
+        
+         export PATH=/home/pengjia/miniconda3/envs/ngs27/bin/:$PATH
+         mkdir ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1_tmp
+         /home/pengjia/miniconda3/envs/ngs27/bin/lumpyexpress -B ../../ngs_test_data/data/HQbam/HG001_N1.bam -S ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.splitters.bam -D ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.discordants.bam -o ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf -x ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed -T ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1_tmp 2>../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.logs 1>../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.logs
+           /home/pengjia/miniconda3/envs/ngs/bin/bgzip -c ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf > ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf.gz 
+         
+        (exited with non-zero exit code)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-18T185559.449588.snakemake.log

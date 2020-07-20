@@ -1,0 +1,62 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	2	Lumpy_Get_SplitReads
+	2	Lumpyexpress
+	1	all
+	5
+
+[Sat Jul 18 15:23:58 2020]
+rule Lumpy_Get_SplitReads:
+    input: ../../ngs_test_data/data/HQbam/HG001_N.bam, ../../ngs_test_data/data/HQbam/HG001_N.bam.bai
+    output: ../../ngs_test_data/data/germlineVar/smoove/perSample/HG001_N/HG001_N.splitters.bam
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.splitters.logs
+    jobid: 126
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N/HG001_N.splitters.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sat Jul 18 15:23:59 2020]
+rule Lumpy_Get_SplitReads:
+    input: ../../ngs_test_data/data/HQbam/HG001_N1.bam, ../../ngs_test_data/data/HQbam/HG001_N1.bam.bai
+    output: ../../ngs_test_data/data/germlineVar/smoove/perSample/HG001_N1/HG001_N1.splitters.bam
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.splitters.logs
+    jobid: 132
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.splitters.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sat Jul 18 15:24:06 2020]
+Finished job 126.
+1 of 5 steps (20%) done
+
+[Sat Jul 18 15:24:06 2020]
+rule Lumpyexpress:
+    input: ../../ngs_test_data/data/HQbam/HG001_N.bam, ../../ngs_test_data/data/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data/germlineVar/smoove/perSample/HG001_N/HG001_N.discordants.bam, ../../ngs_test_data/data/germlineVar/smoove/perSample/HG001_N/HG001_N.splitters.bam, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N_tmp, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.logs
+    jobid: 28
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N/HG001_N.lumpy.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sat Jul 18 15:24:11 2020]
+Finished job 132.
+2 of 5 steps (40%) done
+
+[Sat Jul 18 15:24:11 2020]
+rule Lumpyexpress:
+    input: ../../ngs_test_data/data/HQbam/HG001_N1.bam, ../../ngs_test_data/data/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data/germlineVar/smoove/perSample/HG001_N1/HG001_N1.discordants.bam, ../../ngs_test_data/data/germlineVar/smoove/perSample/HG001_N1/HG001_N1.splitters.bam, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1_tmp, ../../ngs_test_data/data/germlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.logs
+    jobid: 29
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/lumpy/perSample/HG001_N1/HG001_N1.lumpy.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-18T152354.052344.snakemake.log

@@ -252,7 +252,7 @@ rule GATKLeftAlign:
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}.bam.bai",
          ref=path_genome
     output:
-          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_leftAlign.bam"
+          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_LeftAlign.bam"
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_leftAlign.logs"
     benchmark:
@@ -286,7 +286,7 @@ rule GATKFixMate:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam.bai"
     output:
-          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_fixMate.bam"
+          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_FixMate.bam"
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_fixMate.logs"
     benchmark:

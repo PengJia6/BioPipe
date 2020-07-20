@@ -11,7 +11,7 @@ qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
 
 ########################################################################################################################
 ### output path
-path_data: "../../ngs_test_data/data/"
+path_data: "../../ngs_test_data/data1/"
 path_log:  "../../ngs_test_data/logs/"
 path_bm: "../../ngs_test_data/benchmark/"
 
@@ -59,14 +59,16 @@ pipe:
 
   ## large variants (SV and CNV)
   svcnv:
+    - cnvnator
     - metasv
     - delly
-#    - lumpy
+    - lumpy
     - smoove
     - breakdancer
     - cnvnator
     - pindel
     - metasv
+    - manta
 
   ## annotation
 
@@ -76,14 +78,14 @@ ref:
   name: "GRCh38"
   chrom_num: 25   # the first chrom_num of chrom will be analysised by gatk
   # Path to the reference genome, ideally as it is provided by the GATK bundle.
-  genome: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
-  #  genome: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.fa"
-  dbsnp: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/dbsnp_146.hg38.vcf.gz"
-  1KGomni: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/1000G_omni2.5.hg38.vcf.gz"
-  1KGp1snp: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz"
-  hapmap: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/hapmap_3.3.hg38.vcf.gz"
-  mills1KG: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/variantsDB/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
-  germMutuct: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/Mutect2/af-only-gnomad.hg38.vcf.gz"
+#  genome: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+  genome: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.fa"
+  dbsnp: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz"
+  1KGomni: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz"
+  1KGp1snp: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz"
+  hapmap: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz"
+  mills1KG: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.b38.primary_assembly.vcf.gz"
+  germMutuct: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/Mutect2/af-only-gnomad.hg38.vcf.gz"
 
 ########################################################################################################################
 ### threads for cluster
@@ -141,6 +143,8 @@ threads:
   Varscan_Filter_SNV: 2
   Varscan_Call_INDEL: 2
   Varscan_Filter_INDEL: 2
+
+
   ########## var_bcftools.smk #########
   Bcftools_Mpileup: 2
   Bcftools_Call: 2
@@ -148,16 +152,28 @@ threads:
 
   ########## var_metasv.smk ###########
   MetaSV: 20
+  ########## var_meta.smk ###########
+  Manta: 4
+  Manta_conf: 2
   ########## var_pindel.smk ###########
 
   ########## var_delly.smk ############
   Delly_Call: 2
   Delly_GT: 2
   Delly2Bcf2vcfgz: 2
+  ########## var_lumpy.smk ############
+  Lumpy_Get_Discordants: 2
+  Lumpy_Get_SplitReads: 2
+  Lumpyexpress: 2
   ########## var_smoove.smk ############
-  Smoove: 2
+  Smoove: 5
 
+  ########## var_cnvnator.smk ######
+  CNVnator: 2
   ########## var_breakdancer.smk ######
+  BreakDancer: 2
+  BreakDancer_Conf: 2
+
 
   #####################
 
@@ -209,14 +225,14 @@ params:
     pe:
       trimmer:
         # See trimmomatic manual for adding additional options, e.g. for adapter trimming.
-        - "LEADING:3"
-        - "TRAILING:3"
-        - "SLIDINGWINDOW:4:15"
-        - "MINLEN:36"
+        - " LEADING:3 "
+        - " TRAILING:3 "
+        - " SLIDINGWINDOW:4:15 "
+        - " MINLEN:36 "
     se:
       trimmer:
         # See trimmomatic manual for adding additional options, e.g. for adapter trimming.
-        - "LEADING:3"
-        - "TRAILING:3"
-        - "SLIDINGWINDOW:4:15"
-        - "MINLEN:36"
+        - " LEADING:3 "
+        - " TRAILING:3 "
+        - " SLIDINGWINDOW:4:15 "
+        - " MINLEN:36 "

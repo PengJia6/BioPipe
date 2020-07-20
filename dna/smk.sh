@@ -1,0 +1,2 @@
+ nohup snakemake  -j 20 --jn "pj.{name}.{jobid}" --cluster "qsub -l nodes=1:ppn=3 -l walltime=9999:00:00" --configfile ./conf/config.yaml  --ri -k -q  2>&1 & 
+ nohup snakemake -j 25 --jn "pj.{name}.{jobid}" --cluster "qsub -l nodes={cluster.node}:ppn={cluster.n} -l walltime={cluster.t} -j oe -o {cluster.log} -N {cluster.name}" --cluster-config ./conf/cluster.json --configfile ./conf/config.yaml --ri -k -q > sub20200709 2>&1 & 

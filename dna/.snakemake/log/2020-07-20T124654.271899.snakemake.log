@@ -1,0 +1,118 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	2	BreakDancer
+	2	BreakDancer_Conf
+	2	CNVnator
+	2	Manta
+	2	Manta_conf
+	1	all
+	11
+
+[Mon Jul 20 12:46:56 2020]
+rule Manta_conf:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/manta/perSample/HG001_N/HG001_N_manta, ../../ngs_test_data/data1/germlineVar/manta/perSample/HG001_N/HG001_N
+    log: ../../ngs_test_data/logs/gremlineVar/manta/perSample/HG001_N/HG001_N.manta_conf.logs
+    jobid: 138
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/manta/perSample/HG001_N/HG001_N.manta_conf.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Mon Jul 20 12:46:56 2020]
+rule CNVnator:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root, ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.raw.cnvnator
+    log: ../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs
+    jobid: 31
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+
+[Mon Jul 20 12:46:56 2020]
+rule BreakDancer_Conf:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai
+    output: ../../ngs_test_data/data1/germlineVar/breakdancer/perSample/HG001_N1/HG001_N1.breakdancer.conf
+    log: ../../ngs_test_data/logs/gremlineVar/breakdancer/perSample/HG001_N1/HG001_N1.breakdancer_conf.logs
+    jobid: 135
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/breakdancer/perSample/HG001_N1/HG001_N1.breakdancer_conf.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Mon Jul 20 12:46:56 2020]
+rule CNVnator:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root, ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.raw.cnvnator
+    log: ../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs
+    jobid: 30
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+
+[Mon Jul 20 12:46:56 2020]
+rule BreakDancer_Conf:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai
+    output: ../../ngs_test_data/data1/germlineVar/breakdancer/perSample/HG001_N/HG001_N.breakdancer.conf
+    log: ../../ngs_test_data/logs/gremlineVar/breakdancer/perSample/HG001_N/HG001_N.breakdancer_conf.logs
+    jobid: 136
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/breakdancer/perSample/HG001_N/HG001_N.breakdancer_conf.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Mon Jul 20 12:46:56 2020]
+rule Manta_conf:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/manta/perSample/HG001_N1/HG001_N1_manta, ../../ngs_test_data/data1/germlineVar/manta/perSample/HG001_N1/HG001_N1
+    log: ../../ngs_test_data/logs/gremlineVar/manta/perSample/HG001_N1/HG001_N1.manta_conf.logs
+    jobid: 137
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/manta/perSample/HG001_N1/HG001_N1.manta_conf.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Mon Jul 20 12:47:00 2020]
+Finished job 138.
+1 of 11 steps (9%) done
+[Mon Jul 20 12:47:01 2020]
+Finished job 137.
+2 of 11 steps (18%) done
+Terminating processes on user request, this might take some time.
+[Mon Jul 20 13:09:53 2020]
+Error in rule CNVnator:
+[Mon Jul 20 13:09:53 2020]
+    jobid: 30
+Error in rule CNVnator:
+    output: ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root, ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.raw.cnvnator
+    jobid: 31
+    log: ../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs (check log file(s) for error message)
+    output: ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root, ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.raw.cnvnator
+    shell:
+        
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root -tree ../../ngs_test_data/data1/HQbam/HG001_N1.bam -unique 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root -d ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa -his 100 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root -stat 100 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root -partition 100 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root -call 100 > ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.raw.cnvnator.cnv 
+        
+        (exited with non-zero exit code)
+    log: ../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs (check log file(s) for error message)
+
+    shell:
+        
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root -tree ../../ngs_test_data/data1/HQbam/HG001_N.bam -unique 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root -d ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa -his 100 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root -stat 100 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root -partition 100 2>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs 1>../../ngs_test_data/logs/gremlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.logs
+        /opt/software/CNVnator_v0.3/src/cnvnator -root ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root -call 100 > ../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.raw.cnvnator.cnv 
+        
+        (exited with non-zero exit code)
+
+Removing output files of failed job CNVnator since they might be corrupted:
+../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.root
+Removing output files of failed job CNVnator since they might be corrupted:
+../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.root
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-20T124654.271899.snakemake.log

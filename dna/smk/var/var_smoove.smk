@@ -24,8 +24,8 @@ rule Smoove:
          excl=path_genome_prefix+"exclude.cnvnator.bed"
     output:
           prefix=directory(path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}"),
-          vcfgz=temp(path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}/{bam_sample}-smoove.genotyped.vcf.gz"),
-          final_vcfgz=temp(path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}.smoove.raw.vcf.gz"),
+          # vcfgz=path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}/{bam_sample}-smoove.genotyped.vcf.gz",
+          final_vcfgz=path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}.smoove.raw.vcf.gz"
 
     log:
        path_log + "gremlineVar/smoove/perSample/{bam_sample}/{bam_sample}.smoove.logs"
@@ -36,36 +36,29 @@ rule Smoove:
           extra="",
     shell:
         """
-        export PATH={path_lumpy_sv}:$PATH
-        {path_smoove}smoove call -x --name {wildcards.bam_sample} --outdir {output.prefix} --exclude {input.excl} --fasta {input.ref} -p {threads} --genotype {input.bam} 2>{log} 1>{log}
-        ln -sr {output.vcfgz} {output.final_vcfgz}
-        touch -h {output.final_vcfgz}
+        export PATH={path_lumpy}:$PATH
+        {path_smoove}smoove call -x -d --genotype --name {wildcards.bam_sample} --outdir {output.prefix} --exclude {input.excl} --fasta {input.ref} -p {threads} {input.bam} 2>{log} 1>{log}
+        mv {output.prefix}/{wildcards.bam_sample}-smoove.genotyped.vcf.gz {output.final_vcfgz}
         """
-        # ("{path_smoove}smoove call -x --name {wildcards.bam_sample} --outdir {output.prefix} --exclude {input.excl} "
-        #       "--fasta {input.ref} -p {threads} --genotype {input.bam}"
-        #       " 2>{log} 1>{log}")
-        # shell("ln -sr {output.vcfgz} {output.final_vcfgz}")
-        # shell("touch -h {output.final_vcfgz}")
-
 # ======================================================================================================================
 # rules: TODO
 # description: TODO
 # input: TODO
 # output: TODO
-rule TODO2:
-    input:
-         "",
-    output:
-          "",
-    log:
-       ""
-    benchmark:
-             ""
-    threads: 8
-    params:
-          extra="",
-    shell:
-         """
-         command 1 
-         command 2
-         """
+# rule TODO2:
+#     input:
+#          "",
+#     output:
+#           "",
+#     log:
+#        ""
+#     benchmark:
+#              ""
+#     threads: 8
+#     params:
+#           extra="",
+#     shell:
+#          """
+#          command 1
+#          command 2
+#          """

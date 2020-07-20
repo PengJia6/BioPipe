@@ -1,0 +1,3254 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	4	BamIndex
+	2	Bcftools_Call
+	2	Bcftools_Filter
+	2	Bcftools_Mpileup
+	3	Bwa
+	2	Delly2Bcf2vcfgz
+	2	Delly_Call
+	2	Delly_GT
+	2	FB_CallVar
+	2	FB_Filter
+	1	GenomeIndexBwa
+	1	GenomeIndexPicard
+	1	GenomeIndexSamtools
+	50	HC_CallVar
+	25	HC_CombineCalls
+	2	HC_FileterINDElHard
+	2	HC_FileterSNVHard
+	50	HC_GT
+	25	HC_GT_jointCall
+	1	HC_JointCall_FileterINDElHard
+	1	HC_JointCall_FileterSNVHard
+	1	HC_JointCall_SelectSNV
+	2	HC_MergeVCF
+	1	HC_MergeVCF_jointCall
+	1	LoadGenome
+	1	LoadGenomeFile
+	2	LoadHQbam
+	2	MarkDupWithPicard
+	2	MergeBam
+	2	NoneBQSR
+	2	NoneFixMate
+	2	NoneLeftALign
+	2	NoneRealign
+	2	Samtools_Mpileup
+	2	Smoove
+	2	Varscan_Call
+	2	Varscan_Call_INDEL
+	2	Varscan_Call_SNV
+	2	Varscan_Filter
+	2	Varscan_Filter_INDEL
+	2	Varscan_Filter_SNV
+	1	all
+	3	fastp
+	3	loadrawData
+	16	tabix
+	241
+
+[Sun Jul 19 15:52:00 2020]
+rule loadrawData:
+    input: /home/DATA/NA12878/pipelineTest/fastq/HG001_1000GDeep_chr20_1.fq.gz, /home/DATA/NA12878/pipelineTest/fastq/HG001_1000GDeep_chr20_2.fq.gz
+    output: ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L2_1.fq.gz, ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L2_2.fq.gz
+    log: ../../ngs_test_data/logs/qc/loadRawdata/HG001/N1/HG001_N1_L2_loaddata.log
+    jobid: 239
+    wildcards: case=HG001, sample=N1, unit=L2
+    threads: 4
+
+[Sun Jul 19 15:52:00 2020]
+localrule LoadGenome:
+    input: /home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    jobid: 125
+
+
+[Sun Jul 19 15:52:00 2020]
+rule loadrawData:
+    input: /home/DATA/NA12878/pipelineTest/fastq/HG001_1000G_chr20_1.fq, /home/DATA/NA12878/pipelineTest/fastq/HG001_1000G_chr20_2.fq
+    output: ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L1_1.fq.gz, ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L1_2.fq.gz
+    log: ../../ngs_test_data/logs/qc/loadRawdata/HG001/N1/HG001_N1_L1_loaddata.log
+    jobid: 238
+    wildcards: case=HG001, sample=N1, unit=L1
+    threads: 4
+
+[Sun Jul 19 15:52:03 2020]
+rule loadrawData:
+    input: /home/DATA/NA12878/pipelineTest/fastq/HG001_GIAB_chr20_1.fq, /home/DATA/NA12878/pipelineTest/fastq/HG001_GIAB_chr20_2.fq
+    output: ../../ngs_test_data/data1/rawdata/HG001/N/HG001_N_L1_1.fq.gz, ../../ngs_test_data/data1/rawdata/HG001/N/HG001_N_L1_2.fq.gz
+    log: ../../ngs_test_data/logs/qc/loadRawdata/HG001/N/HG001_N_L1_loaddata.log
+    jobid: 240
+    wildcards: case=HG001, sample=N, unit=L1
+    threads: 4
+
+[Sun Jul 19 15:52:03 2020]
+Finished job 125.
+1 of 241 steps (0.41%) done
+
+[Sun Jul 19 15:52:03 2020]
+rule LoadGenomeFile:
+    input: /home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    jobid: 127
+
+
+[Sun Jul 19 15:52:03 2020]
+rule GenomeIndexPicard:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    log: ../../ngs_test_data/logs/genomeindex/genomeindex_picard.log
+    jobid: 216
+
+
+[Sun Jul 19 15:52:03 2020]
+rule GenomeIndexBwa:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.amb, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.bwt, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.pac, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.ann, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.sa
+    log: ../../ngs_test_data/logs/genomeindex/genomeindex_bwa.log
+    jobid: 235
+
+[Sun Jul 19 15:52:03 2020]
+Finished job 127.
+2 of 241 steps (0.83%) done
+
+[Sun Jul 19 15:52:04 2020]
+rule GenomeIndexSamtools:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    output: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom
+    log: ../../ngs_test_data/logs/genomeindex/genomeindex_samtools.log
+    jobid: 126
+
+[Sun Jul 19 15:52:08 2020]
+Finished job 216.
+3 of 241 steps (1%) done
+[Sun Jul 19 15:52:08 2020]
+Finished job 126.
+4 of 241 steps (2%) done
+[Sun Jul 19 15:52:08 2020]
+Finished job 235.
+5 of 241 steps (2%) done
+[Sun Jul 19 15:52:13 2020]
+Finished job 240.
+6 of 241 steps (2%) done
+
+[Sun Jul 19 15:52:13 2020]
+rule fastp:
+    input: ../../ngs_test_data/data1/rawdata/HG001/N/HG001_N_L1_1.fq.gz, ../../ngs_test_data/data1/rawdata/HG001/N/HG001_N_L1_2.fq.gz
+    output: ../../ngs_test_data/data1/cleandata/fastp/HG001/N/HG001_N_L1_fastp_1.fq.gz, ../../ngs_test_data/data1/cleandata/fastp/HG001/N/HG001_N_L1_fastp_2.fq.gz, ../../ngs_test_data/data1/qc/fastp/HG001/N/HG001_N_L1_fastp.html, ../../ngs_test_data/data1/qc/fastp/HG001/N/HG001_N_L1_fastp.json
+    log: ../../ngs_test_data/logs/qc/fastp/HG001/N/HG001_N_L1_fastp.log
+    jobid: 237
+    benchmark: ../../ngs_test_data/benchmark/qc/fastp/HG001/N/HG001_N_L1_fastp.tsv
+    wildcards: case=HG001, sample=N, unit=L1
+    threads: 4
+
+[Sun Jul 19 15:52:19 2020]
+Finished job 237.
+7 of 241 steps (3%) done
+
+[Sun Jul 19 15:52:19 2020]
+rule Bwa:
+    input: ../../ngs_test_data/data1/cleandata/fastp/HG001/N/HG001_N_L1_fastp_1.fq.gz, ../../ngs_test_data/data1/cleandata/fastp/HG001/N/HG001_N_L1_fastp_2.fq.gz, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.bwt
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_L1_fastp_bwa_sorted.bam
+    log: ../../ngs_test_data/logs/align/bwa/HG001/N/HG001_N_L1_fastp_bwa.logs
+    jobid: 233
+    benchmark: ../../ngs_test_data/benchmark/align/bwa/HG001/N/HG001_N_L1_fastp.bwa.tsv
+    wildcards: case=HG001, sample=N, unit=L1, qcpipe=fastp
+    threads: 8
+
+[Sun Jul 19 15:52:40 2020]
+Finished job 238.
+8 of 241 steps (3%) done
+
+[Sun Jul 19 15:52:40 2020]
+rule fastp:
+    input: ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L1_1.fq.gz, ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L1_2.fq.gz
+    output: ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_1.fq.gz, ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_2.fq.gz, ../../ngs_test_data/data1/qc/fastp/HG001/N1/HG001_N1_L1_fastp.html, ../../ngs_test_data/data1/qc/fastp/HG001/N1/HG001_N1_L1_fastp.json
+    log: ../../ngs_test_data/logs/qc/fastp/HG001/N1/HG001_N1_L1_fastp.log
+    jobid: 234
+    benchmark: ../../ngs_test_data/benchmark/qc/fastp/HG001/N1/HG001_N1_L1_fastp.tsv
+    wildcards: case=HG001, sample=N1, unit=L1
+    threads: 4
+
+[Sun Jul 19 15:52:55 2020]
+Finished job 234.
+9 of 241 steps (4%) done
+
+[Sun Jul 19 15:52:55 2020]
+rule Bwa:
+    input: ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_1.fq.gz, ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_2.fq.gz, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.bwt
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_L1_fastp_bwa_sorted.bam
+    log: ../../ngs_test_data/logs/align/bwa/HG001/N1/HG001_N1_L1_fastp_bwa.logs
+    jobid: 231
+    benchmark: ../../ngs_test_data/benchmark/align/bwa/HG001/N1/HG001_N1_L1_fastp.bwa.tsv
+    wildcards: case=HG001, sample=N1, unit=L1, qcpipe=fastp
+    threads: 8
+
+[Sun Jul 19 15:54:06 2020]
+Finished job 239.
+10 of 241 steps (4%) done
+
+[Sun Jul 19 15:54:06 2020]
+rule fastp:
+    input: ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L2_1.fq.gz, ../../ngs_test_data/data1/rawdata/HG001/N1/HG001_N1_L2_2.fq.gz
+    output: ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_1.fq.gz, ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_2.fq.gz, ../../ngs_test_data/data1/qc/fastp/HG001/N1/HG001_N1_L2_fastp.html, ../../ngs_test_data/data1/qc/fastp/HG001/N1/HG001_N1_L2_fastp.json
+    log: ../../ngs_test_data/logs/qc/fastp/HG001/N1/HG001_N1_L2_fastp.log
+    jobid: 236
+    benchmark: ../../ngs_test_data/benchmark/qc/fastp/HG001/N1/HG001_N1_L2_fastp.tsv
+    wildcards: case=HG001, sample=N1, unit=L2
+    threads: 4
+
+[Sun Jul 19 15:54:12 2020]
+Finished job 236.
+11 of 241 steps (5%) done
+
+[Sun Jul 19 15:54:12 2020]
+rule Bwa:
+    input: ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_1.fq.gz, ../../ngs_test_data/data1/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_2.fq.gz, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.bwt
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_L2_fastp_bwa_sorted.bam
+    log: ../../ngs_test_data/logs/align/bwa/HG001/N1/HG001_N1_L2_fastp_bwa.logs
+    jobid: 232
+    benchmark: ../../ngs_test_data/benchmark/align/bwa/HG001/N1/HG001_N1_L2_fastp.bwa.tsv
+    wildcards: case=HG001, sample=N1, unit=L2, qcpipe=fastp
+    threads: 8
+
+[Sun Jul 19 15:55:25 2020]
+Finished job 232.
+12 of 241 steps (5%) done
+[Sun Jul 19 15:55:58 2020]
+Finished job 233.
+13 of 241 steps (5%) done
+
+[Sun Jul 19 15:55:58 2020]
+rule MergeBam:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_L1_fastp_bwa_sorted.bam
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa.bam
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa.merge.logs
+    jobid: 230
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa.merge.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa
+    threads: 8
+
+[Sun Jul 19 15:56:02 2020]
+Finished job 231.
+14 of 241 steps (6%) done
+
+[Sun Jul 19 15:56:02 2020]
+rule MergeBam:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_L1_fastp_bwa_sorted.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_L2_fastp_bwa_sorted.bam
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa.bam
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa.merge.logs
+    jobid: 229
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa.merge.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa
+    threads: 8
+
+[Sun Jul 19 15:56:12 2020]
+Finished job 229.
+15 of 241 steps (6%) done
+
+[Sun Jul 19 15:56:12 2020]
+rule MarkDupWithPicard:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa.bam
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.metrics
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.logs
+    jobid: 225
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa
+
+[Sun Jul 19 15:56:51 2020]
+Finished job 225.
+16 of 241 steps (7%) done
+
+[Sun Jul 19 15:56:51 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam.bai
+    jobid: 226
+    wildcards: prefix=../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup
+    threads: 8
+
+[Sun Jul 19 15:56:52 2020]
+Finished job 226.
+17 of 241 steps (7%) done
+
+[Sun Jul 19 15:56:52 2020]
+localrule NoneRealign:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.noneReAlign.bam.bai
+    jobid: 221
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup
+
+[Sun Jul 19 15:57:06 2020]
+Finished job 230.
+18 of 241 steps (7%) done
+
+[Sun Jul 19 15:57:06 2020]
+rule MarkDupWithPicard:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa.bam
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.metrics
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.logs
+    jobid: 227
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa
+
+[Sun Jul 19 15:57:13 2020]
+Finished job 227.
+19 of 241 steps (8%) done
+
+[Sun Jul 19 15:57:13 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam.bai
+    jobid: 228
+    wildcards: prefix=../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup
+    threads: 8
+
+[Sun Jul 19 15:57:14 2020]
+Finished job 228.
+20 of 241 steps (8%) done
+
+[Sun Jul 19 15:57:14 2020]
+localrule NoneRealign:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.noneReAlign.bam.bai
+    jobid: 223
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup
+
+[Sun Jul 19 15:57:52 2020]
+Finished job 221.
+21 of 241 steps (9%) done
+
+[Sun Jul 19 15:57:52 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    jobid: 222
+    wildcards: prefix=../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign
+    threads: 8
+
+[Sun Jul 19 15:57:53 2020]
+Finished job 222.
+22 of 241 steps (9%) done
+
+[Sun Jul 19 15:57:53 2020]
+localrule NoneBQSR:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    jobid: 219
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign
+
+[Sun Jul 19 15:58:16 2020]
+Finished job 223.
+23 of 241 steps (10%) done
+
+[Sun Jul 19 15:58:16 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    jobid: 224
+    wildcards: prefix=../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign
+    threads: 8
+
+[Sun Jul 19 15:58:18 2020]
+Finished job 224.
+24 of 241 steps (10%) done
+
+[Sun Jul 19 15:58:18 2020]
+localrule NoneBQSR:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    jobid: 220
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign
+
+[Sun Jul 19 15:58:54 2020]
+Finished job 219.
+25 of 241 steps (10%) done
+
+[Sun Jul 19 15:58:54 2020]
+localrule NoneLeftALign:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    jobid: 217
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR
+
+[Sun Jul 19 15:59:18 2020]
+Finished job 220.
+26 of 241 steps (11%) done
+
+[Sun Jul 19 15:59:18 2020]
+localrule NoneLeftALign:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    jobid: 218
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR
+
+[Sun Jul 19 15:59:57 2020]
+Finished job 217.
+27 of 241 steps (11%) done
+
+[Sun Jul 19 15:59:57 2020]
+localrule NoneFixMate:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    jobid: 214
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR, leftAlign=noneLeftAlign
+
+[Sun Jul 19 16:00:21 2020]
+Finished job 218.
+28 of 241 steps (12%) done
+
+[Sun Jul 19 16:00:21 2020]
+localrule NoneFixMate:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    output: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    jobid: 215
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR, leftAlign=noneLeftAlign
+
+[Sun Jul 19 16:00:58 2020]
+Finished job 214.
+29 of 241 steps (12%) done
+
+[Sun Jul 19 16:00:58 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data1/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/HQbam/changeLogs/HG001_N1.logs
+    jobid: 124
+    wildcards: case=HG001, sample=N1
+
+[Sun Jul 19 16:01:24 2020]
+Finished job 215.
+30 of 241 steps (12%) done
+
+[Sun Jul 19 16:01:24 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data1/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/HQbam/changeLogs/HG001_N.logs
+    jobid: 128
+    wildcards: case=HG001, sample=N
+
+[Sun Jul 19 16:02:01 2020]
+Finished job 124.
+31 of 241 steps (13%) done
+
+[Sun Jul 19 16:02:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr15.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr15.logs
+    jobid: 143
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr15.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr15
+    threads: 4
+
+[Sun Jul 19 16:02:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr16.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr16.logs
+    jobid: 144
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr16.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr16
+    threads: 4
+
+[Sun Jul 19 16:02:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr13.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr13.logs
+    jobid: 141
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr13.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr13
+    threads: 4
+
+[Sun Jul 19 16:02:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr1.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr1.logs
+    jobid: 129
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr1.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr1
+    threads: 4
+
+[Sun Jul 19 16:02:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr22.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr22.logs
+    jobid: 150
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr22.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr22
+    threads: 4
+
+[Sun Jul 19 16:02:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr12.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr12.logs
+    jobid: 140
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr12.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr12
+    threads: 4
+
+[Sun Jul 19 16:02:01 2020]
+rule Smoove:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data1/germlineVar/smoove/perSample/HG001_N1/HG001_N1, ../../ngs_test_data/data1/germlineVar/smoove/perSample/HG001_N1/HG001_N1.smoove.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/smoove/perSample/HG001_N1/HG001_N1.smoove.logs
+    jobid: 28
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/smoove/perSample/HG001_N1/HG001_N1.smoove.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:02:27 2020]
+Finished job 128.
+32 of 241 steps (13%) done
+
+[Sun Jul 19 16:02:27 2020]
+rule Delly_Call:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N1/HG001_N1.delly.call.bcf
+    log: ../../ngs_test_data/logs/gremlineVar/delly/perSample/HG001_N1/HG001_N1.dellycall.logs
+    jobid: 212
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/delly/perSample/HG001_N1/HG001_N1.dellycall.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:03:25 2020]
+Finished job 28.
+33 of 241 steps (14%) done
+
+[Sun Jul 19 16:03:25 2020]
+rule Bcftools_Mpileup:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.mpileup.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.MergeVcf.logs
+    jobid: 204
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:03:39 2020]
+Finished job 212.
+34 of 241 steps (14%) done
+[Sun Jul 19 16:03:39 2020]
+Finished job 150.
+35 of 241 steps (15%) done
+
+[Sun Jul 19 16:03:39 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr19.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr19.logs
+    jobid: 147
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr19.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr19
+    threads: 4
+
+[Sun Jul 19 16:03:39 2020]
+rule Delly_GT:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N1/HG001_N1.delly.call.bcf, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N1/HG001_N1.delly.raw.bcf
+    log: ../../ngs_test_data/logs/gremlineVar/delly/perSample/HG001_N1/HG001_N1.dellyGT.logs
+    jobid: 122
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/delly/perSample/HG001_N1/HG001_N1.dellyGT.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:04:00 2020]
+Finished job 122.
+36 of 241 steps (15%) done
+[Sun Jul 19 16:04:00 2020]
+Finished job 144.
+37 of 241 steps (15%) done
+
+[Sun Jul 19 16:04:00 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr4.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr4.logs
+    jobid: 132
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr4.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr4
+    threads: 4
+
+[Sun Jul 19 16:04:00 2020]
+rule Samtools_Mpileup:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.Samtools.mpileup
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Samtools.MergeVcf.logs
+    jobid: 206
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Samtools.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:04:15 2020]
+Finished job 143.
+38 of 241 steps (16%) done
+
+[Sun Jul 19 16:04:15 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr17.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr17.logs
+    jobid: 145
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr17.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr17
+    threads: 4
+
+[Sun Jul 19 16:04:21 2020]
+Finished job 141.
+39 of 241 steps (16%) done
+
+[Sun Jul 19 16:04:21 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr7.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr7.logs
+    jobid: 135
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr7.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr7
+    threads: 4
+
+[Sun Jul 19 16:04:34 2020]
+Finished job 140.
+40 of 241 steps (17%) done
+
+[Sun Jul 19 16:04:34 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr5.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr5.logs
+    jobid: 133
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr5.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr5
+    threads: 4
+
+[Sun Jul 19 16:04:34 2020]
+Finished job 147.
+41 of 241 steps (17%) done
+
+[Sun Jul 19 16:04:34 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr14.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr14.logs
+    jobid: 142
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr14.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr14
+    threads: 4
+
+[Sun Jul 19 16:05:17 2020]
+Finished job 206.
+42 of 241 steps (17%) done
+
+[Sun Jul 19 16:05:17 2020]
+rule Delly_Call:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N/HG001_N.delly.call.bcf
+    log: ../../ngs_test_data/logs/gremlineVar/delly/perSample/HG001_N/HG001_N.dellycall.logs
+    jobid: 213
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/delly/perSample/HG001_N/HG001_N.dellycall.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:05:30 2020]
+Finished job 145.
+43 of 241 steps (18%) done
+
+[Sun Jul 19 16:05:30 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr21.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr21.logs
+    jobid: 149
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr21.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr21
+    threads: 4
+
+[Sun Jul 19 16:06:01 2020]
+Finished job 129.
+44 of 241 steps (18%) done
+[Sun Jul 19 16:06:01 2020]
+Finished job 142.
+45 of 241 steps (19%) done
+
+[Sun Jul 19 16:06:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr2.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr2.logs
+    jobid: 130
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr2.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr2
+    threads: 4
+
+[Sun Jul 19 16:06:01 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr3.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr3.logs
+    jobid: 131
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr3.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr3
+    threads: 4
+
+[Sun Jul 19 16:06:17 2020]
+Finished job 149.
+46 of 241 steps (19%) done
+
+[Sun Jul 19 16:06:17 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrX.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chrX.logs
+    jobid: 151
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chrX.tsv
+    wildcards: bam_sample=HG001_N1, contig=chrX
+    threads: 4
+
+[Sun Jul 19 16:06:17 2020]
+Finished job 135.
+47 of 241 steps (20%) done
+
+[Sun Jul 19 16:06:18 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr11.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr11.logs
+    jobid: 139
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr11.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr11
+    threads: 4
+
+[Sun Jul 19 16:06:26 2020]
+Finished job 132.
+48 of 241 steps (20%) done
+
+[Sun Jul 19 16:06:26 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr10.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr10.logs
+    jobid: 138
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr10.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr10
+    threads: 4
+
+[Sun Jul 19 16:06:49 2020]
+Finished job 133.
+49 of 241 steps (20%) done
+
+[Sun Jul 19 16:06:49 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrY.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chrY.logs
+    jobid: 152
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chrY.tsv
+    wildcards: bam_sample=HG001_N1, contig=chrY
+    threads: 4
+
+[Sun Jul 19 16:07:11 2020]
+Finished job 213.
+50 of 241 steps (21%) done
+
+[Sun Jul 19 16:07:11 2020]
+rule Delly_GT:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N/HG001_N.delly.call.bcf, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N/HG001_N.delly.raw.bcf
+    log: ../../ngs_test_data/logs/gremlineVar/delly/perSample/HG001_N/HG001_N.dellyGT.logs
+    jobid: 123
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/delly/perSample/HG001_N/HG001_N.dellyGT.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:07:38 2020]
+Finished job 152.
+51 of 241 steps (21%) done
+
+[Sun Jul 19 16:07:38 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr9.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr9.logs
+    jobid: 137
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr9.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr9
+    threads: 4
+
+[Sun Jul 19 16:07:45 2020]
+Finished job 123.
+52 of 241 steps (22%) done
+
+[Sun Jul 19 16:07:45 2020]
+rule Smoove:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.exclude.cnvnator.bed
+    output: ../../ngs_test_data/data1/germlineVar/smoove/perSample/HG001_N/HG001_N, ../../ngs_test_data/data1/germlineVar/smoove/perSample/HG001_N/HG001_N.smoove.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/smoove/perSample/HG001_N/HG001_N.smoove.logs
+    jobid: 29
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/smoove/perSample/HG001_N/HG001_N.smoove.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:07:58 2020]
+Finished job 139.
+53 of 241 steps (22%) done
+
+[Sun Jul 19 16:07:58 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr20.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr20.logs
+    jobid: 148
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr20.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr20
+    threads: 4
+
+[Sun Jul 19 16:08:15 2020]
+Finished job 151.
+54 of 241 steps (22%) done
+
+[Sun Jul 19 16:08:15 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr6.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr6.logs
+    jobid: 134
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr6.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr6
+    threads: 4
+
+[Sun Jul 19 16:08:19 2020]
+Finished job 138.
+55 of 241 steps (23%) done
+
+[Sun Jul 19 16:08:19 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr18.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr18.logs
+    jobid: 146
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr18.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr18
+    threads: 4
+
+[Sun Jul 19 16:08:23 2020]
+Finished job 131.
+56 of 241 steps (23%) done
+
+[Sun Jul 19 16:08:23 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr8.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr8.logs
+    jobid: 136
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chr8.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr8
+    threads: 4
+
+[Sun Jul 19 16:08:59 2020]
+Finished job 29.
+57 of 241 steps (24%) done
+
+[Sun Jul 19 16:08:59 2020]
+rule Samtools_Mpileup:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.Samtools.mpileup
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Samtools.MergeVcf.logs
+    jobid: 209
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Samtools.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:09:08 2020]
+Finished job 130.
+58 of 241 steps (24%) done
+
+[Sun Jul 19 16:09:08 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrM.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chrM.logs
+    jobid: 153
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.chrM.tsv
+    wildcards: bam_sample=HG001_N1, contig=chrM
+    threads: 4
+
+[Sun Jul 19 16:09:16 2020]
+Finished job 153.
+59 of 241 steps (24%) done
+
+[Sun Jul 19 16:09:16 2020]
+rule FB_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N1.bam, ../../ngs_test_data/data1/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw.vcf, ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/FB/perSample/HG001_N1/HG001_N1.FB.MergeVcf.logs
+    jobid: 106
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/FB/perSample/HG001_N1/HG001_N1.FB.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 4
+
+[Sun Jul 19 16:09:24 2020]
+Finished job 209.
+60 of 241 steps (25%) done
+
+[Sun Jul 19 16:09:24 2020]
+rule Bcftools_Mpileup:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.mpileup.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.MergeVcf.logs
+    jobid: 205
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:09:29 2020]
+Finished job 146.
+61 of 241 steps (25%) done
+[Sun Jul 19 16:09:31 2020]
+Finished job 137.
+62 of 241 steps (26%) done
+
+[Sun Jul 19 16:09:32 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr2.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr2.logs
+    jobid: 155
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr2.tsv
+    wildcards: bam_sample=HG001_N, contig=chr2
+    threads: 4
+
+[Sun Jul 19 16:09:32 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr21.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr21.logs
+    jobid: 174
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr21.tsv
+    wildcards: bam_sample=HG001_N, contig=chr21
+    threads: 4
+
+[Sun Jul 19 16:10:13 2020]
+Finished job 136.
+63 of 241 steps (26%) done
+
+[Sun Jul 19 16:10:13 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr14.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr14.logs
+    jobid: 167
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr14.tsv
+    wildcards: bam_sample=HG001_N, contig=chr14
+    threads: 4
+
+[Sun Jul 19 16:10:27 2020]
+Finished job 134.
+64 of 241 steps (27%) done
+[Sun Jul 19 16:10:27 2020]
+Finished job 174.
+65 of 241 steps (27%) done
+
+[Sun Jul 19 16:10:27 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr12.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr12.logs
+    jobid: 165
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr12.tsv
+    wildcards: bam_sample=HG001_N, contig=chr12
+    threads: 4
+
+[Sun Jul 19 16:10:27 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr5.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr5.logs
+    jobid: 158
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr5.tsv
+    wildcards: bam_sample=HG001_N, contig=chr5
+    threads: 4
+
+[Sun Jul 19 16:11:39 2020]
+Finished job 167.
+66 of 241 steps (27%) done
+
+[Sun Jul 19 16:11:39 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr13.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr13.logs
+    jobid: 166
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr13.tsv
+    wildcards: bam_sample=HG001_N, contig=chr13
+    threads: 4
+
+[Sun Jul 19 16:12:10 2020]
+Finished job 165.
+67 of 241 steps (28%) done
+
+[Sun Jul 19 16:12:10 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr8.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr8.logs
+    jobid: 161
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr8.tsv
+    wildcards: bam_sample=HG001_N, contig=chr8
+    threads: 4
+
+[Sun Jul 19 16:12:15 2020]
+Finished job 205.
+68 of 241 steps (28%) done
+
+[Sun Jul 19 16:12:15 2020]
+rule Varscan_Call_INDEL:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.Samtools.mpileup
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.INDEL.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Call_INDEL.logs
+    jobid: 208
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Call_INDEL.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:12:41 2020]
+Finished job 155.
+69 of 241 steps (29%) done
+
+[Sun Jul 19 16:12:41 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr6.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr6.logs
+    jobid: 159
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr6.tsv
+    wildcards: bam_sample=HG001_N, contig=chr6
+    threads: 4
+
+[Sun Jul 19 16:12:45 2020]
+Finished job 158.
+70 of 241 steps (29%) done
+
+[Sun Jul 19 16:12:45 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr18.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr18.logs
+    jobid: 171
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr18.tsv
+    wildcards: bam_sample=HG001_N, contig=chr18
+    threads: 4
+
+[Sun Jul 19 16:13:13 2020]
+Finished job 166.
+71 of 241 steps (29%) done
+
+[Sun Jul 19 16:13:13 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrM.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chrM.logs
+    jobid: 178
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chrM.tsv
+    wildcards: bam_sample=HG001_N, contig=chrM
+    threads: 4
+
+[Sun Jul 19 16:13:22 2020]
+Finished job 178.
+72 of 241 steps (30%) done
+
+[Sun Jul 19 16:13:22 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrY.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chrY.logs
+    jobid: 177
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chrY.tsv
+    wildcards: bam_sample=HG001_N, contig=chrY
+    threads: 4
+
+[Sun Jul 19 16:13:55 2020]
+Finished job 171.
+73 of 241 steps (30%) done
+
+[Sun Jul 19 16:13:55 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr10.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr10.logs
+    jobid: 163
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr10.tsv
+    wildcards: bam_sample=HG001_N, contig=chr10
+    threads: 4
+
+Removing temporary output file ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw.vcf.
+[Sun Jul 19 16:14:00 2020]
+Finished job 106.
+74 of 241 steps (31%) done
+
+[Sun Jul 19 16:14:00 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr9.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr9.logs
+    jobid: 162
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr9.tsv
+    wildcards: bam_sample=HG001_N, contig=chr9
+    threads: 4
+
+[Sun Jul 19 16:14:04 2020]
+Finished job 161.
+75 of 241 steps (31%) done
+
+[Sun Jul 19 16:14:04 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr20.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr20.logs
+    jobid: 173
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr20.tsv
+    wildcards: bam_sample=HG001_N, contig=chr20
+    threads: 4
+
+[Sun Jul 19 16:14:10 2020]
+Finished job 208.
+76 of 241 steps (32%) done
+
+[Sun Jul 19 16:14:10 2020]
+rule Varscan_Call:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.Samtools.mpileup
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Call.logs
+    jobid: 114
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Call.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:14:19 2020]
+Finished job 177.
+77 of 241 steps (32%) done
+
+[Sun Jul 19 16:14:19 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr3.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr3.logs
+    jobid: 156
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr3.tsv
+    wildcards: bam_sample=HG001_N, contig=chr3
+    threads: 4
+
+[Sun Jul 19 16:14:46 2020]
+Finished job 159.
+78 of 241 steps (32%) done
+
+[Sun Jul 19 16:14:46 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr11.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr11.logs
+    jobid: 164
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr11.tsv
+    wildcards: bam_sample=HG001_N, contig=chr11
+    threads: 4
+
+[Sun Jul 19 16:15:43 2020]
+Finished job 163.
+79 of 241 steps (33%) done
+
+[Sun Jul 19 16:15:43 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrX.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chrX.logs
+    jobid: 176
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chrX.tsv
+    wildcards: bam_sample=HG001_N, contig=chrX
+    threads: 4
+
+[Sun Jul 19 16:15:54 2020]
+Finished job 162.
+80 of 241 steps (33%) done
+
+[Sun Jul 19 16:15:54 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr15.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr15.logs
+    jobid: 168
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr15.tsv
+    wildcards: bam_sample=HG001_N, contig=chr15
+    threads: 4
+
+[Sun Jul 19 16:16:30 2020]
+Finished job 148.
+81 of 241 steps (34%) done
+
+[Sun Jul 19 16:16:30 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr20.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr20.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr20.logs
+    jobid: 49
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr20.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr20
+    threads: 4
+
+[Sun Jul 19 16:16:35 2020]
+Finished job 164.
+82 of 241 steps (34%) done
+
+[Sun Jul 19 16:16:35 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr22.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr22.logs
+    jobid: 175
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr22.tsv
+    wildcards: bam_sample=HG001_N, contig=chr22
+    threads: 4
+
+[Sun Jul 19 16:16:51 2020]
+Finished job 156.
+83 of 241 steps (34%) done
+
+[Sun Jul 19 16:16:51 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr4.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr4.logs
+    jobid: 157
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr4.tsv
+    wildcards: bam_sample=HG001_N, contig=chr4
+    threads: 4
+
+[Sun Jul 19 16:17:08 2020]
+Finished job 49.
+84 of 241 steps (35%) done
+
+[Sun Jul 19 16:17:08 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr19.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr19.logs
+    jobid: 172
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr19.tsv
+    wildcards: bam_sample=HG001_N, contig=chr19
+    threads: 4
+
+[Sun Jul 19 16:17:20 2020]
+Finished job 168.
+85 of 241 steps (35%) done
+
+[Sun Jul 19 16:17:20 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr16.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr16.logs
+    jobid: 169
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr16.tsv
+    wildcards: bam_sample=HG001_N, contig=chr16
+    threads: 4
+
+[Sun Jul 19 16:17:25 2020]
+Finished job 204.
+86 of 241 steps (36%) done
+
+[Sun Jul 19 16:17:25 2020]
+rule Varscan_Call_SNV:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.Samtools.mpileup
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.SNV.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Call_SNV.logs
+    jobid: 207
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Call_SNV.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:17:26 2020]
+Finished job 175.
+87 of 241 steps (36%) done
+
+[Sun Jul 19 16:17:26 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr7.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr7.logs
+    jobid: 160
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr7.tsv
+    wildcards: bam_sample=HG001_N, contig=chr7
+    threads: 4
+
+[Sun Jul 19 16:17:45 2020]
+Finished job 176.
+88 of 241 steps (37%) done
+
+[Sun Jul 19 16:17:45 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr17.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr17.logs
+    jobid: 170
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr17.tsv
+    wildcards: bam_sample=HG001_N, contig=chr17
+    threads: 4
+
+[Sun Jul 19 16:18:00 2020]
+Finished job 172.
+89 of 241 steps (37%) done
+
+[Sun Jul 19 16:18:00 2020]
+rule HC_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai_chrom, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.dict
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr1.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr1.logs
+    jobid: 154
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.chr1.tsv
+    wildcards: bam_sample=HG001_N, contig=chr1
+    threads: 4
+
+[Sun Jul 19 16:18:36 2020]
+Finished job 169.
+90 of 241 steps (37%) done
+
+[Sun Jul 19 16:18:36 2020]
+rule FB_CallVar:
+    input: ../../ngs_test_data/data1/HQbam/HG001_N.bam, ../../ngs_test_data/data1/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw.vcf, ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/FB/perSample/HG001_N/HG001_N.FB.MergeVcf.logs
+    jobid: 108
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/FB/perSample/HG001_N/HG001_N.FB.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 4
+
+[Sun Jul 19 16:19:02 2020]
+Finished job 170.
+91 of 241 steps (38%) done
+
+[Sun Jul 19 16:19:02 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr22.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr22.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr22.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr22.CombineCalls.logs
+    jobid: 200
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr22.CombineCalls.tsv
+    wildcards: contig=chr22
+    threads: 4
+
+[Sun Jul 19 16:19:15 2020]
+Finished job 207.
+92 of 241 steps (38%) done
+
+[Sun Jul 19 16:19:15 2020]
+rule Bcftools_Call:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.mpileup.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.Bcftools_Call.logs
+    jobid: 110
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.Bcftools_Call.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:19:19 2020]
+Finished job 157.
+93 of 241 steps (39%) done
+
+[Sun Jul 19 16:19:19 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr9.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr9.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr9.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr9.CombineCalls.logs
+    jobid: 187
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr9.CombineCalls.tsv
+    wildcards: contig=chr9
+    threads: 4
+
+[Sun Jul 19 16:19:19 2020]
+Finished job 173.
+94 of 241 steps (39%) done
+
+[Sun Jul 19 16:19:19 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr20.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr20.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr20.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr20.CombineCalls.logs
+    jobid: 198
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr20.CombineCalls.tsv
+    wildcards: contig=chr20
+    threads: 4
+
+[Sun Jul 19 16:19:37 2020]
+Finished job 160.
+95 of 241 steps (39%) done
+
+[Sun Jul 19 16:19:37 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr20.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr20.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr20.logs
+    jobid: 74
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr20.tsv
+    wildcards: bam_sample=HG001_N, contig=chr20
+    threads: 4
+
+[Sun Jul 19 16:19:51 2020]
+Finished job 74.
+96 of 241 steps (40%) done
+
+[Sun Jul 19 16:19:51 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr21.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr21.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr21.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr21.CombineCalls.logs
+    jobid: 199
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr21.CombineCalls.tsv
+    wildcards: contig=chr21
+    threads: 4
+
+[Sun Jul 19 16:20:22 2020]
+Finished job 114.
+97 of 241 steps (40%) done
+
+[Sun Jul 19 16:20:22 2020]
+rule Varscan_Filter:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Filter.logs
+    jobid: 115
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Filter.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:20:43 2020]
+Finished job 198.
+98 of 241 steps (41%) done
+
+[Sun Jul 19 16:20:43 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr20.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr20.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr20.GT.logs
+    jobid: 100
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr20.GT.tsv
+    wildcards: contig=chr20
+    threads: 4
+
+[Sun Jul 19 16:20:56 2020]
+Finished job 199.
+99 of 241 steps (41%) done
+
+[Sun Jul 19 16:20:56 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr22.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr22.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr22.logs
+    jobid: 76
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr22.tsv
+    wildcards: bam_sample=HG001_N, contig=chr22
+    threads: 4
+
+[Sun Jul 19 16:21:02 2020]
+Finished job 200.
+100 of 241 steps (41%) done
+
+[Sun Jul 19 16:21:02 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr22.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr22.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr22.GT.logs
+    jobid: 102
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr22.GT.tsv
+    wildcards: contig=chr22
+    threads: 4
+
+[Sun Jul 19 16:21:02 2020]
+Finished job 154.
+101 of 241 steps (42%) done
+
+[Sun Jul 19 16:21:02 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr13.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr13.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr13.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr13.CombineCalls.logs
+    jobid: 191
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr13.CombineCalls.tsv
+    wildcards: contig=chr13
+    threads: 4
+
+[Sun Jul 19 16:21:07 2020]
+Finished job 76.
+102 of 241 steps (42%) done
+
+[Sun Jul 19 16:21:07 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr9.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr9.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr9.logs
+    jobid: 63
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr9.tsv
+    wildcards: bam_sample=HG001_N, contig=chr9
+    threads: 4
+
+[Sun Jul 19 16:21:10 2020]
+Finished job 102.
+103 of 241 steps (43%) done
+
+[Sun Jul 19 16:21:10 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr3.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr3.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr3.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr3.CombineCalls.logs
+    jobid: 181
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr3.CombineCalls.tsv
+    wildcards: contig=chr3
+    threads: 4
+
+[Sun Jul 19 16:21:17 2020]
+Finished job 63.
+104 of 241 steps (43%) done
+
+[Sun Jul 19 16:21:17 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrY.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrY.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrY.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chrY.CombineCalls.logs
+    jobid: 202
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chrY.CombineCalls.tsv
+    wildcards: contig=chrY
+    threads: 4
+
+[Sun Jul 19 16:21:23 2020]
+Finished job 100.
+105 of 241 steps (44%) done
+
+[Sun Jul 19 16:21:23 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr16.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr16.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr16.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr16.CombineCalls.logs
+    jobid: 194
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr16.CombineCalls.tsv
+    wildcards: contig=chr16
+    threads: 4
+
+[Sun Jul 19 16:21:47 2020]
+Finished job 187.
+106 of 241 steps (44%) done
+
+[Sun Jul 19 16:21:47 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr9.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr9.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr9.GT.logs
+    jobid: 89
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr9.GT.tsv
+    wildcards: contig=chr9
+    threads: 4
+
+[Sun Jul 19 16:21:58 2020]
+Finished job 89.
+107 of 241 steps (44%) done
+
+[Sun Jul 19 16:21:58 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr17.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr17.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr17.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr17.CombineCalls.logs
+    jobid: 195
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr17.CombineCalls.tsv
+    wildcards: contig=chr17
+    threads: 4
+
+[Sun Jul 19 16:22:12 2020]
+Finished job 110.
+108 of 241 steps (45%) done
+
+[Sun Jul 19 16:22:12 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw.vcf.gz.tbi
+    jobid: 10
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw
+
+[Sun Jul 19 16:22:12 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.raw.vcf.gz.tbi
+    jobid: 18
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.raw
+
+[Sun Jul 19 16:22:15 2020]
+Finished job 10.
+109 of 241 steps (45%) done
+
+[Sun Jul 19 16:22:15 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.raw.vcf.gz.tbi
+    jobid: 14
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.raw
+
+[Sun Jul 19 16:22:16 2020]
+Finished job 14.
+110 of 241 steps (46%) done
+[Sun Jul 19 16:22:22 2020]
+Finished job 202.
+111 of 241 steps (46%) done
+
+[Sun Jul 19 16:22:22 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr15.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr15.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr15.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr15.CombineCalls.logs
+    jobid: 193
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr15.CombineCalls.tsv
+    wildcards: contig=chr15
+    threads: 4
+
+[Sun Jul 19 16:22:32 2020]
+Finished job 18.
+112 of 241 steps (46%) done
+
+[Sun Jul 19 16:22:32 2020]
+rule Varscan_Call_SNV:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.Samtools.mpileup
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.SNV.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Call_SNV.logs
+    jobid: 210
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Call_SNV.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+Removing temporary output file ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw.vcf.
+[Sun Jul 19 16:22:52 2020]
+Finished job 108.
+113 of 241 steps (47%) done
+
+[Sun Jul 19 16:22:52 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr2.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr2.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr2.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr2.CombineCalls.logs
+    jobid: 180
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr2.CombineCalls.tsv
+    wildcards: contig=chr2
+    threads: 4
+
+[Sun Jul 19 16:22:52 2020]
+Finished job 195.
+114 of 241 steps (47%) done
+
+[Sun Jul 19 16:22:52 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr4.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr4.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr4.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr4.CombineCalls.logs
+    jobid: 182
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr4.CombineCalls.tsv
+    wildcards: contig=chr4
+    threads: 4
+
+[Sun Jul 19 16:22:55 2020]
+Finished job 210.
+115 of 241 steps (48%) done
+
+[Sun Jul 19 16:22:55 2020]
+rule Varscan_Call:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.Samtools.mpileup
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Call.logs
+    jobid: 118
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Call.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:23:13 2020]
+Finished job 181.
+116 of 241 steps (48%) done
+
+[Sun Jul 19 16:23:13 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr14.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr14.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr14.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr14.CombineCalls.logs
+    jobid: 192
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr14.CombineCalls.tsv
+    wildcards: contig=chr14
+    threads: 4
+
+[Sun Jul 19 16:23:19 2020]
+Finished job 191.
+117 of 241 steps (49%) done
+
+[Sun Jul 19 16:23:19 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrX.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrX.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrX.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chrX.CombineCalls.logs
+    jobid: 201
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chrX.CombineCalls.tsv
+    wildcards: contig=chrX
+    threads: 4
+
+[Sun Jul 19 16:23:50 2020]
+Finished job 118.
+118 of 241 steps (49%) done
+
+[Sun Jul 19 16:23:50 2020]
+rule Varscan_Call_INDEL:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.Samtools.mpileup
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.INDEL.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Call_INDEL.logs
+    jobid: 211
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Call_INDEL.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:24:12 2020]
+Finished job 211.
+119 of 241 steps (49%) done
+
+[Sun Jul 19 16:24:13 2020]
+rule Bcftools_Call:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.mpileup.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.Bcftools_Call.logs
+    jobid: 112
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.Bcftools_Call.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:24:19 2020]
+Finished job 193.
+120 of 241 steps (50%) done
+
+[Sun Jul 19 16:24:19 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr6.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr6.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr6.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr6.CombineCalls.logs
+    jobid: 184
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr6.CombineCalls.tsv
+    wildcards: contig=chr6
+    threads: 4
+
+[Sun Jul 19 16:24:26 2020]
+Finished job 194.
+121 of 241 steps (50%) done
+
+[Sun Jul 19 16:24:26 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr10.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr10.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr10.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr10.CombineCalls.logs
+    jobid: 188
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr10.CombineCalls.tsv
+    wildcards: contig=chr10
+    threads: 4
+
+[Sun Jul 19 16:24:27 2020]
+Finished job 201.
+122 of 241 steps (51%) done
+
+[Sun Jul 19 16:24:27 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr18.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr18.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr18.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr18.CombineCalls.logs
+    jobid: 196
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr18.CombineCalls.tsv
+    wildcards: contig=chr18
+    threads: 4
+
+[Sun Jul 19 16:24:37 2020]
+Finished job 112.
+123 of 241 steps (51%) done
+
+[Sun Jul 19 16:24:37 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.raw.vcf.gz.tbi
+    jobid: 22
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.raw
+
+[Sun Jul 19 16:24:37 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw.vcf.gz.tbi
+    jobid: 12
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw
+
+[Sun Jul 19 16:24:39 2020]
+Finished job 12.
+124 of 241 steps (51%) done
+
+[Sun Jul 19 16:24:40 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.raw.vcf.gz.tbi
+    jobid: 16
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.raw
+
+[Sun Jul 19 16:24:41 2020]
+Finished job 16.
+125 of 241 steps (52%) done
+[Sun Jul 19 16:24:41 2020]
+Finished job 22.
+126 of 241 steps (52%) done
+
+[Sun Jul 19 16:24:41 2020]
+rule Varscan_Filter:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Filter.logs
+    jobid: 119
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Filter.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:25:01 2020]
+Finished job 182.
+127 of 241 steps (53%) done
+
+[Sun Jul 19 16:25:01 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr7.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr7.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr7.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr7.CombineCalls.logs
+    jobid: 185
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr7.CombineCalls.tsv
+    wildcards: contig=chr7
+    threads: 4
+
+[Sun Jul 19 16:25:07 2020]
+Finished job 180.
+128 of 241 steps (53%) done
+[Sun Jul 19 16:25:07 2020]
+Finished job 192.
+129 of 241 steps (54%) done
+
+[Sun Jul 19 16:25:07 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr5.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr5.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr5.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr5.CombineCalls.logs
+    jobid: 183
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr5.CombineCalls.tsv
+    wildcards: contig=chr5
+    threads: 4
+
+[Sun Jul 19 16:25:07 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr11.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr11.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr11.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr11.CombineCalls.logs
+    jobid: 189
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr11.CombineCalls.tsv
+    wildcards: contig=chr11
+    threads: 4
+
+[Sun Jul 19 16:25:20 2020]
+Finished job 184.
+130 of 241 steps (54%) done
+
+[Sun Jul 19 16:25:20 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr8.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr8.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr8.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr8.CombineCalls.logs
+    jobid: 186
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr8.CombineCalls.tsv
+    wildcards: contig=chr8
+    threads: 4
+
+[Sun Jul 19 16:25:34 2020]
+Finished job 119.
+131 of 241 steps (54%) done
+
+[Sun Jul 19 16:25:35 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.pass.vcf.gz.tbi
+    jobid: 23
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.pass
+
+[Sun Jul 19 16:25:35 2020]
+Finished job 188.
+132 of 241 steps (55%) done
+
+[Sun Jul 19 16:25:35 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr19.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr19.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr19.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr19.CombineCalls.logs
+    jobid: 197
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr19.CombineCalls.tsv
+    wildcards: contig=chr19
+    threads: 4
+
+[Sun Jul 19 16:25:36 2020]
+Finished job 196.
+133 of 241 steps (55%) done
+
+[Sun Jul 19 16:25:37 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr12.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr12.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr12.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr12.CombineCalls.logs
+    jobid: 190
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr12.CombineCalls.tsv
+    wildcards: contig=chr12
+    threads: 4
+
+[Sun Jul 19 16:25:39 2020]
+Finished job 23.
+134 of 241 steps (56%) done
+
+[Sun Jul 19 16:25:39 2020]
+rule Bcftools_Filter:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.Bcftools_Filter.logs
+    jobid: 111
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.Bcftools_Filter.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:25:42 2020]
+Finished job 111.
+135 of 241 steps (56%) done
+
+[Sun Jul 19 16:25:42 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.pass.vcf.gz.tbi
+    jobid: 15
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.pass
+
+[Sun Jul 19 16:25:45 2020]
+Finished job 15.
+136 of 241 steps (56%) done
+
+[Sun Jul 19 16:25:45 2020]
+rule Bcftools_Filter:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.Bcftools_Filter.logs
+    jobid: 113
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.Bcftools_Filter.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:25:48 2020]
+Finished job 113.
+137 of 241 steps (57%) done
+
+[Sun Jul 19 16:25:48 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.pass.vcf.gz.tbi
+    jobid: 17
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.pass
+
+[Sun Jul 19 16:25:50 2020]
+Finished job 17.
+138 of 241 steps (57%) done
+
+[Sun Jul 19 16:25:50 2020]
+rule Varscan_Filter_SNV:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.SNV.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.SNV.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Filter_SNV.logs
+    jobid: 120
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Filter_SNV.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:25:51 2020]
+Finished job 120.
+139 of 241 steps (58%) done
+
+[Sun Jul 19 16:25:51 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.SNV.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.SNV.pass.vcf.gz.tbi
+    jobid: 24
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.SNV.pass
+
+[Sun Jul 19 16:25:59 2020]
+Finished job 24.
+140 of 241 steps (58%) done
+
+[Sun Jul 19 16:25:59 2020]
+rule Delly2Bcf2vcfgz:
+    input: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N/HG001_N.delly.raw.bcf
+    output: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N/HG001_N.delly.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/delly/perSample/HG001_N/HG001_N.dellybcf2vcfgz.logs
+    jobid: 27
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/delly/perSample/HG001_N/HG001_N.dellybcf2vcfgz.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:26:00 2020]
+Finished job 185.
+141 of 241 steps (59%) done
+
+[Sun Jul 19 16:26:00 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr1.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr1.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr1.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr1.CombineCalls.logs
+    jobid: 179
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr1.CombineCalls.tsv
+    wildcards: contig=chr1
+    threads: 4
+
+[Sun Jul 19 16:26:01 2020]
+Finished job 27.
+142 of 241 steps (59%) done
+
+[Sun Jul 19 16:26:01 2020]
+rule Delly2Bcf2vcfgz:
+    input: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N1/HG001_N1.delly.raw.bcf
+    output: ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N1/HG001_N1.delly.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/delly/perSample/HG001_N1/HG001_N1.dellybcf2vcfgz.logs
+    jobid: 26
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/delly/perSample/HG001_N1/HG001_N1.dellybcf2vcfgz.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:26:02 2020]
+Finished job 26.
+143 of 241 steps (59%) done
+
+[Sun Jul 19 16:26:02 2020]
+rule Varscan_Filter_INDEL:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.INDEL.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.INDEL.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Filter_INDEL.logs
+    jobid: 121
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N/HG001_N.varscan.Varscan_Filter_INDEL.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 2
+
+[Sun Jul 19 16:26:04 2020]
+Finished job 121.
+144 of 241 steps (60%) done
+
+[Sun Jul 19 16:26:04 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.INDEL.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.INDEL.pass.vcf.gz.tbi
+    jobid: 25
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.INDEL.pass
+
+[Sun Jul 19 16:26:06 2020]
+Finished job 25.
+145 of 241 steps (60%) done
+
+[Sun Jul 19 16:26:06 2020]
+rule Varscan_Filter_SNV:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.SNV.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.SNV.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Filter_SNV.logs
+    jobid: 116
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Filter_SNV.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:26:09 2020]
+Finished job 116.
+146 of 241 steps (61%) done
+
+[Sun Jul 19 16:26:09 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.SNV.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.SNV.pass.vcf.gz.tbi
+    jobid: 20
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.SNV.pass
+
+[Sun Jul 19 16:26:11 2020]
+Finished job 20.
+147 of 241 steps (61%) done
+
+[Sun Jul 19 16:26:11 2020]
+rule Varscan_Filter_INDEL:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.INDEL.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.INDEL.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Filter_INDEL.logs
+    jobid: 117
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.Varscan_Filter_INDEL.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 2
+
+[Sun Jul 19 16:26:13 2020]
+Finished job 117.
+148 of 241 steps (61%) done
+
+[Sun Jul 19 16:26:13 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.INDEL.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.INDEL.pass.vcf.gz.tbi
+    jobid: 21
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.INDEL.pass
+
+[Sun Jul 19 16:26:14 2020]
+Finished job 186.
+149 of 241 steps (62%) done
+
+[Sun Jul 19 16:26:15 2020]
+rule HC_CombineCalls:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrM.g.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrM.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrM.g.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chrM.CombineCalls.logs
+    jobid: 203
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chrM.CombineCalls.tsv
+    wildcards: contig=chrM
+    threads: 4
+
+[Sun Jul 19 16:26:15 2020]
+Finished job 21.
+150 of 241 steps (62%) done
+[Sun Jul 19 16:26:27 2020]
+Finished job 197.
+151 of 241 steps (63%) done
+
+[Sun Jul 19 16:26:28 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr21.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr21.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr21.GT.logs
+    jobid: 101
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr21.GT.tsv
+    wildcards: contig=chr21
+    threads: 4
+
+[Sun Jul 19 16:26:30 2020]
+Finished job 189.
+152 of 241 steps (63%) done
+
+[Sun Jul 19 16:26:30 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr21.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr21.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr21.logs
+    jobid: 75
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr21.tsv
+    wildcards: bam_sample=HG001_N, contig=chr21
+    threads: 4
+
+[Sun Jul 19 16:26:31 2020]
+Finished job 115.
+153 of 241 steps (63%) done
+
+[Sun Jul 19 16:26:31 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr13.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr13.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr13.GT.logs
+    jobid: 93
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr13.GT.tsv
+    wildcards: contig=chr13
+    threads: 4
+
+[Sun Jul 19 16:26:35 2020]
+Finished job 101.
+154 of 241 steps (64%) done
+
+[Sun Jul 19 16:26:35 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr13.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr13.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr13.logs
+    jobid: 67
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr13.tsv
+    wildcards: bam_sample=HG001_N, contig=chr13
+    threads: 4
+
+[Sun Jul 19 16:26:37 2020]
+Finished job 75.
+155 of 241 steps (64%) done
+
+[Sun Jul 19 16:26:37 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr3.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr3.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr3.GT.logs
+    jobid: 83
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr3.GT.tsv
+    wildcards: contig=chr3
+    threads: 4
+
+[Sun Jul 19 16:26:39 2020]
+Finished job 93.
+156 of 241 steps (65%) done
+
+[Sun Jul 19 16:26:39 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr3.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr3.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr3.logs
+    jobid: 57
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr3.tsv
+    wildcards: bam_sample=HG001_N, contig=chr3
+    threads: 4
+
+[Sun Jul 19 16:26:40 2020]
+Finished job 190.
+157 of 241 steps (65%) done
+
+[Sun Jul 19 16:26:40 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrY.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrY.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chrY.GT.logs
+    jobid: 104
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chrY.GT.tsv
+    wildcards: contig=chrY
+    threads: 4
+
+[Sun Jul 19 16:26:41 2020]
+Finished job 183.
+158 of 241 steps (66%) done
+
+[Sun Jul 19 16:26:41 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr16.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr16.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr16.GT.logs
+    jobid: 96
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr16.GT.tsv
+    wildcards: contig=chr16
+    threads: 4
+
+[Sun Jul 19 16:26:42 2020]
+Finished job 67.
+159 of 241 steps (66%) done
+
+[Sun Jul 19 16:26:42 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr16.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr16.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr16.logs
+    jobid: 70
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr16.tsv
+    wildcards: bam_sample=HG001_N, contig=chr16
+    threads: 4
+
+[Sun Jul 19 16:26:48 2020]
+Finished job 83.
+160 of 241 steps (66%) done
+
+[Sun Jul 19 16:26:48 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrY.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrY.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chrY.logs
+    jobid: 78
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chrY.tsv
+    wildcards: bam_sample=HG001_N, contig=chrY
+    threads: 4
+
+[Sun Jul 19 16:26:48 2020]
+Finished job 96.
+161 of 241 steps (67%) done
+[Sun Jul 19 16:26:48 2020]
+Finished job 70.
+162 of 241 steps (67%) done
+[Sun Jul 19 16:26:48 2020]
+Finished job 57.
+163 of 241 steps (68%) done
+
+[Sun Jul 19 16:26:48 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr17.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr17.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr17.GT.logs
+    jobid: 97
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr17.GT.tsv
+    wildcards: contig=chr17
+    threads: 4
+
+[Sun Jul 19 16:26:48 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr15.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr15.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr15.GT.logs
+    jobid: 95
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr15.GT.tsv
+    wildcards: contig=chr15
+    threads: 4
+
+[Sun Jul 19 16:26:49 2020]
+Finished job 104.
+[Sun Jul 19 16:26:49 2020]
+164 of 241 steps (68%) done
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr17.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr17.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr17.logs
+    jobid: 71
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr17.tsv
+    wildcards: bam_sample=HG001_N, contig=chr17
+    threads: 4
+
+
+[Sun Jul 19 16:26:49 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr15.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr15.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr15.logs
+    jobid: 69
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr15.tsv
+    wildcards: bam_sample=HG001_N, contig=chr15
+    threads: 4
+
+[Sun Jul 19 16:26:57 2020]
+Finished job 71.
+165 of 241 steps (68%) done
+[Sun Jul 19 16:26:57 2020]
+Finished job 95.
+166 of 241 steps (69%) done
+[Sun Jul 19 16:26:57 2020]
+Finished job 97.
+167 of 241 steps (69%) done
+[Sun Jul 19 16:26:57 2020]
+Finished job 78.
+168 of 241 steps (70%) done
+[Sun Jul 19 16:26:57 2020]
+Finished job 69.
+169 of 241 steps (70%) done
+
+[Sun Jul 19 16:26:57 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr2.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr2.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr2.logs
+    jobid: 56
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr2.tsv
+    wildcards: bam_sample=HG001_N, contig=chr2
+    threads: 4
+
+[Sun Jul 19 16:26:58 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr4.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr4.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr4.logs
+    jobid: 58
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr4.tsv
+    wildcards: bam_sample=HG001_N, contig=chr4
+    threads: 4
+
+[Sun Jul 19 16:26:58 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr4.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr4.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr4.GT.logs
+    jobid: 84
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr4.GT.tsv
+    wildcards: contig=chr4
+    threads: 4
+
+[Sun Jul 19 16:26:58 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr14.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr14.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr14.GT.logs
+    jobid: 94
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr14.GT.tsv
+    wildcards: contig=chr14
+    threads: 4
+
+[Sun Jul 19 16:26:58 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr2.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr2.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr2.GT.logs
+    jobid: 82
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr2.GT.tsv
+    wildcards: contig=chr2
+    threads: 4
+
+[Sun Jul 19 16:27:00 2020]
+Finished job 203.
+170 of 241 steps (71%) done
+
+[Sun Jul 19 16:27:00 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr14.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr14.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr14.logs
+    jobid: 68
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr14.tsv
+    wildcards: bam_sample=HG001_N, contig=chr14
+    threads: 4
+
+[Sun Jul 19 16:27:05 2020]
+Finished job 179.
+171 of 241 steps (71%) done
+
+[Sun Jul 19 16:27:05 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrX.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrX.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chrX.GT.logs
+    jobid: 103
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chrX.GT.tsv
+    wildcards: contig=chrX
+    threads: 4
+
+[Sun Jul 19 16:27:05 2020]
+Finished job 58.
+172 of 241 steps (71%) done
+[Sun Jul 19 16:27:05 2020]
+Finished job 56.
+173 of 241 steps (72%) done
+[Sun Jul 19 16:27:05 2020]
+Finished job 82.
+174 of 241 steps (72%) done
+[Sun Jul 19 16:27:05 2020]
+Finished job 84.
+175 of 241 steps (73%) done
+
+[Sun Jul 19 16:27:05 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr6.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr6.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr6.GT.logs
+    jobid: 86
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr6.GT.tsv
+    wildcards: contig=chr6
+    threads: 4
+
+[Sun Jul 19 16:27:05 2020]
+Finished job 94.
+176 of 241 steps (73%) done
+
+[Sun Jul 19 16:27:05 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr10.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr10.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr10.GT.logs
+    jobid: 90
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr10.GT.tsv
+    wildcards: contig=chr10
+    threads: 4
+
+[Sun Jul 19 16:27:06 2020]
+Finished job 68.
+177 of 241 steps (73%) done
+
+[Sun Jul 19 16:27:06 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr7.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr7.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr7.GT.logs
+    jobid: 87
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr7.GT.tsv
+    wildcards: contig=chr7
+    threads: 4
+
+[Sun Jul 19 16:27:06 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr11.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr11.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr11.GT.logs
+    jobid: 91
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr11.GT.tsv
+    wildcards: contig=chr11
+    threads: 4
+
+[Sun Jul 19 16:27:06 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr18.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr18.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr18.GT.logs
+    jobid: 98
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr18.GT.tsv
+    wildcards: contig=chr18
+    threads: 4
+
+[Sun Jul 19 16:27:06 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr5.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr5.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr5.GT.logs
+    jobid: 85
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr5.GT.tsv
+    wildcards: contig=chr5
+    threads: 4
+
+[Sun Jul 19 16:27:18 2020]
+Finished job 90.
+178 of 241 steps (74%) done
+[Sun Jul 19 16:27:19 2020]
+Finished job 85.
+179 of 241 steps (74%) done
+[Sun Jul 19 16:27:19 2020]
+Finished job 87.
+180 of 241 steps (75%) done
+[Sun Jul 19 16:27:19 2020]
+Finished job 103.
+181 of 241 steps (75%) done
+[Sun Jul 19 16:27:19 2020]
+Finished job 98.
+182 of 241 steps (76%) done
+[Sun Jul 19 16:27:19 2020]
+Finished job 86.
+183 of 241 steps (76%) done
+[Sun Jul 19 16:27:19 2020]
+Finished job 91.
+184 of 241 steps (76%) done
+
+[Sun Jul 19 16:27:19 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr5.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr5.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr5.logs
+    jobid: 59
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr5.tsv
+    wildcards: bam_sample=HG001_N, contig=chr5
+    threads: 4
+
+[Sun Jul 19 16:27:19 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr18.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr18.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr18.logs
+    jobid: 72
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr18.tsv
+    wildcards: bam_sample=HG001_N, contig=chr18
+    threads: 4
+
+[Sun Jul 19 16:27:19 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr10.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr10.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr10.logs
+    jobid: 64
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr10.tsv
+    wildcards: bam_sample=HG001_N, contig=chr10
+    threads: 4
+
+[Sun Jul 19 16:27:19 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr8.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr8.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr8.GT.logs
+    jobid: 88
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr8.GT.tsv
+    wildcards: contig=chr8
+    threads: 4
+
+[Sun Jul 19 16:27:20 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr6.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr6.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr6.logs
+    jobid: 60
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr6.tsv
+    wildcards: bam_sample=HG001_N, contig=chr6
+    threads: 4
+
+[Sun Jul 19 16:27:20 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr11.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr11.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr11.logs
+    jobid: 65
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr11.tsv
+    wildcards: bam_sample=HG001_N, contig=chr11
+    threads: 4
+
+[Sun Jul 19 16:27:20 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr7.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr7.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr7.logs
+    jobid: 61
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr7.tsv
+    wildcards: bam_sample=HG001_N, contig=chr7
+    threads: 4
+
+[Sun Jul 19 16:27:27 2020]
+Finished job 60.
+185 of 241 steps (77%) done
+
+[Sun Jul 19 16:27:27 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr19.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr19.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr19.GT.logs
+    jobid: 99
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr19.GT.tsv
+    wildcards: contig=chr19
+    threads: 4
+
+[Sun Jul 19 16:27:27 2020]
+Finished job 88.
+186 of 241 steps (77%) done
+
+[Sun Jul 19 16:27:27 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrX.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrX.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chrX.logs
+    jobid: 77
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chrX.tsv
+    wildcards: bam_sample=HG001_N, contig=chrX
+    threads: 4
+
+[Sun Jul 19 16:27:27 2020]
+Finished job 61.
+187 of 241 steps (78%) done
+
+[Sun Jul 19 16:27:28 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr12.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr12.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr12.GT.logs
+    jobid: 92
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr12.GT.tsv
+    wildcards: contig=chr12
+    threads: 4
+
+[Sun Jul 19 16:27:28 2020]
+Finished job 65.
+188 of 241 steps (78%) done
+[Sun Jul 19 16:27:28 2020]
+Finished job 72.
+189 of 241 steps (78%) done
+
+[Sun Jul 19 16:27:28 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr1.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr1.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chr1.GT.logs
+    jobid: 81
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chr1.GT.tsv
+    wildcards: contig=chr1
+    threads: 4
+
+[Sun Jul 19 16:27:28 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr9.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr9.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr9.logs
+    jobid: 38
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr9.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr9
+    threads: 4
+
+[Sun Jul 19 16:27:28 2020]
+Finished job 64.
+190 of 241 steps (79%) done
+
+[Sun Jul 19 16:27:28 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr8.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr8.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr8.logs
+    jobid: 62
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr8.tsv
+    wildcards: bam_sample=HG001_N, contig=chr8
+    threads: 4
+
+[Sun Jul 19 16:27:28 2020]
+Finished job 59.
+191 of 241 steps (79%) done
+
+[Sun Jul 19 16:27:28 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr19.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr19.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr19.logs
+    jobid: 73
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr19.tsv
+    wildcards: bam_sample=HG001_N, contig=chr19
+    threads: 4
+
+[Sun Jul 19 16:27:33 2020]
+Finished job 99.
+192 of 241 steps (80%) done
+[Sun Jul 19 16:27:34 2020]
+Finished job 92.
+193 of 241 steps (80%) done
+[Sun Jul 19 16:27:34 2020]
+Finished job 77.
+194 of 241 steps (80%) done
+
+[Sun Jul 19 16:27:34 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr12.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr12.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr12.logs
+    jobid: 66
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr12.tsv
+    wildcards: bam_sample=HG001_N, contig=chr12
+    threads: 4
+
+[Sun Jul 19 16:27:34 2020]
+Finished job 81.
+195 of 241 steps (81%) done
+
+[Sun Jul 19 16:27:34 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr17.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr17.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr17.logs
+    jobid: 46
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr17.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr17
+    threads: 4
+
+[Sun Jul 19 16:27:35 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr21.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr21.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr21.logs
+    jobid: 50
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr21.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr21
+    threads: 4
+
+
+[Sun Jul 19 16:27:35 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrX.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrX.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chrX.logs
+    jobid: 52
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chrX.tsv
+    wildcards: bam_sample=HG001_N1, contig=chrX
+    threads: 4
+
+[Sun Jul 19 16:27:37 2020]
+Finished job 62.
+196 of 241 steps (81%) done
+[Sun Jul 19 16:27:37 2020]
+Finished job 38.
+197 of 241 steps (82%) done
+[Sun Jul 19 16:27:37 2020]
+Finished job 73.
+198 of 241 steps (82%) done
+
+[Sun Jul 19 16:27:37 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr2.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr2.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr2.logs
+    jobid: 31
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr2.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr2
+    threads: 4
+
+[Sun Jul 19 16:27:37 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr1.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr1.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr1.logs
+    jobid: 55
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chr1.tsv
+    wildcards: bam_sample=HG001_N, contig=chr1
+    threads: 4
+
+[Sun Jul 19 16:27:38 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrY.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrY.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chrY.logs
+    jobid: 53
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chrY.tsv
+    wildcards: bam_sample=HG001_N1, contig=chrY
+    threads: 4
+
+[Sun Jul 19 16:27:41 2020]
+Finished job 50.
+199 of 241 steps (83%) done
+[Sun Jul 19 16:27:41 2020]
+Finished job 66.
+200 of 241 steps (83%) done
+[Sun Jul 19 16:27:41 2020]
+Finished job 46.
+201 of 241 steps (83%) done
+[Sun Jul 19 16:27:41 2020]
+Finished job 52.
+202 of 241 steps (84%) done
+
+[Sun Jul 19 16:27:41 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr4.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr4.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr4.logs
+    jobid: 33
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr4.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr4
+    threads: 4
+
+[Sun Jul 19 16:27:41 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr1.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr1.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr1.logs
+    jobid: 30
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr1.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr1
+    threads: 4
+
+[Sun Jul 19 16:27:41 2020]
+rule HC_GT_jointCall:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrM.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrM.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/perContig/chrM.GT.logs
+    jobid: 105
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/perContig/chrM.GT.tsv
+    wildcards: contig=chrM
+    threads: 4
+
+[Sun Jul 19 16:27:41 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr6.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr6.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr6.logs
+    jobid: 35
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr6.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr6
+    threads: 4
+
+[Sun Jul 19 16:27:46 2020]
+Finished job 55.
+203 of 241 steps (84%) done
+[Sun Jul 19 16:27:46 2020]
+Finished job 53.
+204 of 241 steps (85%) done
+[Sun Jul 19 16:27:46 2020]
+Finished job 31.
+205 of 241 steps (85%) done
+
+[Sun Jul 19 16:27:46 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr15.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr15.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr15.logs
+    jobid: 44
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr15.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr15
+    threads: 4
+
+[Sun Jul 19 16:27:46 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr3.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr3.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr3.logs
+    jobid: 32
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr3.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr3
+    threads: 4
+
+[Sun Jul 19 16:27:46 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr8.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr8.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr8.logs
+    jobid: 37
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr8.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr8
+    threads: 4
+
+[Sun Jul 19 16:27:47 2020]
+Finished job 105.
+206 of 241 steps (85%) done
+
+[Sun Jul 19 16:27:47 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr7.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr7.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr7.logs
+    jobid: 36
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr7.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr7
+    threads: 4
+
+[Sun Jul 19 16:27:47 2020]
+Finished job 35.
+207 of 241 steps (86%) done
+[Sun Jul 19 16:27:47 2020]
+Finished job 30.
+208 of 241 steps (86%) done
+[Sun Jul 19 16:27:47 2020]
+Finished job 33.
+209 of 241 steps (87%) done
+
+[Sun Jul 19 16:27:48 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr22.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr22.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr22.logs
+    jobid: 51
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr22.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr22
+    threads: 4
+
+[Sun Jul 19 16:27:48 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr10.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr10.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr10.logs
+    jobid: 39
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr10.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr10
+    threads: 4
+
+[Sun Jul 19 16:27:48 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr13.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr13.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr13.logs
+    jobid: 42
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr13.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr13
+    threads: 4
+
+[Sun Jul 19 16:27:54 2020]
+Finished job 51.
+210 of 241 steps (87%) done
+[Sun Jul 19 16:27:54 2020]
+Finished job 44.
+211 of 241 steps (88%) done
+[Sun Jul 19 16:27:54 2020]
+Finished job 37.
+212 of 241 steps (88%) done
+[Sun Jul 19 16:27:54 2020]
+Finished job 36.
+213 of 241 steps (88%) done
+[Sun Jul 19 16:27:54 2020]
+Finished job 32.
+214 of 241 steps (89%) done
+[Sun Jul 19 16:27:54 2020]
+Finished job 42.
+215 of 241 steps (89%) done
+
+[Sun Jul 19 16:27:54 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr5.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr5.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr5.logs
+    jobid: 34
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr5.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr5
+    threads: 4
+
+[Sun Jul 19 16:27:55 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr14.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr14.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr14.logs
+    jobid: 43
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr14.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr14
+    threads: 4
+
+[Sun Jul 19 16:27:55 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr16.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr16.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr16.logs
+    jobid: 45
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr16.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr16
+    threads: 4
+
+[Sun Jul 19 16:27:55 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr19.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr19.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr19.logs
+    jobid: 48
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr19.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr19
+    threads: 4
+
+[Sun Jul 19 16:27:55 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr12.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr12.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr12.logs
+    jobid: 41
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr12.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr12
+    threads: 4
+
+[Sun Jul 19 16:27:55 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr11.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr11.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr11.logs
+    jobid: 40
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr11.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr11
+    threads: 4
+
+[Sun Jul 19 16:27:56 2020]
+Finished job 39.
+216 of 241 steps (90%) done
+
+[Sun Jul 19 16:27:56 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrM.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrM.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chrM.logs
+    jobid: 79
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N/HG001_N.HC.genotype_variants.chrM.tsv
+    wildcards: bam_sample=HG001_N, contig=chrM
+    threads: 4
+
+[Sun Jul 19 16:28:02 2020]
+Finished job 48.
+217 of 241 steps (90%) done
+[Sun Jul 19 16:28:03 2020]
+Finished job 79.
+218 of 241 steps (90%) done
+[Sun Jul 19 16:28:03 2020]
+Finished job 34.
+219 of 241 steps (91%) done
+[Sun Jul 19 16:28:04 2020]
+Finished job 43.
+220 of 241 steps (91%) done
+[Sun Jul 19 16:28:04 2020]
+Finished job 41.
+221 of 241 steps (92%) done
+[Sun Jul 19 16:28:05 2020]
+Finished job 40.
+222 of 241 steps (92%) done
+[Sun Jul 19 16:28:05 2020]
+Finished job 45.
+223 of 241 steps (93%) done
+
+[Sun Jul 19 16:28:05 2020]
+rule HC_MergeVCF:
+    input: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr1.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr2.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr3.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr4.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr5.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr6.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr7.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr8.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr9.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr10.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr11.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr12.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr13.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr14.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr15.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr16.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr17.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr18.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr19.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr20.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr21.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chr22.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrX.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrY.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N/HG001_N.chrM.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N/HG001_N.HC.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perSample/HG001_N/HG001_N.HC.MergeVcf.logs
+    jobid: 2
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perSample/HG001_N/HG001_N.HC.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 4
+
+[Sun Jul 19 16:28:05 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.pass.vcf.gz.tbi
+    jobid: 19
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.pass
+
+[Sun Jul 19 16:28:05 2020]
+rule FB_Filter:
+    input: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/FB/perSample/HG001_N1/HG001_N1.FB.FB_Filter.logs
+    jobid: 107
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/FB/perSample/HG001_N1/HG001_N1.FB.FB_Filter.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 4
+
+[Sun Jul 19 16:28:05 2020]
+rule HC_MergeVCF_jointCall:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr1.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr2.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr3.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr4.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr5.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr6.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr7.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr8.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr9.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr10.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr11.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr12.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr13.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr14.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr15.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr16.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr17.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr18.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr19.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr20.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr21.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chr22.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrX.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrY.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/perContig/chrM.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/jointCall/joint.HC.MergeVcf.logs
+    jobid: 7
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/jointCall/joint.HC.MergeVcf.tsv
+    threads: 4
+
+[Sun Jul 19 16:28:05 2020]
+rule FB_Filter:
+    input: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.pass.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/FB/perSample/HG001_N/HG001_N.FB.FB_Filter.logs
+    jobid: 109
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/FB/perSample/HG001_N/HG001_N.FB.FB_Filter.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 4
+
+[Sun Jul 19 16:28:05 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrM.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrM.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chrM.logs
+    jobid: 54
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chrM.tsv
+    wildcards: bam_sample=HG001_N1, contig=chrM
+    threads: 4
+
+[Sun Jul 19 16:28:05 2020]
+rule HC_GT:
+    input: ../../ngs_test_data/data1/genome/GRCh38/GRCh38_full_analysis_set_plus_decoy_hla.fa, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr18.g.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr18.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr18.logs
+    jobid: 47
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perContig/HG001_N1/HG001_N1.HC.genotype_variants.chr18.tsv
+    wildcards: bam_sample=HG001_N1, contig=chr18
+    threads: 4
+
+[Sun Jul 19 16:28:08 2020]
+Finished job 109.
+224 of 241 steps (93%) done
+
+[Sun Jul 19 16:28:08 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.pass.vcf.gz.tbi
+    jobid: 13
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.pass
+
+[Sun Jul 19 16:28:08 2020]
+Finished job 107.
+225 of 241 steps (93%) done
+
+[Sun Jul 19 16:28:08 2020]
+rule tabix:
+    input: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.pass.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.pass.vcf.gz.tbi
+    jobid: 11
+    wildcards: prefix=../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.pass
+
+[Sun Jul 19 16:28:12 2020]
+Finished job 54.
+226 of 241 steps (94%) done
+[Sun Jul 19 16:28:12 2020]
+Finished job 13.
+227 of 241 steps (94%) done
+[Sun Jul 19 16:28:12 2020]
+Finished job 47.
+228 of 241 steps (95%) done
+
+[Sun Jul 19 16:28:12 2020]
+rule HC_MergeVCF:
+    input: ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr1.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr2.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr3.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr4.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr5.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr6.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr7.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr8.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr9.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr10.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr11.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr12.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr13.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr14.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr15.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr16.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr17.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr18.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr19.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr20.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr21.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chr22.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrX.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrY.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perContig/HG001_N1/HG001_N1.chrM.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N1/HG001_N1.HC.raw.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perSample/HG001_N1/HG001_N1.HC.MergeVcf.logs
+    jobid: 1
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perSample/HG001_N1/HG001_N1.HC.MergeVcf.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 4
+
+[Sun Jul 19 16:28:12 2020]
+Finished job 11.
+229 of 241 steps (95%) done
+[Sun Jul 19 16:28:13 2020]
+Finished job 2.
+230 of 241 steps (95%) done
+[Sun Jul 19 16:28:13 2020]
+Finished job 7.
+231 of 241 steps (96%) done
+
+[Sun Jul 19 16:28:13 2020]
+rule HC_JointCall_SelectSNV:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.raw.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectSNV.logs
+    jobid: 80
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectSNV.tsv
+    threads: 4
+
+[Sun Jul 19 16:28:17 2020]
+Finished job 1.
+232 of 241 steps (96%) done
+[Sun Jul 19 16:28:19 2020]
+Finished job 80.
+233 of 241 steps (97%) done
+
+[Sun Jul 19 16:28:19 2020]
+rule HC_JointCall_FileterINDElHard:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.INDEL.passh.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterINDElHard.logs
+    jobid: 9
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterINDElHard.tsv
+    threads: 4
+
+[Sun Jul 19 16:28:19 2020]
+rule HC_FileterSNVHard:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N1/HG001_N1.HC.SNV.passh.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perSample/HG001_N1/HG001_N1.HC_FileterSNVHard.logs
+    jobid: 3
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perSample/HG001_N1/HG001_N1.HC_FileterSNVHard.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 4
+
+[Sun Jul 19 16:28:19 2020]
+rule HC_JointCall_FileterSNVHard:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.passh.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterSNVHard.logs
+    jobid: 8
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterSNVHard.tsv
+    threads: 4
+
+[Sun Jul 19 16:28:19 2020]
+rule HC_FileterSNVHard:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N/HG001_N.HC.SNV.passh.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perSample/HG001_N/HG001_N.HC_FileterSNVHard.logs
+    jobid: 5
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perSample/HG001_N/HG001_N.HC_FileterSNVHard.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 4
+
+[Sun Jul 19 16:28:20 2020]
+rule HC_FileterINDElHard:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N/HG001_N.HC.INDEL.passh.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perSample/HG001_N/HG001_N.HC_FileterINDElHard.logs
+    jobid: 6
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perSample/HG001_N/HG001_N.HC_FileterINDElHard.tsv
+    wildcards: bam_sample=HG001_N
+    threads: 4
+
+[Sun Jul 19 16:28:20 2020]
+rule HC_FileterINDElHard:
+    input: ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.vcf.gz
+    output: ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N1/HG001_N1.HC.INDEL.passh.vcf.gz
+    log: ../../ngs_test_data/logs/gremlineVar/HC/perSample/HG001_N1/HG001_N1.HC_FileterINDElHard.logs
+    jobid: 4
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/HC/perSample/HG001_N1/HG001_N1.HC_FileterINDElHard.tsv
+    wildcards: bam_sample=HG001_N1
+    threads: 4
+
+[Sun Jul 19 16:28:24 2020]
+Finished job 19.
+234 of 241 steps (97%) done
+[Sun Jul 19 16:28:29 2020]
+Finished job 3.
+235 of 241 steps (98%) done
+[Sun Jul 19 16:28:29 2020]
+Finished job 9.
+236 of 241 steps (98%) done
+[Sun Jul 19 16:28:29 2020]
+Finished job 5.
+237 of 241 steps (98%) done
+[Sun Jul 19 16:28:29 2020]
+Finished job 8.
+238 of 241 steps (99%) done
+[Sun Jul 19 16:28:29 2020]
+Finished job 6.
+239 of 241 steps (99%) done
+[Sun Jul 19 16:28:30 2020]
+Finished job 4.
+240 of 241 steps (100%) done
+
+[Sun Jul 19 16:28:30 2020]
+localrule all:
+    input: ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N1/HG001_N1.HC.raw.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N/HG001_N.HC.raw.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N1/HG001_N1.HC.SNV.passh.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N1/HG001_N1.HC.INDEL.passh.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N/HG001_N.HC.SNV.passh.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/perSample/HG001_N/HG001_N.HC.INDEL.passh.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.raw.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.SNV.passh.vcf.gz, ../../ngs_test_data/data1/germlineVar/HC/jointCall/jointCall/preTest.HC.INDEL.passh.vcf.gz, ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.raw.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N1/HG001_N1.FB.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.raw.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/FB/perSample/HG001_N/HG001_N.FB.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.raw.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N1/HG001_N1.Bcftools.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.raw.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/Bcftools/perSample/HG001_N/HG001_N.Bcftools.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.raw.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.SNV.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N1/HG001_N1.varscan.INDEL.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.raw.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.SNV.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/varscan/perSample/HG001_N/HG001_N.varscan.INDEL.pass.vcf.gz.tbi, ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N1/HG001_N1.delly.raw.vcf.gz, ../../ngs_test_data/data1/germlineVar/delly/perSample/HG001_N/HG001_N.delly.raw.vcf.gz, ../../ngs_test_data/data1/germlineVar/smoove/perSample/HG001_N1/HG001_N1.smoove.raw.vcf.gz, ../../ngs_test_data/data1/germlineVar/smoove/perSample/HG001_N/HG001_N.smoove.raw.vcf.gz
+    jobid: 0
+
+[Sun Jul 19 16:28:30 2020]
+Finished job 0.
+241 of 241 steps (100%) done
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-19T155159.353925.snakemake.log

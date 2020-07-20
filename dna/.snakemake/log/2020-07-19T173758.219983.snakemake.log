@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in line 7 of /home/pengjia/ProjectSnake/DNAseq/dna/Snakefile:
+Missing input files for rule all:
+../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N/HG001_N.cnvnator.raw.out
+../../ngs_test_data/data1/germlineVar/cnvnator/perSample/HG001_N1/HG001_N1.cnvnator.raw.out

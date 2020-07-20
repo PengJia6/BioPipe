@@ -55,11 +55,35 @@ if "delly" in config["pipe"]["svcnv"]:
         path_raw_vcf.append(
             path_data + "germlineVar/delly/perSample/{bam_sample}/{bam_sample}.delly.raw.vcf.gz".format(
                 bam_sample=i))
-# if "smoove" in config["pipe"]["svcnv"]:
+#
+# if "lumpy" in config["pipe"]["svcnv"]:
 #     for i in bam_sample_list:
 #         path_raw_vcf.append(
-#             path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}.smoove.raw.vcf.gz".format(
+#             path_data + "germlineVar/lumpy/perSample/{bam_sample}/{bam_sample}.lumpy.raw.vcf".format(
 #                 bam_sample=i))
+
+
+#
+if "smoove" in config["pipe"]["svcnv"]:
+    for i in bam_sample_list:
+        path_raw_vcf.append(
+            path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}.smoove.raw.vcf.gz".format(
+                bam_sample=i))
+if "cnvnator" in config["pipe"]["svcnv"]:
+    for i in bam_sample_list:
+        path_raw_vcf.append(
+            path_data + "germlineVar/cnvnator/perSample/{bam_sample}/{bam_sample}.raw.cnvnator".format(
+                bam_sample=i))
+if "breakdancer" in config["pipe"]["svcnv"]:
+    for i in bam_sample_list:
+        path_raw_vcf.append(
+            path_data + "germlineVar/breakdancer/perSample/{bam_sample}/{bam_sample}.raw.breakdancer".format(
+                bam_sample=i))
+if "manta" in config["pipe"]["svcnv"]:
+    for i in bam_sample_list:
+        path_raw_vcf.append(
+            path_data + "germlineVar/manta/perSample/{bam_sample}/{bam_sample}_manta.raw.vcf.gz".format(
+                bam_sample=i))
 
 # vcfgz=path_data + "germlineVar/delly/perSample/{bam_sample}/{bam_sample}.delly.raw.vcf.gz",
 

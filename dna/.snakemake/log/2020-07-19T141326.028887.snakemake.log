@@ -1,0 +1,5 @@
+Building DAG of jobs...
+ChildIOException:
+File/directory is a child to another output:
+/home/pengjia/ProjectSnake/ngs_test_data/data/germlineVar/smoove/perSample/HG001_N
+/home/pengjia/ProjectSnake/ngs_test_data/data/germlineVar/smoove/perSample/HG001_N/HG001_N.smoove.raw.vcf.gz

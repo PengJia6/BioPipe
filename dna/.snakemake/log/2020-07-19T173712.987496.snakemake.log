@@ -1,0 +1,4 @@
+WorkflowError in line 8 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk:
+Failed to open /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_cnvnator.smk.smk.
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 31, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk", line 8, in <module>

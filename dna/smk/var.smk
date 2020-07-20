@@ -3,8 +3,13 @@ include: "var/var_freebayes.smk"
 include: "var/var_bcftools.smk"
 include: "var/var_varscan.smk"
 include: "var/var_delly.smk"
+include: "var/var_lumpy.smk"
 include: "var/var_smoove.smk"
-include: "var/var_metasv.smk"
+include: "var/var_cnvnator.smk"
+include: "var/var_breakdancer.smk"
+include: "var/var_manta.smk"
+
+
 rule tabix:
     input:
          "{prefix}.vcf.gz"
