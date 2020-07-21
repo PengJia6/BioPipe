@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	4	BamIndex
+	2	LoadHQbam
+	2	MarkDupWithPicard
+	2	NoneBQSR
+	2	NoneFixMate
+	2	NoneLeftALign
+	2	NoneRealign
+	1	all
+	17
+
+[Tue Jul 21 14:54:46 2020]
+rule MarkDupWithPicard:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.metrics
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.logs
+    jobid: 27
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa
+
+[Tue Jul 21 14:54:46 2020]
+rule MarkDupWithPicard:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.metrics
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.logs
+    jobid: 25
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-21T145444.886738.snakemake.log

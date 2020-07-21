@@ -1,0 +1,39 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	2	BamIndex
+	2	GATKReAlign
+	2	GATKReAlignPre
+	2	LoadHQbam
+	2	NoneBQSR
+	2	NoneFixMate
+	2	NoneLeftALign
+	1	all
+	15
+
+[Tue Jul 21 15:19:12 2020]
+rule GATKReAlignPre:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.b38.primary_assembly.vcf.gz
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_reAlign.intervals
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_reAlign.logs
+    jobid: 28
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_reAlign.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup
+    threads: 4
+
+[Tue Jul 21 15:19:13 2020]
+rule GATKReAlignPre:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.b38.primary_assembly.vcf.gz
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_reAlign.intervals
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_reAlign.logs
+    jobid: 31
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_reAlign.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup
+    threads: 4
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-21T151911.572939.snakemake.log

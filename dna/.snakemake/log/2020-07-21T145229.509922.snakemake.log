@@ -1,0 +1,61 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	2	LoadHQbam
+	1	all
+	3
+
+[Tue Jul 21 14:52:31 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data2/HQbam/HG001_N1.bam, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N1.logs
+    jobid: 11
+    wildcards: case=HG001, sample=N1
+
+
+[Tue Jul 21 14:52:32 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data2/HQbam/HG001_N.bam, ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N.logs
+    jobid: 10
+    wildcards: case=HG001, sample=N
+
+Terminating processes on user request, this might take some time.
+[Tue Jul 21 14:53:32 2020]
+Error in rule LoadHQbam:
+[Tue Jul 21 14:53:32 2020]
+    jobid: 10
+Error in rule LoadHQbam:
+    output: ../../ngs_test_data/data2/HQbam/HG001_N.bam, ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N.logs
+    jobid: 11
+    shell:
+        
+         echo `readlink -f ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam` " ->" ../../ngs_test_data/data2/HQbam/HG001_N.bam > ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N.logs
+         ln -sr ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam ../../ngs_test_data/data2/HQbam/HG001_N.bam
+         ln -sr ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai
+         sleep 60
+         touch -h ../../ngs_test_data/data2/HQbam/HG001_N.bam
+         touch -h ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai
+         
+        (exited with non-zero exit code)
+    output: ../../ngs_test_data/data2/HQbam/HG001_N1.bam, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N1.logs
+
+    shell:
+        
+         echo `readlink -f ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam` " ->" ../../ngs_test_data/data2/HQbam/HG001_N1.bam > ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N1.logs
+         ln -sr ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam ../../ngs_test_data/data2/HQbam/HG001_N1.bam
+         ln -sr ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai
+         sleep 60
+         touch -h ../../ngs_test_data/data2/HQbam/HG001_N1.bam
+         touch -h ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai
+         
+        (exited with non-zero exit code)
+
+Removing output files of failed job LoadHQbam since they might be corrupted:
+../../ngs_test_data/data2/HQbam/HG001_N.bam, ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N.logs
+Cancelling snakemake on user request.
+Removing output files of failed job LoadHQbam since they might be corrupted:
+../../ngs_test_data/data2/HQbam/HG001_N1.bam, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N1.logs

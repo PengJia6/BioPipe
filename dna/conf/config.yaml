@@ -25,9 +25,9 @@ pipe:
   trim: fastp # fastp, trim, passqc
 
   ## align
-  aligner: bwa # bwa, bowtie, bowtie2
-  markdup: picardMarkDup #"bioMarkDup|picardMarkDup|noneMarkDup"
-  realign: noneReAlign #"reAlign|noneReAlign",
+  aligner: bwa  #bwa, bowtie, bowtie2
+  markdup: picardMarkDup #"noneMarkDup|picardMarkDup|bioMarkDup"
+  realign: reAlign #"reAlign|noneReAlign",
   bqsr: noneBQSR # noneBQSR, BQSR
   leftAlign: noneLeftAlign # noneLeftAlign, LeftAlign
   fixMate: noneFixMate # noneFixMate, FixMate

@@ -10,6 +10,13 @@ ruleorder: NoneLeftALign > BamIndex
 ruleorder: NoneFixMate > BamIndex
 ruleorder: NoneRealign > BamIndex
 
+import os
+
+# rules: Bwa
+# description: Bwa and sort
+# input: clean.fq.gz
+# output: sorted bam
+# check: PASS
 rule Bwa:
     input:
          R1=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_1.fq.gz",
@@ -29,13 +36,16 @@ rule Bwa:
           bwa_extra=""
     threads: config["threads"]["Bwa"]
     run:
-        shell("{path_bwa}bwa mem {params.bwa_extra} -t {threads} {input.ref} {input.R1} {input.R2} | "
+        shell("{path_bwa}bwa mem {params.extra} -t {threads} {input.ref} {input.R1} {input.R2} | "
               "{path_samtools}samtools view -Shb -@ {threads} | "
               "{path_samtools}samtools sort -@ {threads} {params.sort_extra} -T {output}_tmp -o {output} -O BAM "
               "1>{log} 2>{log} ")
-# wrapper:
-#        config["wrapper"] + "bwa/mem"
 
+# rules: MergeBam
+# description: merge bam for different Lane and lib
+# input: bam
+# output:  merged bam
+# check: PASS
 rule MergeBam:
     input:
          get_sample_bam
@@ -62,7 +72,11 @@ rule MergeBam:
 
 # wrapper:
 #        config["wrapper"] + "samtools/merge"
-
+# rules: MarkDupWithPicard
+# description: mark duplicated reads with picard
+# input: bam
+# output:  marked bam
+# check: TODO
 rule MarkDupWithPicard:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bam",
@@ -75,12 +89,22 @@ rule MarkDupWithPicard:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_picardMarkDup.tsv"
     threads: config["threads"]["MarkDupWithPicard"]
     params:
-          path=path_picard,
           java_opts=" -Xmx10G ",
           extra=""
-    wrapper:
-           config["wrapper"] + "picard/markduplicates"
+    run:
+        shell("{path_picard}picard  MarkDuplicates {params.extra} "
+              "I={input} "
+              "O={output.bam} M={output.metrics} "
+              " 1>{log} 2>{log}")
 
+# wrapper:
+#        config["wrapper"] + "picard/markduplicates"
+
+# rules: NoneMarkDup
+# description: do not mark duplicated reads
+# input: bam
+# output:  bam
+# check: PASS
 rule NoneMarkDup:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bam",
@@ -92,11 +116,16 @@ rule NoneMarkDup:
          sleep 1
          touch -h {output.bam}
          """
-
+# rules: MarkDupWithBiobambam
+# description: mark duplicated reads with Biobambam
+# input: bam
+# output:  marked bam
+# check: PASS
 rule MarkDupWithBiobambam:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bam",
     output:
+          tmp=directory(path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_biobam_tmp"),
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_bioMarkDup.bam",
           metrics=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_bioMarkDup.Metrics",
     log:
@@ -105,14 +134,18 @@ rule MarkDupWithBiobambam:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.bioMarkDup.tsv"
     threads: config["threads"]["MarkDupWithBiobambam"]
     params:
-          path=path_biobambam,
-          extra=" tmpfile=../data/align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_bioMarkDup_tmp ",
-
+          extra="",
     run:
-        shell("{path_biobambam}bammarkduplicates I={input} O={output.bam} M={output.metrics} "
-              "markthreads={threads} {params.extra} 1>{log} 2>{log}")
-# config["wrapper"] + "biobambam/bammarkduplicates"
+        if not os.path.exists(output.tmp):
+            shell("mkdir {output.tmp}")
+        shell("{path_biobambam}bammarkduplicates2 I={input} O={output.bam} M={output.metrics} "
+              "markthreads={threads}  tmpfile={output.tmp} 1>{log} 2>{log}")
 
+# rules: NoneRealign
+# description: do not realign reads loated in indels regions
+# input: bam
+# output:  bam
+# check: PASS
 rule NoneRealign:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam",
@@ -129,11 +162,17 @@ rule NoneRealign:
           touch -h {output.bai}
           """
 
+# rules: GATKReAlignPre
+# description: realign reads located in indels regions with GATK
+# input: bam
+# output:  realigned bam
+# check: TODO
 rule GATKReAlignPre:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam.bai",
          ref=path_genome,
+         dict=path_dict,
          known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
                 config["ref"]["mills1KG"]],
     output:
@@ -144,17 +183,26 @@ rule GATKReAlignPre:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign.tsv"
     threads: config["threads"]["GATKReAlignPre"]
     params:
-          path=path_gatk3,
           extra="",  # optional
           java_opts=" -Xmx10G ",
-    wrapper:
-           config["wrapper"] + "/gatk3/realignertargetcreator"
+          bed=""  # -L xxx.bed
+    run:
+        input_known_string = ""
+        for known in input.known:
+            input_known_string = input_known_string + " --known {}".format(known)
+        shell("{path_gatk3}gatk3 {params.java_opts} -T RealignerTargetCreator"
+              " -nt {threads} {params.extra} -I {input.bam} -R {input.ref}"
+              " {input_known_string} {params.bed} -o {output} 2>{log} 1>{log}")
+
+# wrapper:
+#        config["wrapper"] + "/gatk3/realignertargetcreator"
 
 rule GATKReAlign:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}.bam.bai",
          ref=path_genome,
+         dict=path_dict,
          known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
                 config["ref"]["mills1KG"]],
          target_intervals=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign.intervals"
@@ -165,14 +213,27 @@ rule GATKReAlign:
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_reAlign-apply.tsv"
     params:
-          path=path_gatk3,
-          do=r"reAlign",  # reAlign or noAlign
           extra="",  # optional
+          bed="",  # bed=""xx.bed
           java_opts=" -Xmx10G ",
     threads: config["threads"]["GATKReAlign"]
-    wrapper:
-           config["wrapper"] + "/gatk3/indelrealigner"
+    run:
+        input_known_string = ""
+        for known in input.known:
+            input_known_string = input_known_string + " -known {}".format(known)
+        shell("{path_gatk3}gatk3 {params.java_opts} -T IndelRealigner"
+              " {params.extra} -I {input.bam}  -R {input.ref}"
+              " {input_known_string}  {params.bed} -o {output}"
+              " --targetIntervals {input.target_intervals}"
+              " 1>{log} 2>{log}")
+# wrapper:
+#        config["wrapper"] + "/gatk3/indelrealigner"
 
+# rules: BamIndex
+# description: bam index
+# input: bam
+# output:  bam.bai
+# check: PASS
 rule BamIndex:
     input:
          "{prefix}.bam"
@@ -185,6 +246,11 @@ rule BamIndex:
     wrapper:
            config["wrapper"] + "samtools/index"
 
+# rules: NoneBQSR
+# description: do not using BQSR model
+# input: bam
+# output:  bam
+# check: PASS
 rule NoneBQSR:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
@@ -196,31 +262,50 @@ rule NoneBQSR:
          """
          ln -sr {input.bam} {output.bam}
          ln -sr {input.bai} {output.bai}
-         sleep 60
+         sleep 1
          touch -h {output.bam}
          touch -h {output.bai}
          """
 
+# rules: GATKBQSRPre
+# description: BQSR
+# input: bam
+# output:  bam
+# check: TODO
 rule GATKBQSRPre:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
          ref=path_genome,
+         dict=path_dict,
          known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
                 config["ref"]["mills1KG"]],
     output:
+          tmp=directory(
+              path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSRPre_tmp"),
           target_intervals=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSR.intervals",
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_preBQSR.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_preBQSR.tsv"
     params:
-          path=path_gatk,
-          extra=" --tmp-dir ../data/align/{case}/{sample}/ ",  # optional
+          # path=path_gatk,
+          extra="",
+          # extra=" --tmp-dir ../data/align/{case}/{sample}/ ",  # optional
           java_opts=" -Xmx10G ",
     threads: config["threads"]["GATKBQSRPre"]
-    wrapper:
-           config["wrapper"] + "/gatk/baserecalibrator"
+    run:
+        input_known_string = ""
+        for known in input.known:
+            input_known_string = input_known_string + " --known-sites {} ".format(known)
+        if not os.path.exists(output.tmp):
+            shell("mkdir {output.tmp}")
+        shell("{path_gatk}gatk --java-options {params.java_opts} BaseRecalibrator {params.extra} "
+              "--tmp-dir {output.tmp} -R {input.ref} -I {input.bam} "
+              "-O {output.target_intervals} {input_known_string} "
+              "1>{log} 2>{log}")
+# wrapper:
+#        config["wrapper"] + "/gatk/baserecalibrator"
 
 rule GATKBQSR:
     input:
@@ -229,18 +314,29 @@ rule GATKBQSR:
          ref=path_genome,
          target_intervals=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSR.intervals"
     output:
+          tmp=directory(
+              path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSR_tmp"),
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSR.bam",
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_applyBQSR.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_applyBQSR.tsv"
     params:
-          path=path_gatk,
-          extra=" --tmp-dir ../data/align/{case}/{sample}/ ",  # optional
+          extra="",  # optional
           java_opts=" -Xmx10G ",
     threads: config["threads"]["GATKBQSR"]
-    wrapper:
-           config["wrapper"] + "/gatk/applyBQSR"
+    run:
+        if not os.path.exists(output.tmp):
+            shell("mkdir {output.tmp}")
+        shell("{path_gatk}gatk --java-options {params.java_opts} ApplyBQSR -R {input.ref} -I {input.bam} "
+              "--bqsr-recal-file {input.target_intervals}  "
+              "-O {output.bam} --tmp-dir {output.tmp} 1>{log} 2>{log}")
+
+# rules: NoneLeftALign
+# description: do not using left realign model
+# input: bam
+# output:  bam
+# check: PASS
 rule NoneLeftALign:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}.bam",
@@ -252,29 +348,44 @@ rule NoneLeftALign:
          """
          ln -sr {input.bam} {output.bam}
          ln -sr {input.bai} {output.bai}
-         sleep 60
+         sleep 1
          touch -h {output.bam}
          touch -h {output.bai}
          """
 
+# rules: GATKLeftAlign
+# description: GATK left Align
+# input: bam
+# output:  bam
+# check: TODO
 rule GATKLeftAlign:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}.bam.bai",
          ref=path_genome
     output:
-          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_LeftAlign.bam"
+          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_LeftAlign.bam",
+          tmp=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_LeftAlign_tmp"
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_leftAlign.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_leftAlign.tsv"
     params:
-          path=path_gatk,
-          extra=" --tmp-dir ../data/align/{case}/{sample}/ ",
+          extra=" ",
           java_opts=" -Xmx10G ",
     threads: config["threads"]["GATKLeftAlign"]
-    wrapper:
-           config["wrapper"] + "/gatk/leftAlignIndels"
+    run:
+        if not os.path.exists(output.tmp):
+            shell("mkdir {output.tmp}")
+        shell("{path_gatk}gatk --java-options {params.java_opts} LeftAlignIndels "
+              " -R {input.ref} -I {input.bam}  --create-output-bam-index false "
+              " -O {output.bam} 1>{log} 2>{log}")
+
+# rules: NoneFixMate
+# description: do not fixmate
+# input: bam
+# output:  bam
+# check: PASS
 rule NoneFixMate:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam",
@@ -286,29 +397,42 @@ rule NoneFixMate:
          """
              ln -sr {input.bam} {output.bam}
              ln -sr {input.bai} {output.bai}
-             sleep 60
+             sleep 1
              touch -h {output.bam}
              touch -h {output.bai}
              """
-
+# rules: GATKFixMate
+# description: Fix mate using gatk
+# input: bam
+# output:  bam
+# check: TODO
 rule GATKFixMate:
     input:
          ref=path_genome,
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam",
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam.bai"
     output:
-          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_FixMate.bam"
+          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_FixMate.bam",
+          tmp=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_FixMate_tmp"
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_fixMate.logs"
     benchmark:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_fixMate.tsv"
     params:
-          path=path_gatk,
-          extra=" --TMP_DIR ../data/align/{case}/{sample}/ ",
+          extra="",
+          # extra=" --TMP_DIR ../data/align/{case}/{sample}/ ",
           java_opts=" -Xmx10G ",
     threads: config["threads"]["GATKFixMate"]
-    wrapper:
-           config["wrapper"] + "/gatk/fixMateInformation"
+    run:
+        if not os.path.exists(output.tmp):
+            shell("mkdir {output.tmp}")
+
+        shell("{path_gatk}gatk --java-options {params.java_opts} FixMateInformation {params.extra} "
+              " -R {input.ref} -I {input.bam} -SO coordinate "
+              " -O {output.bam} 2>{log} 1>{log}")
+# wrapper:
+#        config["wrapper"] + "/gatk/fixMateInformation"
+
 
 rule LoadHQbam:
     input:
@@ -324,7 +448,7 @@ rule LoadHQbam:
          echo `readlink -f {input.bam}` " ->" {output.bam} > {output.logs}
          ln -sr {input.bam} {output.bam}
          ln -sr {input.bai} {output.bai}
-         sleep 60
+         sleep 1
          touch -h {output.bam}
          touch -h {output.bai}
          """

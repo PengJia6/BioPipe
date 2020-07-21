@@ -1,0 +1,208 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	4	BamIndex
+	2	LoadHQbam
+	2	MarkDupWithPicard
+	2	NoneBQSR
+	2	NoneFixMate
+	2	NoneLeftALign
+	2	NoneRealign
+	1	all
+	17
+
+[Tue Jul 21 14:55:23 2020]
+rule MarkDupWithPicard:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.metrics
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.logs
+    jobid: 27
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa
+
+[Tue Jul 21 14:55:23 2020]
+rule MarkDupWithPicard:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.metrics
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.logs
+    jobid: 25
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa
+
+[Tue Jul 21 14:55:39 2020]
+Finished job 25.
+1 of 17 steps (6%) done
+
+[Tue Jul 21 14:55:39 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam.bai
+    jobid: 26
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup
+    threads: 8
+
+[Tue Jul 21 14:55:40 2020]
+Finished job 26.
+2 of 17 steps (12%) done
+
+[Tue Jul 21 14:55:40 2020]
+localrule NoneRealign:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup.noneReAlign.bam.bai
+    jobid: 21
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup
+
+[Tue Jul 21 14:55:41 2020]
+Finished job 21.
+3 of 17 steps (18%) done
+
+[Tue Jul 21 14:55:41 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    jobid: 22
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign
+    threads: 8
+
+[Tue Jul 21 14:55:42 2020]
+Finished job 22.
+4 of 17 steps (24%) done
+
+[Tue Jul 21 14:55:42 2020]
+localrule NoneBQSR:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    jobid: 19
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign
+
+[Tue Jul 21 14:55:57 2020]
+Finished job 27.
+5 of 17 steps (29%) done
+
+[Tue Jul 21 14:55:57 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam.bai
+    jobid: 28
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup
+    threads: 8
+
+[Tue Jul 21 14:55:58 2020]
+Finished job 28.
+6 of 17 steps (35%) done
+
+[Tue Jul 21 14:55:58 2020]
+localrule NoneRealign:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup.noneReAlign.bam.bai
+    jobid: 23
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup
+
+[Tue Jul 21 14:55:59 2020]
+Finished job 23.
+7 of 17 steps (41%) done
+
+[Tue Jul 21 14:55:59 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    jobid: 24
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign
+    threads: 8
+
+[Tue Jul 21 14:56:00 2020]
+Finished job 24.
+8 of 17 steps (47%) done
+
+[Tue Jul 21 14:56:00 2020]
+localrule NoneBQSR:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    jobid: 20
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign
+
+[Tue Jul 21 14:56:42 2020]
+Finished job 19.
+9 of 17 steps (53%) done
+
+[Tue Jul 21 14:56:42 2020]
+localrule NoneLeftALign:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    jobid: 17
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR
+
+[Tue Jul 21 14:57:00 2020]
+Finished job 20.
+10 of 17 steps (59%) done
+
+[Tue Jul 21 14:57:00 2020]
+localrule NoneLeftALign:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    jobid: 18
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR
+
+[Tue Jul 21 14:57:47 2020]
+Finished job 17.
+11 of 17 steps (65%) done
+
+[Tue Jul 21 14:57:47 2020]
+localrule NoneFixMate:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    jobid: 15
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR, leftAlign=noneLeftAlign
+
+[Tue Jul 21 14:58:00 2020]
+Finished job 18.
+12 of 17 steps (71%) done
+
+[Tue Jul 21 14:58:00 2020]
+localrule NoneFixMate:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    jobid: 16
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=picardMarkDup, realign=noneReAlign, bqsr=noneBQSR, leftAlign=noneLeftAlign
+
+[Tue Jul 21 14:58:47 2020]
+Finished job 15.
+13 of 17 steps (76%) done
+
+[Tue Jul 21 14:58:47 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data2/HQbam/HG001_N.bam, ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N.logs
+    jobid: 10
+    wildcards: case=HG001, sample=N
+
+[Tue Jul 21 14:58:48 2020]
+Finished job 10.
+14 of 17 steps (82%) done
+[Tue Jul 21 14:59:01 2020]
+Finished job 16.
+15 of 17 steps (88%) done
+
+[Tue Jul 21 14:59:01 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_picardMarkDup_noneReAlign_noneBQSR_noneLeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data2/HQbam/HG001_N1.bam, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N1.logs
+    jobid: 11
+    wildcards: case=HG001, sample=N1
+
+[Tue Jul 21 14:59:02 2020]
+Finished job 11.
+16 of 17 steps (94%) done
+
+[Tue Jul 21 14:59:02 2020]
+localrule all:
+    input: ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_2_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_2_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_2_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N/HG001_N_L1_fastp_fastqc2_1.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_1.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L2_fastp_fastqc2_1.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N/HG001_N_L1_fastp_fastqc2_2.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_2.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L2_fastp_fastqc2_2.zip, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N/HG001_N_L1_fastp.json, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N1/HG001_N1_L1_fastp.json, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N1/HG001_N1_L2_fastp.json, ../../ngs_test_data/data2/cleandata/fastp/HG001/N/HG001_N_L1_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N/HG001_N_L1_fastp_2.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_2.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_2.fq.gz, ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai
+    jobid: 0
+
+[Tue Jul 21 14:59:02 2020]
+Finished job 0.
+17 of 17 steps (100%) done
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-21T145522.338556.snakemake.log

@@ -1,0 +1,38 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	4	BamIndex
+	2	LoadHQbam
+	2	MarkDupWithBiobambam
+	2	NoneBQSR
+	2	NoneFixMate
+	2	NoneLeftALign
+	2	NoneRealign
+	1	all
+	17
+
+[Tue Jul 21 13:03:37 2020]
+rule MarkDupWithBiobambam:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.Metrics
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.logs
+    jobid: 25
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa.bioMarkDup.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa
+    threads: 4
+
+[Tue Jul 21 13:03:37 2020]
+rule MarkDupWithBiobambam:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.Metrics
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.logs
+    jobid: 27
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa.bioMarkDup.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa
+    threads: 4
+
+Terminating processes on user request, this might take some time.
+Cancelling snakemake on user request.

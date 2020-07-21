@@ -1,0 +1,4 @@
+SyntaxError in line 85 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/align/bwa_gatk.smk:
+invalid syntax
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 6, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/align/align_output.smk", line 9, in <module>
