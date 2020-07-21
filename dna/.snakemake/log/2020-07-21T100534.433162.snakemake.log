@@ -1,0 +1,4 @@
+WorkflowError in line 1 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var.smk:
+Failed to open /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var/var_gatk_HC.smk.
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 3, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var.smk", line 1, in <module>

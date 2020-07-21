@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	4	BamIndex
+	1	Bwa
+	2	LoadHQbam
+	2	MarkDupWithPicard
+	2	MergeBam
+	2	NoneBQSR
+	2	NoneFixMate
+	2	NoneLeftALign
+	2	NoneRealign
+	1	all
+	1	fastp
+	1	fastqc
+	1	fastqc2
+	1	loadrawData
+	24
+
+[Tue Jul 21 11:05:59 2020]
+rule MergeBam:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_L1_fastp_bwa_sorted.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa.bam
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa.merge.logs
+    jobid: 29
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa.merge.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa
+    threads: 8
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-21T110557.860250.snakemake.log

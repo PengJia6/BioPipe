@@ -2,17 +2,17 @@
 ### define software path
 default = "/home/pengjia/miniconda3/envs/ngs/bin/"
 default27 = "/home/pengjia/miniconda3/envs/ngs27/bin/"
-breakseq27 = "/home/pengjia/miniconda3/envs/ngs27_breakseq/bin/".rstrip("/")+"/"
+breakseq27 = "/home/pengjia/miniconda3/envs/ngs27_breakseq/bin/".rstrip("/") + "/"
 default = default if default[-1] == "/" else default + "/"
 default27 = default27 if default27[-1] == "/" else default27 + "/"
 mainEnv = "/home/pengjia/miniconda3/envs/PQsnake/bin/"
-# qc.smk
+# raw_read_qc.smk
 
 path_fastqc = default
 path_fastp = default
 path_multiqc = default
 path_pigz = default
-path_samtools = default
+path_samtools = "/home/pengjia/miniconda3/envs/default/bin/"
 path_bwa = default
 path_picard = default
 path_biobambam = default
@@ -30,9 +30,8 @@ path_cnvnator = default
 path_breakdancer = default
 path_delly = default
 
-
-path_breakseq2=breakseq27
-path_cnvnator="/opt/software/CNVnator_v0.3/src/"
+path_breakseq2 = breakseq27
+path_cnvnator = "/opt/software/CNVnator_v0.3/src/"
 path_lumpy = default27
 path_smoove = default27
 path_manta = default27

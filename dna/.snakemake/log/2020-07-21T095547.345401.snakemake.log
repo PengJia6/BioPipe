@@ -1,0 +1,73 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 15
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	3	fastp
+	3	fastqc
+	3	fastqc2
+	10
+
+[Tue Jul 21 09:55:48 2020]
+rule fastp:
+    input: ../../ngs_test_data/data2/rawdata/HG001/N/HG001_N_L1_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N/HG001_N_L1_2.fq.gz
+    output: ../../ngs_test_data/data2/cleandata/fastp/HG001/N/HG001_N_L1_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N/HG001_N_L1_fastp_2.fq.gz, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N/HG001_N_L1_fastp.html, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N/HG001_N_L1_fastp.json
+    log: ../../ngs_test_data/logs/raw_read_qc/fastp/HG001/N/HG001_N_L1_fastp.log
+    jobid: 7
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/fastp/HG001/N/HG001_N_L1_fastp.tsv
+    wildcards: case=HG001, sample=N, unit=L1
+    threads: 4
+
+[Tue Jul 21 09:55:48 2020]
+rule fastqc:
+    input: ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L1_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L1_2.fq.gz
+    output: ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1/, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_1_fastqc.html, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_2_fastqc.html, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_2_fastqc.zip
+    log: ../../ngs_test_data/logs/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_fastqc.log
+    jobid: 2
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_fastqc.tsv
+    wildcards: case=HG001, sample=N1, unit=L1
+    threads: 4
+
+[Tue Jul 21 09:55:48 2020]
+rule fastp:
+    input: ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L1_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L1_2.fq.gz
+    output: ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_2.fq.gz, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N1/HG001_N1_L1_fastp.html, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N1/HG001_N1_L1_fastp.json
+    log: ../../ngs_test_data/logs/raw_read_qc/fastp/HG001/N1/HG001_N1_L1_fastp.log
+    jobid: 8
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/fastp/HG001/N1/HG001_N1_L1_fastp.tsv
+    wildcards: case=HG001, sample=N1, unit=L1
+    threads: 4
+
+[Tue Jul 21 09:55:53 2020]
+Finished job 7.
+1 of 10 steps (10%) done
+
+[Tue Jul 21 09:55:53 2020]
+rule fastqc:
+    input: ../../ngs_test_data/data2/rawdata/HG001/N/HG001_N_L1_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N/HG001_N_L1_2.fq.gz
+    output: ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1/, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_1_fastqc.html, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_2_fastqc.html, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_2_fastqc.zip
+    log: ../../ngs_test_data/logs/raw_read_qc/fastqc/HG001/N/HG001_N_L1_fastqc.log
+    jobid: 1
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/fastqc/HG001/N/HG001_N_L1_fastqc.tsv
+    wildcards: case=HG001, sample=N, unit=L1
+    threads: 4
+
+[Tue Jul 21 09:55:59 2020]
+Finished job 8.
+2 of 10 steps (20%) done
+
+[Tue Jul 21 09:55:59 2020]
+rule fastqc2:
+    input: ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_2.fq.gz
+    output: ../../ngs_test_data/data2/raw_read_qc/fastqc2/HG001/N1/HG001_N1_L1_fastp/, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_1.html, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_2.html, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_1.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_2.zip
+    log: ../../ngs_test_data/logs/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2.log
+    jobid: 5
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2.tsv
+    wildcards: qcpipe=fastp, case=HG001, sample=N1, unit=L1
+    threads: 4
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-21T095547.345401.snakemake.log

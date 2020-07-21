@@ -1,0 +1,3 @@
+WorkflowError in line 32 of /home/pengjia/ProjectSnake/DNAseq/dna/Snakefile:
+Failed to open /home/pengjia/ProjectSnake/DNAseq/dna/smk/align.smk.
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 32, in <module>

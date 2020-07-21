@@ -1,3 +1,22 @@
+include: "var_gatk_HC.smk"
+include: "var_freebayes.smk"
+include: "var_bcftools.smk"
+include: "var_varscan.smk"
+include: "var_delly.smk"
+include: "var_lumpy.smk"
+include: "var_smoove.smk"
+include: "var_cnvnator.smk"
+include: "var_breakdancer.smk"
+include: "var_manta.smk"
+
+rule tabix:
+    input:
+         "{prefix}.vcf.gz"
+    output:
+          "{prefix}.vcf.gz.tbi"
+    run:
+        shell("{path_tabix}tabix -f {input} ")
+
 path_raw_vcf = []
 if "HC" in config["pipe"]["snpindel"]:
     # single sample calling

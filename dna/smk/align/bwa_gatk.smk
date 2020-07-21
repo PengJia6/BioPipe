@@ -15,8 +15,8 @@ rule Bwa:
          R1=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_1.fq.gz",
          R2=path_data + "cleandata/{qcpipe}/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_2.fq.gz",
          ref=path_genome,
-         sindex=path_genome+".fai",
-         bindex=path_genome+".bwt"
+         sindex=path_genome + ".fai",
+         bindex=path_genome + ".bwt"
     output:
           path_data + "align/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}_bwa_sorted.bam",
     log:
@@ -24,16 +24,17 @@ rule Bwa:
     benchmark:
              path_bm + "align/bwa/{case}/{sample}/{case}_{sample}_{unit}_{qcpipe}.bwa.tsv"
     params:
-          index=path_genome,
           extra=get_read_group,
-          sort="samtools",
-          sort_order="coordinate",
           sort_extra=" -m 2G ",
-          pathsamtools=path_samtools,
-          pathbwa=path_bwa
+          bwa_extra=""
     threads: config["threads"]["Bwa"]
-    wrapper:
-           config["wrapper"] + "bwa/mem"
+    run:
+        shell("{path_bwa}bwa mem {params.bwa_extra} -t {threads} {input.ref} {input.R1} {input.R2} | "
+              "{path_samtools}samtools view -Shb -@ {threads} | "
+              "{path_samtools}samtools sort -@ {threads} {params.sort_extra} -T {output}_tmp -o {output} -O BAM "
+              "1>{log} 2>{log} ")
+# wrapper:
+#        config["wrapper"] + "bwa/mem"
 
 rule MergeBam:
     input:
@@ -47,10 +48,20 @@ rule MergeBam:
              path_bm + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}.merge.tsv"
     threads: config["threads"]["MergeBam"]
     params:
-          path=path_samtools,
+          # path=path_samtools,
           extra=" ",
-    wrapper:
-           config["wrapper"] + "samtools/merge"
+    run:
+        if len(input) < 2:
+            shell("ln -sr {input} {output.bam} ")
+            shell("sleep 1")
+            shell("touch -h {output.bam} 1>>{log} 2>>{log}")
+            shell("echo only one bam, make soft link 1>>{log} 2>>{log}")
+        else:
+            shell("{path_samtools}samtools merge -@ {threads} {params.extra} "
+                  "{output.bam} {input} 2>{log} 1>{log}")
+
+# wrapper:
+#        config["wrapper"] + "samtools/merge"
 
 rule MarkDupWithPicard:
     input:
@@ -78,7 +89,7 @@ rule NoneMarkDup:
     shell:
          """
          ln -sr {input.bam} {output.bam}
-         sleep 60
+         sleep 1
          touch -h {output.bam}
          """
 
@@ -100,7 +111,7 @@ rule MarkDupWithBiobambam:
     run:
         shell("{path_biobambam}bammarkduplicates I={input} O={output.bam} M={output.metrics} "
               "markthreads={threads} {params.extra} 1>{log} 2>{log}")
-           # config["wrapper"] + "biobambam/bammarkduplicates"
+# config["wrapper"] + "biobambam/bammarkduplicates"
 
 rule NoneRealign:
     input:
@@ -113,7 +124,7 @@ rule NoneRealign:
          """
           ln -sr {input.bam} {output.bam}
           ln -sr {input.bai} {output.bai}
-          sleep 60
+          sleep 1
           touch -h {output.bam}
           touch -h {output.bai}
           """

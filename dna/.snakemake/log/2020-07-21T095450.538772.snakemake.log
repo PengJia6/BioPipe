@@ -1,0 +1,66 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 15
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	3	fastp
+	3	fastqc
+	3	fastqc2
+	3	loadrawData
+	13
+
+[Tue Jul 21 09:54:51 2020]
+rule loadrawData:
+    input: /home/DATA/NA12878/pipelineTest/fastq/HG001_GIAB_chr20_1.fq, /home/DATA/NA12878/pipelineTest/fastq/HG001_GIAB_chr20_2.fq
+    output: ../../ngs_test_data/data2/rawdata/HG001/N/HG001_N_L1_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N/HG001_N_L1_2.fq.gz
+    log: ../../ngs_test_data/logs/raw_read_qc/loadRawdata/HG001/N/HG001_N_L1_loaddata.log
+    jobid: 10
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/loadRawdata/HG001/N/HG001_N_L1_loaddata.tsv
+    wildcards: case=HG001, sample=N, unit=L1
+    threads: 4
+
+[Tue Jul 21 09:54:51 2020]
+rule loadrawData:
+    input: /home/DATA/NA12878/pipelineTest/fastq/HG001_1000GDeep_chr20_1.fq.gz, /home/DATA/NA12878/pipelineTest/fastq/HG001_1000GDeep_chr20_2.fq.gz
+    output: ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L2_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L2_2.fq.gz
+    log: ../../ngs_test_data/logs/raw_read_qc/loadRawdata/HG001/N1/HG001_N1_L2_loaddata.log
+    jobid: 12
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/loadRawdata/HG001/N1/HG001_N1_L2_loaddata.tsv
+    wildcards: case=HG001, sample=N1, unit=L2
+    threads: 4
+
+[Tue Jul 21 09:54:51 2020]
+rule loadrawData:
+    input: /home/DATA/NA12878/pipelineTest/fastq/HG001_1000G_chr20_1.fq, /home/DATA/NA12878/pipelineTest/fastq/HG001_1000G_chr20_2.fq
+    output: ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L1_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L1_2.fq.gz
+    log: ../../ngs_test_data/logs/raw_read_qc/loadRawdata/HG001/N1/HG001_N1_L1_loaddata.log
+    jobid: 11
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/loadRawdata/HG001/N1/HG001_N1_L1_loaddata.tsv
+    wildcards: case=HG001, sample=N1, unit=L1
+    threads: 4
+
+[Tue Jul 21 09:54:53 2020]
+Finished job 12.
+1 of 13 steps (8%) done
+
+[Tue Jul 21 09:54:53 2020]
+rule fastqc:
+    input: ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L2_1.fq.gz, ../../ngs_test_data/data2/rawdata/HG001/N1/HG001_N1_L2_2.fq.gz
+    output: ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2/, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_1_fastqc.html, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_2_fastqc.html, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_2_fastqc.zip
+    log: ../../ngs_test_data/logs/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_fastqc.log
+    jobid: 3
+    benchmark: ../../ngs_test_data/benchmark/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_fastqc.tsv
+    wildcards: case=HG001, sample=N1, unit=L2
+    threads: 4
+
+[Tue Jul 21 09:54:59 2020]
+Finished job 10.
+2 of 13 steps (15%) done
+[Tue Jul 21 09:55:17 2020]
+Finished job 11.
+3 of 13 steps (23%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-21T095450.538772.snakemake.log

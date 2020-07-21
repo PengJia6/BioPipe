@@ -1,37 +1,25 @@
 localrules: all, passqc
-include: "smk/common.smk"
-include: "smk/var/var_output.smk"
+include: "smk/common.smk"  # some useful function and definition
+include: "smk/software.smk"  # software path
+include: "smk/genome/genome.smk"  # genome and genome index
+include: "smk/raw_read_qc/raw_read_qc_output.smk"  # raw read qc pipeline
+include: "smk/align/align_output.smk"  # reads alignment pipeline
+include: "smk/var/var_output.smk"  # variants detection pipeline
 
 SNPINDEL = ""
 ##### Target rules #####
 rule all:
     input:
          #        "annotated/all.vcf.gz",
-         #        path_data + "qc/multiqc/multiqc.html",
+         #        path_data + "raw_read_qc/multiqc/multiqc.html",
          #       expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_{u.unit}_fastp_bwa_sorted.bam"], u=caseinfo.itertuples()),
          #         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa.bam"], u=caseinfo.itertuples()),
          #         expand([path_data + "align/bwa/{u.case}/{u.sample}/{u.case}_{u.sample}_fastp_bwa_pcdRmDup.bam.bai"], u=caseinfo.itertuples()),
          # expand([path_data + "HQbam/{u.case}-{u.sample}.bam.bai"], u=caseinfo.itertuples()),
          # path_dict,
-         # path_HQbamList,
          # path_genome_list,
-         path_raw_vcf,
+         # path_raw_vcf,
+         path_raw_qc,
+         path_HQbamList,
 
          # path_data + "germlineVar/HC/jointCall/jointCall/"+config["project"]["name"]+".HC.vcf.gz"
-
-#        "plots/depths.svg",
-#        "plots/depths.svg",
-#        "plots/allele-freqs.svg"
-
-
-##### Modules #####
-include: "smk/software.smk"
-include: "smk/qc.smk"
-include: "smk/align.smk"
-include: "smk/var.smk"
-
-       #include: "rules/mapping.smk"
-       #include: "rules/calling.smk"
-       #include: "rules/filtering.smk"
-       #include: "rules/stats.smk"
-       #include: "rules/annotation.smk"

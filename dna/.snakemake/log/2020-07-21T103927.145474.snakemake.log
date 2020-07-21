@@ -1,0 +1,8 @@
+KeyboardInterrupt in line 3 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/common.smk.
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 2, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/common.smk", line 3, in <module>
+  File "/home/pengjia/miniconda3/envs/default/lib/python3.7/site-packages/pandas/__init__.py", line 11, in <module>
+  File "/home/pengjia/miniconda3/envs/default/lib/python3.7/site-packages/numpy/__init__.py", line 150, in <module>
+  File "/home/pengjia/miniconda3/envs/default/lib/python3.7/site-packages/numpy/random/__init__.py", line 180, in <module>
+  File "mtrand.pyx", line 1, in init numpy.random.mtrand
+  File "<frozen importlib._bootstrap>", line 416, in parent

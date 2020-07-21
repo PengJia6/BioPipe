@@ -11,7 +11,7 @@ qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software
 
 ########################################################################################################################
 ### output path
-path_data: "../../ngs_test_data/data1/"
+path_data: "../../ngs_test_data/data2/"
 path_log:  "../../ngs_test_data/logs/"
 path_bm: "../../ngs_test_data/benchmark/"
 
@@ -21,7 +21,7 @@ loadBamFormat: up # csv, up
 bamsample: "conf/bamsample.csv"  # if loadBamFormat is csv, you need to provide var_bcftools.smk csv file of sample bam files.
 
 pipe:
-  ## qc
+  ## raw_read_qc
   trim: fastp # fastp, trim, passqc
 
   ## align
@@ -90,7 +90,7 @@ ref:
 ########################################################################################################################
 ### threads for cluster
 threads:
-  ########## qc.smk #########
+  ########## raw_read_qc.smk #########
   loadrawData: 4  # pigz
   fastqc: 4
   fastp: 4
@@ -98,7 +98,7 @@ threads:
   fastqc2: 4
   multiqc: 1      #fixed
 
-  ########## align.smk #########
+  ########## bwa_gatk.smk #########
   Bwa: 8
   MergeBam: 8
   MarkDupWithPicard: 1
