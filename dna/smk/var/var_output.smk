@@ -22,23 +22,23 @@ if "HC" in config["pipe"]["snpindel"]:
     # single sample calling
     for i in bam_sample_list:
         path_raw_vcf.append(
-            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.raw.vcf.gz".format(bam_sample=i))
+            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.raw.vcf.gz.tbi".format(bam_sample=i))
 if "HC_Hard_filter" in config["pipe"]["snpindel"]:
     for i in bam_sample_list:
         path_raw_vcf.append(
-            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.passh.vcf.gz".format(bam_sample=i))
+            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.passh.vcf.gz.tbi".format(bam_sample=i))
         path_raw_vcf.append(
-            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz".format(bam_sample=i))
+            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz.tbi".format(bam_sample=i))
 if "HC_Joint" in config["pipe"]["snpindel"]:
     # joint calling
     path_raw_vcf.append(
-        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.raw.vcf.gz")
+        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.raw.vcf.gz.tbi")
 
 if "HC_Jonit_Hard_filter" in config["pipe"]["snpindel"]:
     path_raw_vcf.append(
-        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.passh.vcf.gz")
+        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.passh.vcf.gz.tbi")
     path_raw_vcf.append(
-        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.passh.vcf.gz")
+        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.passh.vcf.gz.tbi")
 
 if "freebayes" in config["pipe"]["snpindel"]:
     for i in bam_sample_list:
@@ -72,7 +72,7 @@ if "varscan" in config["pipe"]["snpindel"]:
 if "delly" in config["pipe"]["svcnv"]:
     for i in bam_sample_list:
         path_raw_vcf.append(
-            path_data + "germlineVar/delly/perSample/{bam_sample}/{bam_sample}.delly.raw.vcf.gz".format(
+            path_data + "germlineVar/delly/perSample/{bam_sample}/{bam_sample}.delly.raw.vcf.gz.tbi".format(
                 bam_sample=i))
 #
 # if "lumpy" in config["pipe"]["svcnv"]:
@@ -86,7 +86,7 @@ if "delly" in config["pipe"]["svcnv"]:
 if "smoove" in config["pipe"]["svcnv"]:
     for i in bam_sample_list:
         path_raw_vcf.append(
-            path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}.smoove.raw.vcf.gz".format(
+            path_data + "germlineVar/smoove/perSample/{bam_sample}/{bam_sample}.smoove.raw.vcf.gz.tbi".format(
                 bam_sample=i))
 if "cnvnator" in config["pipe"]["svcnv"]:
     for i in bam_sample_list:
@@ -101,14 +101,6 @@ if "breakdancer" in config["pipe"]["svcnv"]:
 if "manta" in config["pipe"]["svcnv"]:
     for i in bam_sample_list:
         path_raw_vcf.append(
-            path_data + "germlineVar/manta/perSample/{bam_sample}/{bam_sample}_manta.raw.vcf.gz".format(
+            path_data + "germlineVar/manta/perSample/{bam_sample}/{bam_sample}_manta.raw.vcf.gz.tbi".format(
                 bam_sample=i))
 
-# vcfgz=path_data + "germlineVar/delly/perSample/{bam_sample}/{bam_sample}.delly.raw.vcf.gz",
-
-
-# if "metasv" in config["pipe"]["svcnv"]:
-#     for i in bam_sample_list:
-#         path_raw_vcf.append(
-#             path_data + "germlineVar/metasv/perSample/{bam_sample}/{bam_sample}_metasv.breakdancer".format(
-#                 bam_sample=i))

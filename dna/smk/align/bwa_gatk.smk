@@ -229,6 +229,7 @@ rule GATKReAlign:
 # wrapper:
 #        config["wrapper"] + "/gatk3/indelrealigner"
 
+
 # rules: BamIndex
 # description: bam index
 # input: bam
@@ -243,9 +244,11 @@ rule BamIndex:
     params:
           path=path_samtools,
           extra=""
-    wrapper:
-           config["wrapper"] + "samtools/index"
-
+    run:
+        if os.path.exists(wildcards.prefix + ".bai"):
+            shell("ln -sr {wildcards.prefix}.bai {output}")
+        else:
+            shell("{path_samtools}samtools index -@ {threads} {input} ")
 # rules: NoneBQSR
 # description: do not using BQSR model
 # input: bam
@@ -275,11 +278,14 @@ rule NoneBQSR:
 rule GATKBQSRPre:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
-         bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
+         bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam.bai",
          ref=path_genome,
          dict=path_dict,
-         known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
-                config["ref"]["mills1KG"]],
+         # known=[config["ref"]["1KGomni"], config["ref"]["hapmap"],
+         #        ],
+         known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"]],
+         # known=[config["ref"]["1KGp1snp"], config["ref"]["dbsnp"], config["ref"]["1KGomni"], config["ref"]["hapmap"],
+         #             config["ref"]["mills1KG"]],
     output:
           tmp=directory(
               path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSRPre_tmp"),
@@ -310,7 +316,7 @@ rule GATKBQSRPre:
 rule GATKBQSR:
     input:
          bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
-         bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam",
+         bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}.bam.bai",
          ref=path_genome,
          target_intervals=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_BQSR.intervals"
     output:
@@ -365,7 +371,8 @@ rule GATKLeftAlign:
          ref=path_genome
     output:
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_LeftAlign.bam",
-          tmp=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_LeftAlign_tmp"
+          tmp=directory(
+              path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_LeftAlign_tmp"),
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_leftAlign.logs"
     benchmark:
@@ -377,9 +384,13 @@ rule GATKLeftAlign:
     run:
         if not os.path.exists(output.tmp):
             shell("mkdir {output.tmp}")
-        shell("{path_gatk}gatk --java-options {params.java_opts} LeftAlignIndels "
-              " -R {input.ref} -I {input.bam}  --create-output-bam-index false "
-              " -O {output.bam} 1>{log} 2>{log}")
+        shell("{path_gatk3}gatk3 {params.java_opts} -T LeftAlignIndels "
+              " -R {input.ref} -I {input.bam}  "
+              " -o {output.bam} 1>{log} 2>{log}")
+# shell("{path_gatk}gatk --java-options   {params.java_opts} LeftAlignIndels "
+#       " -R {input.ref} -I {input.bam}  "
+#       " -O {output.bam} 1>{log} 2>{log}")
+
 
 # rules: NoneFixMate
 # description: do not fixmate
@@ -413,7 +424,8 @@ rule GATKFixMate:
          bai=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}.bam.bai"
     output:
           bam=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_FixMate.bam",
-          tmp=path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_FixMate_tmp"
+          tmp=directory(
+              path_data + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_FixMate_tmp")
     log:
        path_log + "align/{case}/{sample}/{case}_{sample}_{qcpipe}_{aligner}_{markdup}_{realign}_{bqsr}_{leftAlign}_fixMate.logs"
     benchmark:
