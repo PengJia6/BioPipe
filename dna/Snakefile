@@ -18,7 +18,7 @@ rule all:
          # expand([path_data + "HQbam/{u.case}-{u.sample}.bam.bai"], u=caseinfo.itertuples()),
          # path_dict,
          # path_genome_list,
-         # path_raw_vcf,
+         path_raw_vcf,
          path_raw_qc,
          path_HQbamList,
 

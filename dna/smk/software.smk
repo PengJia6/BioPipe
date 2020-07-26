@@ -31,7 +31,8 @@ path_breakdancer = default
 path_delly = default
 
 path_breakseq2 = breakseq27
-path_cnvnator = "/opt/software/CNVnator_v0.3/src/"
+# path_cnvnator = "/opt/software/CNVnator_v0.3/src/"
+path_cnvnator = default
 path_lumpy = default27
 path_smoove = default27
 path_manta = default27

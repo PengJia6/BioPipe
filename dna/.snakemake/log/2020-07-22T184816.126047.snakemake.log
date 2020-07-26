@@ -1,0 +1,84 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	3	BamIndex
+	1	GATKBQSR
+	1	GATKLeftAlign
+	2	LoadHQbam
+	2	NoneFixMate
+	1	all
+	10
+
+[Wed Jul 22 18:49:08 2020]
+rule GATKBQSR:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.intervals
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_tmp, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_applyBQSR.logs
+    jobid: 24
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_applyBQSR.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign
+
+[Wed Jul 22 18:49:08 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam.bai
+    jobid: 18
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign
+    threads: 4
+
+[Wed Jul 22 18:49:10 2020]
+Finished job 18.
+1 of 10 steps (10%) done
+
+[Wed Jul 22 18:49:10 2020]
+localrule NoneFixMate:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam.bai
+    jobid: 15
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR, leftAlign=LeftAlign
+
+[Wed Jul 22 18:49:11 2020]
+Finished job 15.
+2 of 10 steps (20%) done
+
+[Wed Jul 22 18:49:11 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data2/HQbam/HG001_N.bam, ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N.logs
+    jobid: 10
+    wildcards: case=HG001, sample=N
+
+[Wed Jul 22 18:49:13 2020]
+Finished job 10.
+3 of 10 steps (30%) done
+[Wed Jul 22 18:50:08 2020]
+Finished job 24.
+4 of 10 steps (40%) done
+
+[Wed Jul 22 18:50:08 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam.bai
+    jobid: 25
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR
+    threads: 4
+
+[Wed Jul 22 18:50:09 2020]
+Finished job 25.
+5 of 10 steps (50%) done
+
+[Wed Jul 22 18:50:09 2020]
+rule GATKLeftAlign:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_tmp
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.logs
+    jobid: 19
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-22T184816.126047.snakemake.log

@@ -1,0 +1,210 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 20
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	8	BamIndex
+	2	GATKBQSR
+	2	GATKBQSRPre
+	2	GATKLeftAlign
+	2	GATKReAlign
+	2	GATKReAlignPre
+	2	LoadHQbam
+	2	MarkDupWithBiobambam
+	2	NoneFixMate
+	1	all
+	25
+
+[Tue Jul 21 17:20:51 2020]
+rule MarkDupWithBiobambam:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_biobam_tmp, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.Metrics
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.logs
+    jobid: 36
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa.bioMarkDup.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa
+    threads: 4
+
+[Tue Jul 21 17:20:51 2020]
+rule MarkDupWithBiobambam:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_biobam_tmp, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.Metrics
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.logs
+    jobid: 32
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa.bioMarkDup.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa
+    threads: 4
+
+[Tue Jul 21 17:21:01 2020]
+Finished job 32.
+1 of 25 steps (4%) done
+
+[Tue Jul 21 17:21:01 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam.bai
+    jobid: 33
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup
+    threads: 4
+
+[Tue Jul 21 17:21:02 2020]
+Finished job 33.
+2 of 25 steps (8%) done
+
+[Tue Jul 21 17:21:02 2020]
+rule GATKReAlignPre:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.dict, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.intervals
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.logs
+    jobid: 35
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup
+    threads: 4
+
+[Tue Jul 21 17:21:14 2020]
+Finished job 36.
+3 of 25 steps (12%) done
+
+[Tue Jul 21 17:21:14 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam.bai
+    jobid: 37
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup
+    threads: 4
+
+[Tue Jul 21 17:21:16 2020]
+Finished job 37.
+4 of 25 steps (16%) done
+
+[Tue Jul 21 17:21:16 2020]
+rule GATKReAlignPre:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.dict, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.intervals
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.logs
+    jobid: 38
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup
+    threads: 4
+
+[Tue Jul 21 17:37:47 2020]
+Finished job 38.
+5 of 25 steps (20%) done
+
+[Tue Jul 21 17:37:47 2020]
+rule GATKReAlign:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.dict, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.intervals
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.bam
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign-apply.logs
+    jobid: 29
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign-apply.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup
+
+[Tue Jul 21 17:38:26 2020]
+Finished job 35.
+6 of 25 steps (24%) done
+
+[Tue Jul 21 17:38:26 2020]
+rule GATKReAlign:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.dict, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.intervals
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.bam
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign-apply.logs
+    jobid: 26
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign-apply.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup
+
+[Tue Jul 21 17:55:41 2020]
+Finished job 29.
+7 of 25 steps (28%) done
+
+[Tue Jul 21 17:55:41 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.bam.bai
+    jobid: 30
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign
+    threads: 4
+
+[Tue Jul 21 17:55:44 2020]
+Finished job 30.
+8 of 25 steps (32%) done
+
+[Tue Jul 21 17:55:44 2020]
+rule GATKBQSRPre:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.dict, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSRPre_tmp, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.intervals
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_preBQSR.logs
+    jobid: 31
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_preBQSR.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign
+
+[Tue Jul 21 17:56:04 2020]
+Finished job 26.
+9 of 25 steps (36%) done
+
+[Tue Jul 21 17:56:04 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.bam.bai
+    jobid: 27
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign
+    threads: 4
+
+[Tue Jul 21 17:56:05 2020]
+Finished job 27.
+10 of 25 steps (40%) done
+
+[Tue Jul 21 17:56:05 2020]
+rule GATKBQSRPre:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.dict, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz, /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSRPre_tmp, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.intervals
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_preBQSR.logs
+    jobid: 28
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_preBQSR.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign
+
+[Tue Jul 21 17:57:27 2020]
+Finished job 28.
+11 of 25 steps (44%) done
+
+[Tue Jul 21 17:57:27 2020]
+rule GATKBQSR:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.intervals
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_tmp, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.bam
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_applyBQSR.logs
+    jobid: 21
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_applyBQSR.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign
+
+[Tue Jul 21 17:57:39 2020]
+Finished job 21.
+12 of 25 steps (48%) done
+
+[Tue Jul 21 17:57:39 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.bam
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.bam.bai
+    jobid: 22
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR
+    threads: 4
+
+[Tue Jul 21 17:57:40 2020]
+Finished job 22.
+13 of 25 steps (52%) done
+
+[Tue Jul 21 17:57:40 2020]
+rule GATKLeftAlign:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_tmp
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.logs
+    jobid: 17
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR
+
+[Tue Jul 21 17:58:34 2020]
+Finished job 31.
+14 of 25 steps (56%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-21T172049.979553.snakemake.log

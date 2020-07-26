@@ -1,0 +1,69 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	BamIndex
+	1	GATKLeftAlign
+	1	LoadHQbam
+	1	NoneFixMate
+	1	all
+	5
+
+[Wed Jul 22 18:57:49 2020]
+rule GATKLeftAlign:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_tmp
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.logs
+    jobid: 19
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR
+
+[Wed Jul 22 18:58:15 2020]
+Finished job 19.
+1 of 5 steps (20%) done
+
+[Wed Jul 22 18:58:15 2020]
+rule BamIndex:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam.bai
+    jobid: 20
+    wildcards: prefix=../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign
+    threads: 4
+
+[Wed Jul 22 18:58:16 2020]
+Finished job 20.
+2 of 5 steps (40%) done
+
+[Wed Jul 22 18:58:16 2020]
+localrule NoneFixMate:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam.bai
+    jobid: 16
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR, leftAlign=LeftAlign
+
+[Wed Jul 22 18:58:17 2020]
+Finished job 16.
+3 of 5 steps (60%) done
+
+[Wed Jul 22 18:58:17 2020]
+localrule LoadHQbam:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_noneFixMate.bam.bai
+    output: ../../ngs_test_data/data2/HQbam/HG001_N1.bam, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data2/HQbam/changeLogs/HG001_N1.logs
+    jobid: 11
+    wildcards: case=HG001, sample=N1
+
+[Wed Jul 22 18:58:19 2020]
+Finished job 11.
+4 of 5 steps (80%) done
+
+[Wed Jul 22 18:58:19 2020]
+localrule all:
+    input: ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_1_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N/HG001_N_L1_2_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L1_2_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastqc/HG001/N1/HG001_N1_L2_2_fastqc.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N/HG001_N_L1_fastp_fastqc2_1.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_1.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L2_fastp_fastqc2_1.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N/HG001_N_L1_fastp_fastqc2_2.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L1_fastp_fastqc2_2.zip, ../../ngs_test_data/data2/raw_read_qc/fastp_fastqc2/HG001/N1/HG001_N1_L2_fastp_fastqc2_2.zip, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N/HG001_N_L1_fastp.json, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N1/HG001_N1_L1_fastp.json, ../../ngs_test_data/data2/raw_read_qc/fastp/HG001/N1/HG001_N1_L2_fastp.json, ../../ngs_test_data/data2/cleandata/fastp/HG001/N/HG001_N_L1_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_1.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N/HG001_N_L1_fastp_2.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L1_fastp_2.fq.gz, ../../ngs_test_data/data2/cleandata/fastp/HG001/N1/HG001_N1_L2_fastp_2.fq.gz, ../../ngs_test_data/data2/HQbam/HG001_N.bam.bai, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai, ../../ngs_test_data/data2/HQbam/HG001_N1.bam.bai
+    jobid: 0
+
+[Wed Jul 22 18:58:19 2020]
+Finished job 0.
+5 of 5 steps (100%) done
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-22T185748.470320.snakemake.log

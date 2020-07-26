@@ -1,0 +1,25 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	BamIndex
+	1	GATKLeftAlign
+	1	LoadHQbam
+	1	NoneFixMate
+	1	all
+	5
+
+[Wed Jul 22 18:55:49 2020]
+rule GATKLeftAlign:
+    input: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_tmp
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.logs
+    jobid: 19
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-22T185548.350177.snakemake.log

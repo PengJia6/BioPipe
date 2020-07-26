@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 10
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	3	BamIndex
+	2	GATKFixMate
+	1	GATKLeftAlign
+	2	LoadHQbam
+	1	all
+	9
+
+[Wed Jul 22 19:16:36 2020]
+rule GATKLeftAlign:
+    input: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR.bam.bai, ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa
+    output: ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_tmp
+    log: ../../ngs_test_data/logs/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.logs
+    jobid: 20
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N/HG001_N_fastp_bwa_bioMarkDup_reAlign_BQSR_leftAlign.tsv
+    wildcards: case=HG001, sample=N, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR
+
+[Wed Jul 22 19:16:37 2020]
+rule GATKFixMate:
+    input: ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign.bam.bai
+    output: ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_FixMate.bam, ../../ngs_test_data/data2/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_FixMate_tmp
+    log: ../../ngs_test_data/logs/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_fixMate.logs
+    jobid: 17
+    benchmark: ../../ngs_test_data/benchmark/align/HG001/N1/HG001_N1_fastp_bwa_bioMarkDup_reAlign_BQSR_LeftAlign_fixMate.tsv
+    wildcards: case=HG001, sample=N1, qcpipe=fastp, aligner=bwa, markdup=bioMarkDup, realign=reAlign, bqsr=BQSR, leftAlign=LeftAlign
+
+[Wed Jul 22 19:18:26 2020]
+Finished job 20.
+1 of 9 steps (11%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-07-22T191635.558060.snakemake.log

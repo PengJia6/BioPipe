@@ -17,7 +17,7 @@
 # input: TODO
 # output: TODO
 rule CNVnator:
-    input:
+    input: 
          unpack(getHQbamsample),
          ref=path_genome,
          sindex=path_genome + ".fai"
