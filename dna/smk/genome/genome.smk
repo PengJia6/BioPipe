@@ -6,9 +6,7 @@
 # Email  : pengjia@stu.xjtu.edu.cn
 # Description: TODO
 # ======================================================================================================================
-
-# localrules: a
-# ruleorder: a > b
+import os
 
 # ======================================================================================================================
 # rules: TODO
@@ -22,6 +20,9 @@ path_genome_list = [path_genome + ".fai", path_genome + ".bwt", path_dict, path_
 path_orginal_genome_prefix = config["ref"]["genome"].rstrip("fa").rstrip("fasta")
 path_genome_prefix = str(path_data + "genome/" + config["ref"]["name"] + "/" +
                          config["ref"]["genome"].split("/")[-1].rstrip("fa").rstrip("fasta"))
+path_orginal_genome_path = "/".join(config["ref"]["genome"].split("/")[:-1]) + "/"
+path_genome_path = "/".join(path_genome.split("/")[:-1]).rstrip("/") + "/"
+
 rule LoadGenome:
     input:
          config["ref"]["genome"]
@@ -34,16 +35,14 @@ rule LoadGenome:
          """
 rule LoadGenomeFile:
     input:
-        sv_excul=path_orginal_genome_prefix+"exclude.cnvnator.bed"
+         sv_excul=path_orginal_genome_prefix + "exclude.cnvnator.bed"
     output:
-        sv_excul=path_genome_prefix+"exclude.cnvnator.bed"
+          sv_excul=path_genome_prefix + "exclude.cnvnator.bed"
     shell:
          """
          ln -sr {input.sv_excul} {output.sv_excul}
          touch -h {output.sv_excul}
          """
-
-
 
 rule GenomeIndexSamtools:
     input:
@@ -104,3 +103,4 @@ rule GenomeIndexPicard:
             shell("ln -sr {path_dict_orginal} {path_dict}")
         else:
             shell("{path_picard}picard CreateSequenceDictionary R={input} O={output}  2>{log} 1>{log} ")
+

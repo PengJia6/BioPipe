@@ -6,12 +6,9 @@ from snakemake.shell import shell
 
 # report: "../reports/workflow.rst"
 configfile: "conf/config.yaml"
-path_data = config["path_data"]
-path_data = path_data if path_data[-1] == "/" else path_data + "/"
-path_log = config["path_log"]
-path_log = path_log if path_log[-1] == "/" else path_log + "/"
-path_bm = config["path_bm"]
-path_bm = path_bm if path_bm[-1] == "/" else path_bm + "/"
+path_data = os.path.abspath( config["path_data"]).rstrip("/") + "/"
+path_log = os.path.abspath(config["path_log"]).rstrip("/")+"/"
+path_bm = os.path.abspath(config["path_bm"]).rstrip("/")+"/"
 
 ########################################################################################################################
 ## Load genome and build index for alignment and gatk

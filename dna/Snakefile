@@ -21,5 +21,7 @@ rule all:
          path_raw_vcf,
          path_raw_qc,
          path_HQbamList,
+         path_CNVcaller_ref_index,
+         path_CNVcaller_dup,
 
          # path_data + "germlineVar/HC/jointCall/jointCall/"+config["project"]["name"]+".HC.vcf.gz"

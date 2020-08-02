@@ -1,0 +1,3 @@
+SyntaxError in line 146 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/genome/genome.smk:
+invalid syntax
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 4, in <module>

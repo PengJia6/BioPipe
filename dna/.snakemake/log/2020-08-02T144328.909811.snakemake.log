@@ -1,0 +1,5 @@
+CreateRuleException in line 35 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_cnvkit.smk:
+The name TODO2 is already used by another rule
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 7, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_output.smk", line 11, in <module>
+  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_cnvkit.smk", line 35, in <module>

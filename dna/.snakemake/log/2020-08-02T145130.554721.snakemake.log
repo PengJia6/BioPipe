@@ -1,0 +1,22 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 5
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	CNVcaler_IndexReference
+	1	all
+	2
+
+[Sun Aug  2 14:51:34 2020]
+rule CNVcaler_IndexReference:
+    input: ../../ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa
+    output: ../../ngs_test_data/data2/germlineVar/CNVcaler/reference/
+    log: ../../ngs_test_data/logs/gremlineVar/CNVcaler/reference/IndexReference.logs
+    jobid: 45
+    benchmark: ../../ngs_test_data/benchmark/gremlineVar/CNVcaler/reference/IndexReference.bm
+    threads: 2
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-08-02T145130.554721.snakemake.log

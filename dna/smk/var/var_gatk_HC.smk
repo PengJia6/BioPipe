@@ -277,3 +277,24 @@ rule HC_FileterINDElHard:
               ' -filter "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20"  '
               ' -O {output} '
               ' 2>{log} 1>{log}')
+# rule HC_FileterINDElHard:
+#     input:
+#          rules.HC_JointCall_SelectSNV.output
+#     output:
+#           path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz"
+#
+#     threads: config["threads"]["HC_FileterINDElHard"]
+#     log:
+#        path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterINDElHard.logs"
+#     benchmark:
+#              path_bm + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterINDElHard.tsv"
+#     run:
+#         shell('{path_gatk}gatk VariantFiltration '
+#               ' -V {input} '
+#               ' -filter "QD < 2.0"  --filter-name "QD2" '
+#               ' -filter "QUAL < 30.0" --filter-name "QUAL30" '
+#               ' -filter "FS > 200.0" --filter-name "FS200" '
+#               ' -filter "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20"  '
+#               ' -O {output} '
+#               ' 2>{log} 1>{log}')
+

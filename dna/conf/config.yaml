@@ -52,23 +52,24 @@ pipe:
       #    - samtools
       #    - pindel
       #    - varscan
-      #    - freebayes
+    #    - freebayes
     #    - deepvariant
 
 
 
   ## large variants (SV and CNV)
   svcnv:
-    - cnvnator
     - metasv
     - delly
     - lumpy
     - smoove
     - breakdancer
-    - cnvnator
+    #    - cnvnator
     - pindel
     - metasv
     - manta
+    - cnvcaller
+    - cnvkit
 
   ## annotation
 
@@ -78,7 +79,7 @@ ref:
   name: "GRCh38"
   chrom_num: 25   # the first chrom_num of chrom will be analysised by gatk
   # Path to the reference genome, ideally as it is provided by the GATK bundle.
-#  genome: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+  #  genome: "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
   genome: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.fa"
   dbsnp: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/dbsnp_146.hg38.vcf.gz"
   1KGomni: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_omni2.5.hg38.vcf.gz"
@@ -173,7 +174,12 @@ threads:
   ########## var_breakdancer.smk ######
   BreakDancer: 2
   BreakDancer_Conf: 2
-
+  ########## var_breakdancer.smk ######
+  CNVcaller_make_kmer: 2
+  CNVcaller_make_dup_align: 2
+  CNVcaller_make_dup: 2
+  CNVcaler_IndexReference: 2
+  ########## var_breakdancer.smk ######
 
   #####################
 

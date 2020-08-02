@@ -106,8 +106,8 @@ rule VQSR:
         # use aux to e.g. download other necessary file
         aux=[config["ref"]["hapmap"]+".tbi",
 		config["ref"]["1KGomni"]+".tbi",
-        	config["ref"]["1KGp1snp"]+".tbi",
-	        config["ref"]["dbsnp"]+".tbi" ,
+        config["ref"]["1KGp1snp"]+".tbi",
+	    config["ref"]["dbsnp"]+".tbi" ,
 		config["ref"]["mills1KG"]+".tbi",]
         
     output:

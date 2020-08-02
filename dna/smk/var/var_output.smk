@@ -8,6 +8,8 @@ include: "var_smoove.smk"
 include: "var_cnvnator.smk"
 include: "var_breakdancer.smk"
 include: "var_manta.smk"
+include: "var_cnvkit.smk"
+include: "var_cnvcaller.smk"
 
 rule tabix:
     input:
@@ -103,4 +105,10 @@ if "manta" in config["pipe"]["svcnv"]:
         path_raw_vcf.append(
             path_data + "germlineVar/manta/perSample/{bam_sample}/{bam_sample}_manta.raw.vcf.gz.tbi".format(
                 bam_sample=i))
+# if "manta" in config["pipe"]["svcnv"]:
+#     for i in bam_sample_list:
+#         path_raw_vcf.append(
+#             path_data + "germlineVar/manta/perSample/{bam_sample}/{bam_sample}_manta.raw.vcf.gz.tbi".format(
+#                 bam_sample=i))
+
 
