@@ -1,5 +1,0 @@
-NameError in line 19 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/raw_read_qc/raw_read_qc.smk:
-name 'path_pigz' is not defined
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 4, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/raw_read_qc/raw_read_qc_output.smk", line 9, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/raw_read_qc/raw_read_qc.smk", line 19, in <module>

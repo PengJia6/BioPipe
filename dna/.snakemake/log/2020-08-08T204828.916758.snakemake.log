@@ -1,4 +1,0 @@
-Building DAG of jobs...
-MissingInputException in line 238 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/align/bwa_gatk.smk:
-Missing input files for rule BamIndex:
-/home/pengjia/ProjectSnake/ngs_test_data/HQbam/HG001_N.bam

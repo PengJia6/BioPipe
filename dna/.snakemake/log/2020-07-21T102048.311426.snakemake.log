@@ -1,3 +1,0 @@
-NameError in line 20 of /home/pengjia/ProjectSnake/DNAseq/dna/Snakefile:
-name 'path_HQbamList' is not defined
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 20, in <module>

@@ -1,6 +1,0 @@
-Multiple include of /home/pengjia/ProjectSnake/DNAseq/dna/smk/common.smk ignored
-Multiple include of /home/pengjia/ProjectSnake/DNAseq/dna/smk/software.smk ignored
-Multiple include of /home/pengjia/ProjectSnake/DNAseq/dna/smk/raw_read_qc/raw_read_qc.smk ignored
-WorkflowError in line 34 of /home/pengjia/ProjectSnake/DNAseq/dna/Snakefile:
-Failed to open /home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk.
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 34, in <module>

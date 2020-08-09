@@ -1,5 +1,0 @@
-AttributeError in line 75 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_cnvcaller.smk:
-module 'posixpath' has no attribute 'abspathpath_bm'
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 7, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_output.smk", line 12, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_cnvcaller.smk", line 75, in <module>

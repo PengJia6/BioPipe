@@ -1,4 +1,0 @@
-SyntaxError in line 333 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_gatk_HC.smk:
-invalid syntax
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 7, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_output.smk", line 1, in <module>

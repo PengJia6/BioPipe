@@ -1,4 +1,0 @@
-SyntaxError in line 72 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_lumpy.smk:
-Unexpected keyword vcf in rule definition (var_lumpy.smk, line 72)
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 31, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk", line 6, in <module>

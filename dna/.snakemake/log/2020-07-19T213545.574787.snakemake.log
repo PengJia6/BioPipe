@@ -1,5 +1,0 @@
-KeyError in line 29 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_breakdancer.smk:
-'BreakDancer_Conf'
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 31, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk", line 9, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_breakdancer.smk", line 29, in <module>

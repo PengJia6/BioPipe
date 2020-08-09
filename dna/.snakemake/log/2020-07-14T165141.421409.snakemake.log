@@ -1,4 +1,0 @@
-SyntaxError in line 46 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_delly.smk:
-invalid syntax
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 31, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk", line 7, in <module>

@@ -1,5 +1,0 @@
-The flag 'directory' used in rule Manta is only valid for outputs, not inputs.
-WorkflowError in line 13 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk:
-Failed to open /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_metasv.smk.
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/Snakefile", line 31, in <module>
-  File "/home/pengjia/ProjectSnake/DNAseq/dna/smk/var.smk", line 13, in <module>

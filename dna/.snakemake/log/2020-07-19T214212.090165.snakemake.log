@@ -1,4 +1,0 @@
-Building DAG of jobs...
-MissingInputException in line 45 of /home/pengjia/ProjectSnake/DNAseq/dna/smk/var/var_manta.smk:
-Missing input files for rule Manta:
-../../ngs_test_data/data1/germlineVar/manta/perSample/HG001_N/HG001_N_manta/runWorkflow.py
