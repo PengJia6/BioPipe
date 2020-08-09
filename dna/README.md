@@ -26,7 +26,7 @@
 
 ### caller 
 #### germline 
-* gatk hc (need VQSR filter) 
+* gatk hc (√) 
 * samtools （√）
 * freebayse （√）
 * varscan （√）
