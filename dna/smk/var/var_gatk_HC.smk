@@ -123,9 +123,9 @@ rule HC_MergeVCF_jointCall:
           java_options=""
     threads: config["threads"]["HC_MergeVCF_jointCall"]
     log:
-       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC.MergeVcf.logs"
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.MergeVcf.logs"
     benchmark:
-             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC.MergeVcf.tsv"
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.MergeVcf.tsv"
     run:
         # inputs = " ".join([("-V " + f) for f in input.gvcfs])
         inputs = " ".join(["INPUT={}".format(f) for f in input])
@@ -143,9 +143,9 @@ rule HC_JointCall_SelectSNV:
     threads:
            config["threads"]["HC_JointCall_SelectSNV"]
     log:
-       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectSNV.logs"
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC_JointCall_SelectSNV.logs"
     benchmark:
-             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectSNV.tsv"
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC_JointCall_SelectSNV.tsv"
     run:
         shell("{path_gatk}gatk SelectVariants -V {input} -select-type SNP -O {output}"
               " 2>{log} 1>{log}")
@@ -157,9 +157,10 @@ rule HC_JointCall_SelectIndel:
     threads:
            config["threads"]["HC_JointCall_SelectIndel"]
     log:
-       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectIndel.logs"
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC_JointCall_SelectIndel.logs"
     benchmark:
-             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_SelectIndel.tsv"
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+                 "name"] + ".HC_JointCall_SelectIndel.tsv"
     run:
         shell("{path_gatk}gatk SelectVariants -V {input} -select-type INDEL -O {output}"
               " 2>{log} 1>{log}")
@@ -171,9 +172,11 @@ rule HC_JointCall_FileterSNVHard:
           path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.passh.vcf.gz"
     threads: config["threads"]["HC_JointCall_FileterSNVHard"]
     log:
-       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterSNVHard.logs"
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+           "name"] + ".HC_JointCall_FileterSNVHard.logs"
     benchmark:
-             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterSNVHard.tsv"
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+                 "name"] + ".HC_JointCall_FileterSNVHard.tsv"
     run:
         shell('{path_gatk}gatk VariantFiltration '
               ' -V {input} '
@@ -194,9 +197,11 @@ rule HC_JointCall_FileterINDElHard:
           path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.passh.vcf.gz"
     threads: config["threads"]["HC_JointCall_FileterINDElHard"]
     log:
-       path_log + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterINDElHard.logs"
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+           "name"] + ".HC_JointCall_FileterINDElHard.logs"
     benchmark:
-             path_bm + "gremlineVar/HC/jointCall/jointCall/joint.HC_JointCall_FileterINDElHard.tsv"
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+                 "name"] + ".HC_JointCall_FileterINDElHard.tsv"
     run:
         shell('{path_gatk}gatk VariantFiltration '
               ' -V {input} '
@@ -277,24 +282,199 @@ rule HC_FileterINDElHard:
               ' -filter "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20"  '
               ' -O {output} '
               ' 2>{log} 1>{log}')
-# rule HC_FileterINDElHard:
-#     input:
-#          rules.HC_JointCall_SelectSNV.output
-#     output:
-#           path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz"
-#
-#     threads: config["threads"]["HC_FileterINDElHard"]
-#     log:
-#        path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterINDElHard.logs"
-#     benchmark:
-#              path_bm + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_FileterINDElHard.tsv"
-#     run:
-#         shell('{path_gatk}gatk VariantFiltration '
-#               ' -V {input} '
-#               ' -filter "QD < 2.0"  --filter-name "QD2" '
-#               ' -filter "QUAL < 30.0" --filter-name "QUAL30" '
-#               ' -filter "FS > 200.0" --filter-name "FS200" '
-#               ' -filter "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20"  '
-#               ' -O {output} '
-#               ' 2>{log} 1>{log}')
 
+rule HC_Joint_MakeSitesOnlyVcf:
+    input:
+         rules.HC_MergeVCF_jointCall.output
+    output:
+          path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.sitesonly.vcf.gz"
+    threads:
+           config["threads"]["HC_Joint_MakeSitesOnlyVcf"]
+    log:
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC_JointCall_sitesonly.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC_JointCall_sitesonly.tsv"
+    run:
+        shell("{path_gatk}gatk MakeSitesOnlyVcf -I {input}  -O {output} 2>{log} 1>{log}")
+
+path_db_hapmap = config["ref"]["hapmap"]
+path_db_1KGomni = config["ref"]["1KGomni"]
+path_db_1KGp1snp = config["ref"]["1KGp1snp"]
+path_db_dbsnp = config["ref"]["dbsnp"]
+path_db_mills1KG = config["ref"]["mills1KG"]
+path_db_axiomPoly = config["ref"]["axiomPoly"]
+resources_index = [res + ".tbi" for res in
+                   [path_db_dbsnp, path_db_mills1KG, path_db_1KGp1snp, path_db_hapmap, path_db_1KGomni,
+                    path_db_axiomPoly]]
+
+
+def get_vartype_paras(wildcards):
+    if wildcards.vartype == "SNV":
+        return "-mode SNP " \
+               "-an QD -an MQRankSum  -an ReadPosRankSum -an FS -an SOR -an DP -an MQ " \
+               "--max-gaussians 6"
+    else:
+        return "-mode INDEL " \
+               "-an QD -an MQRankSum -an ReadPosRankSum -an FS -an SOR -an DP " \
+               "--max-gaussians 4"
+
+
+rule HC_Joint_VQSLOD:
+    input:
+         vcf=rules.HC_Joint_MakeSitesOnlyVcf.output,
+         ref=path_genome,
+         # resources have to be given as named input files
+         hapmap=path_db_hapmap,
+         omni=path_db_1KGomni,
+         g1k=path_db_1KGp1snp,
+         dbsnp=path_db_dbsnp,
+         mills=path_db_mills1KG,
+         axiomPoly=path_db_axiomPoly,
+         resource_index=resources_index
+    output:
+          recal=path_data + "germlineVar/HC/jointCall/jointCall/" +
+                config["project"]["name"] + ".HC.VQSLOD.{vartype}.recal",
+          tranches=path_data + "germlineVar/HC/jointCall/jointCall/" +
+                   config["project"]["name"] + ".HC.VQSLOD.{vartype}.tranches"
+    threads:
+           config["threads"]["HC_Joint_VQSLOD"]
+    log:
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+           "name"] + ".HC_JointCall_Joint_VQSLOD_{vartype}.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+                 "name"] + ".HC_JointCall_Joint_VQSLOD_{vartype}.tsv"
+    params:
+          java_opt=" '-Xmx24g -Xms24g' ",
+          vartype=get_vartype_paras
+    run:
+        if wildcards.vartype == "SNV":
+            resources = \
+                "--resource:hapmap,known=false,training=true,truth=true,prior=15.0 " + input.hapmap + " " + \
+                "--resource:omni,known=false,training=true,truth=false,prior=12.0 " + input.omni + " " + \
+                "--resource:g1k,known=false,training=true,truth=false,prior=10.0 " + input.g1k + " " + \
+                "--resource:dbsnp,known=true,training=false,truth=false,prior=7.0 " + input.dbsnp + " "
+        else:
+            # if wildcards.vartype == "SNV":
+            resources = \
+                "--resource:dbsnp,known=true,training=false,truth=false,prior=2.0 " + input.dbsnp + " " + \
+                "--resource:mills,known=false,training=true,truth=true,prior=12.0 " + input.mills + " " + \
+                "--resource:axiomPoly,known=false,training=true,truth=false,prior=10.0 " + input.axiomPoly + " "
+        shell("{path_gatk}gatk --java-options {params.java_opt}  VariantRecalibrator "
+              "-V {input.vcf} "
+              "--trust-all-polymorphic "
+              "-R {input.ref} "
+              "{params.vartype} "
+              "-tranche 100.0 -tranche 99.95 -tranche 99.9 -tranche 99.5 -tranche 99.0 -tranche 97.0 -tranche 96.0 -tranche 95.0 -tranche 94.0 "
+              "-tranche 93.5 -tranche 93.0 -tranche 92.0 -tranche 91.0 -tranche 90.0 "
+              "{resources} "
+              "-O {output.recal} "
+              "--tranches-file {output.tranches} "
+              "2>{log} 1>{log}"
+              )
+
+rule HC_Joint_applyVQSR:
+    input:
+         vcf=rules.HC_MergeVCF_jointCall.output,
+         recal=rules.HC_Joint_VQSLOD.output.recal,
+         tranches=rules.HC_Joint_VQSLOD.output.tranches,
+    output:
+          vcf=path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"][
+              "name"] + ".HC.{vartype}.VQSR.vcf.gz"
+
+    threads:
+           config["threads"]["HC_Joint_applyVQSR"]
+    log:
+       path_log + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+           "name"] + ".HC_JointCall_Joint_applyVQSR_{vartype}.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jointCall/jointCall/" + config["project"][
+                 "name"] + ".HC_JointCall_Joint_applyVQSR_{vartype}.tsv"
+    params:
+          java_opt=" '-Xmx5g -Xms5g' ",
+    run:
+        vartype = "SNP" if wildcards.vartype == "SNV" else "INDEL"
+        shell("{path_gatk}gatk --java-options {params.java_opt}  ApplyVQSR "
+              "-V {input.vcf}  --recal-file {input.recal} --tranches-file {input.tranches} "
+              "--truth-sensitivity-filter-level 99.7 "
+              # "--create-output-variant-index fasle "
+              "-mode {vartype} "
+              "-O {output.vcf} "
+              "2>{log} 1>{log}")
+
+rule HC_VQSLOD:
+    input:
+         vcf=rules.HC_MergeVCF.output,
+         ref=path_genome,
+         # resources have to be given as named input files
+         hapmap=path_db_hapmap,
+         omni=path_db_1KGomni,
+         g1k=path_db_1KGp1snp,
+         dbsnp=path_db_dbsnp,
+         mills=path_db_mills1KG,
+         axiomPoly=path_db_axiomPoly,
+         resource_index=resources_index
+    output:
+          recal=path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.VQSLOD.{vartype}.recal",
+          tranches=path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.VQSLOD.{vartype}.tranches"
+
+    threads:
+           config["threads"]["HC_Joint_VQSLOD"]
+    log:
+       path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_JointCall_Joint_VQSLOD_{vartype}.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/jperSample/{bam_sample}/{bam_sample}.HC_JointCall_Joint_VQSLOD_{vartype}.tsv"
+    params:
+          java_opt=" '-Xmx10g -Xms10g' ",
+          vartype=get_vartype_paras
+    run:
+        if wildcards.vartype == "SNV":
+            resources = \
+                "--resource:hapmap,known=false,training=true,truth=true,prior=15.0 " + input.hapmap + " " + \
+                "--resource:omni,known=false,training=true,truth=false,prior=12.0 " + input.omni + " " + \
+                "--resource:g1k,known=false,training=true,truth=false,prior=10.0 " + input.g1k + " " + \
+                "--resource:dbsnp,known=true,training=false,truth=false,prior=7.0 " + input.dbsnp + " "
+        else:
+            # if wildcards.vartype == "SNV":
+            resources = \
+                "--resource:dbsnp,known=true,training=false,truth=false,prior=2.0 " + input.dbsnp + " " + \
+                "--resource:mills,known=false,training=true,truth=true,prior=12.0 " + input.mills + " " + \
+                "--resource:axiomPoly,known=false,training=true,truth=false,prior=10.0 " + input.axiomPoly + " "
+        shell("{path_gatk}gatk --java-options {params.java_opt}  VariantRecalibrator "
+              "-V {input.vcf} "
+              "--trust-all-polymorphic "
+              "-R {input.ref} "
+              "{params.vartype} "
+              "-tranche 100.0 -tranche 99.95 -tranche 99.9 -tranche 99.5 -tranche 99.0 -tranche 97.0 -tranche 96.0 -tranche 95.0 -tranche 94.0 "
+              "-tranche 93.5 -tranche 93.0 -tranche 92.0 -tranche 91.0 -tranche 90.0 "
+              "{resources} "
+              "-O {output.recal} "
+              "--tranches-file {output.tranches} "
+              "2>{log} 1>{log}"
+              )
+
+rule HC_applyVQSR:
+    input:
+         vcf=rules.HC_MergeVCF.output,
+         recal=rules.HC_VQSLOD.output.recal,
+         tranches=rules.HC_VQSLOD.output.tranches,
+    output:
+          vcf=path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.{vartype}.VQSR.vcf.gz"
+
+    threads:
+           config["threads"]["HC_applyVQSR"]
+    log:
+       path_log + "gremlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC_JointCall_Joint_applyVQSR_{vartype}.logs"
+    benchmark:
+             path_bm + "gremlineVar/HC/j/perSample/{bam_sample}/{bam_sample}.HC_JointCall_Joint_applyVQSR_{vartype}.tsv"
+    params:
+          java_opt=" '-Xmx5g -Xms5g' ",
+    run:
+        vartype = "SNP" if wildcards.vartype == "SNV" else "INDEL"
+        shell("{path_gatk}gatk --java-options {params.java_opt}  ApplyVQSR "
+              "-V {input.vcf}  --recal-file {input.recal} --tranches-file {input.tranches} "
+              "--truth-sensitivity-filter-level 99.7 "
+              # "--create-output-variant-index fasle "
+              "-mode {vartype} "
+              "-O {output.vcf} "
+              "2>{log} 1>{log}")

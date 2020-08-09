@@ -42,4 +42,4 @@ path_age = "/home/pengjia/mysoftware/sv/AGE/age_v0.4_for_metasv/src/"
 path_cnvcaller = "/home/pengjia/mysoftware/CNVcaller/"
 path_perl = default
 path_python3 = default
-default_blasr = default
+path_blasr = default

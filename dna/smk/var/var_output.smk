@@ -31,6 +31,13 @@ if "HC_Hard_filter" in config["pipe"]["snpindel"]:
             path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.passh.vcf.gz.tbi".format(bam_sample=i))
         path_raw_vcf.append(
             path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz.tbi".format(bam_sample=i))
+if "HC_VQSR" in config["pipe"]["snpindel"]:
+    for i in bam_sample_list:
+        path_raw_vcf.append(
+            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.VQSR.vcf.gz.tbi".format(bam_sample=i))
+        path_raw_vcf.append(
+            path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.VQSR.vcf.gz.tbi".format(bam_sample=i))
+
 if "HC_Joint" in config["pipe"]["snpindel"]:
     # joint calling
     path_raw_vcf.append(
@@ -41,6 +48,12 @@ if "HC_Jonit_Hard_filter" in config["pipe"]["snpindel"]:
         path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.passh.vcf.gz.tbi")
     path_raw_vcf.append(
         path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.passh.vcf.gz.tbi")
+
+if "HC_Joint_VQSR" in config["pipe"]["snpindel"]:
+    path_raw_vcf.append(
+        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.SNV.VQSR.vcf.gz.tbi")
+    path_raw_vcf.append(
+        path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.VQSR.vcf.gz.tbi")
 
 if "freebayes" in config["pipe"]["snpindel"]:
     for i in bam_sample_list:

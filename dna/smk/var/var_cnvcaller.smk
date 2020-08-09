@@ -6,9 +6,14 @@
 # Email  : pengjia@stu.xjtu.edu.cn
 # Description: CNVcaller
 # ======================================================================================================================
-
-# localrules: a
-# ruleorder: a > b
+# change line 54 in CNVcaller/bin/0.2.Kmer_Link.py to suit new pandas version
+# ordinal:
+# df = df.groupby('qName')['qName', 'tNewname'].agg({'qName': np.unique,
+#                                          'tNewname': lambda x: '\t'.join(x)})
+# updated:
+# df = df.groupby('qName')[['qName', 'tNewname']].agg({'qName': np.unique,
+#                                          'tNewname': lambda x: '\t'.join(x)})
+# ======================================================================================================================
 
 
 CNVcaller_bin_size = 500
@@ -74,13 +79,15 @@ rule CNVcaller_make_dup_align:
     benchmark:
              path_bm + "genome/CNVcaler/reference/make_dup_aln.bm"
     threads: config["threads"]["CNVcaller_make_dup_align"]
+    params:
+          extra=""
     run:
         if os.path.exists(path_orginal_genome_prefix + "cnvcaller.kmer.aln"):
             shell("ln -sr {path_orginal_genome_prefix}cnvcaller.kmer.aln {output}")
             shell("sleep 5")
             shell("touch -h {output}")
         else:
-            shell("{path_blasr}blasr {input.kmer} {input.ref} --sa {input.ref}.sa --out {output} "
+            shell("{path_blasr}blasr {input.kmer} {input.ref} --out {output} "
                   " -m 5 --noSplitSubreads --minMatch 15 --maxMatch 20 --advanceHalf "
                   "--advanceExactMatches 10 --fastMaxInterval --fastSDP --aggressiveIntervalCut "
                   "--bestn 10  2>>{log} 1>>{log}")
@@ -106,7 +113,7 @@ rule CNVcaller_make_dup:
             # shell
             shell("")
             shell("{path_python3}python {path_cnvcaller}bin/0.2.Kmer_Link.py {input.aln} "
-                  "{CNVcaller_bin_size} window.link 2>>{log} 1>>{log}")
+                  "{CNVcaller_bin_size} {output} 2>>{log} 1>>{log}")
 
 # ======================================================================================================================
 # rules: TODO
@@ -145,6 +152,8 @@ rule Individual_RD_Processing:
           extra="",
     shell:
          """
+         cd {path_cnvcaller}
+         bash Individual.Process.sh  -b {input.bam} -h {output} -d {input.dup} -s chrX
          command 1 
          command 2
          """

@@ -1,0 +1,36 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 5
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	CNVcaller_make_dup
+	1	CNVcaller_make_dup_align
+	1	all
+	3
+
+[Sun Aug  2 23:35:44 2020]
+rule CNVcaller_make_dup_align:
+    input: /home/pengjia/ProjectSnake/ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.cnvcaller.kmer.fa, /home/pengjia/ProjectSnake/ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa
+    output: /home/pengjia/ProjectSnake/ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.cnvcaller.kmer.aln
+    log: /home/pengjia/ProjectSnake/ngs_test_data/logs/genome/CNVcaler/reference/make_dup_align.logs
+    jobid: 89
+    benchmark: /home/pengjia/ProjectSnake/ngs_test_data/benchmark/genome/CNVcaler/reference/make_dup_aln.bm
+    threads: 2
+
+[Mon Aug  3 16:41:38 2020]
+Finished job 89.
+1 of 3 steps (33%) done
+
+[Mon Aug  3 16:41:38 2020]
+rule CNVcaller_make_dup:
+    input: /home/pengjia/ProjectSnake/ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.cnvcaller.kmer.fa, /home/pengjia/ProjectSnake/ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.fa, /home/pengjia/ProjectSnake/ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.cnvcaller.kmer.aln
+    output: /home/pengjia/ProjectSnake/ngs_test_data/data2/genome/GRCh38/GRCh38.d1.vd1.cnvcaller.link
+    log: /home/pengjia/ProjectSnake/ngs_test_data/logs/genome/CNVcaler/reference/CNVcaller_make_dup.logs
+    jobid: 46
+    benchmark: /home/pengjia/ProjectSnake/ngs_test_data/benchmark/genome/CNVcaler/reference/CNVcaller_make_dup.bm
+    threads: 2
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/pengjia/ProjectSnake/DNAseq/dna/.snakemake/log/2020-08-02T233511.942949.snakemake.log

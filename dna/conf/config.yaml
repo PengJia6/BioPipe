@@ -47,11 +47,11 @@ pipe:
     - deepvariant
 
 
-      #  snpindel:
-      #    - HC    GATK HaplotypeCaller
-      #    - samtools
-      #    - pindel
-      #    - varscan
+    #  snpindel:
+    #    - HC    GATK HaplotypeCaller
+    #    - samtools
+    #    - pindel
+    #    - varscan
     #    - freebayes
     #    - deepvariant
 
@@ -86,6 +86,7 @@ ref:
   1KGp1snp: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/1000G_phase1.snps.high_confidence.hg38.vcf.gz"
   hapmap: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/hapmap_3.3.hg38.vcf.gz"
   mills1KG: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+  axiomPoly: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/variantsDB/Axiom_Exome_Plus.genotypes.all_populations.poly.hg38.vcf.gz"
   germMutuct: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/Mutect2/af-only-gnomad.hg38.vcf.gz"
 
 ########################################################################################################################
@@ -133,6 +134,12 @@ threads:
   HC_SelectIndel: 4
   HC_FileterSNVHard: 4
   HC_FileterINDElHard: 4
+  HC_Joint_MakeSitesOnlyVcf: 4
+  HC_Joint_VQSLOD: 4
+  HC_Joint_applyVQSR: 4
+  HC_VQSLOD: 4
+  HC_applyVQSR: 4
+
   ########## var_freebayes.smk #########
   FB_CallVar: 4
   FB_Filter: 4

@@ -116,7 +116,6 @@ def getHQbamsample(wildcards):
 
 ##### Wildcard constraints #####
 wildcard_constraints:
-                    vartype="snvs|indels",
                     qcpipe="fastp|trim|passqc",
                     aligner="bwa|bowtie",
                     markdup="bioMarkDup|picardMarkDup|noneMarkDup",
@@ -130,7 +129,8 @@ wildcard_constraints:
                     unit="|".join(caseinfo["unit"]),
                     LB="|".join(caseinfo["LB"]),
                     contig="|".join(contigs),
-                    bam_sample="|".join(bam_sample_list)
+                    bam_sample="|".join(bam_sample_list),
+                    vartype="|".join(["SNV","INDEL"])
 
                     # fuction for input and params
 
