@@ -36,7 +36,7 @@ rule Bwa:
           bwa_extra=""
     threads: config["threads"]["Bwa"]
     run:
-        shell("{path_bwa}bwa mem {params.extra} -t {threads} {input.ref} {input.R1} {input.R2} | "
+        shell("{path_bwa}bwa mem -M {params.extra} -t {threads} {input.ref} {input.R1} {input.R2} | "
               "{path_samtools}samtools view -Shb -@ {threads} | "
               "{path_samtools}samtools sort -@ {threads} {params.sort_extra} -T {output}_tmp -o {output} -O BAM "
               "1>{log} 2>{log} ")

@@ -1,4 +1,4 @@
-localrules: LoadGenome,LoadGenomeFile,GenomeIndexSamtools,GenomeIndexPicard
+localrules: LoadGenome, LoadGenomeFile, GenomeIndexSamtools, GenomeIndexPicard
 from snakemake.io import expand
 import pandas as pd
 import os
@@ -6,9 +6,9 @@ from snakemake.shell import shell
 
 # report: "../reports/workflow.rst"
 configfile: "conf/config.yaml"
-path_data = os.path.abspath( config["path_data"]).rstrip("/") + "/"
-path_log = os.path.abspath(config["path_log"]).rstrip("/")+"/"
-path_bm = os.path.abspath(config["path_bm"]).rstrip("/")+"/"
+path_data = os.path.abspath(config["path_data"]).rstrip("/") + "/"
+path_log = os.path.abspath(config["path_log"]).rstrip("/") + "/"
+path_bm = os.path.abspath(config["path_bm"]).rstrip("/") + "/"
 
 ########################################################################################################################
 ## Load genome and build index for alignment and gatk
@@ -130,7 +130,7 @@ wildcard_constraints:
                     LB="|".join(caseinfo["LB"]),
                     contig="|".join(contigs),
                     bam_sample="|".join(bam_sample_list),
-                    vartype="|".join(["SNV","INDEL"])
+                    vartype="|".join(["SNV", "INDEL"])
 
                     # fuction for input and params
 
@@ -148,8 +148,8 @@ def get_read_group(wildcards):
     return r"-R '@RG\tID:{case}_{sample}\tSM:{case}_{sample}\tPL:{platform}\tLB:{LB}'".format(
         sample=wildcards.sample,
         case=wildcards.case,
-        platform=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "PL"][0],
-        LB=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "LB"][0])
+        platform=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "PL"],
+        LB=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "LB"])
 
 
 # for bam_merge input
