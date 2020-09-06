@@ -192,7 +192,7 @@ rule HC_JointCall_FileterSNVHard:
 
 rule HC_JointCall_FileterINDElHard:
     input:
-         rules.HC_JointCall_SelectSNV.output
+         rules.HC_JointCall_SelectIndel.output
     output:
           path_data + "germlineVar/HC/jointCall/jointCall/" + config["project"]["name"] + ".HC.INDEL.passh.vcf.gz"
     threads: config["threads"]["HC_JointCall_FileterINDElHard"]
@@ -227,7 +227,7 @@ rule HC_SelectSNV:
         shell("{path_gatk}gatk SelectVariants -V {input} -select-type SNP -O {output}"
               " 2>{log} 1>{log}")
 rule HC_SelectIndel:
-    input: rules.HC_MergeVCF_jointCall.output
+    input: rules.HC_MergeVCF.output
     output:path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.vcf.gz"
 
     threads: config["threads"]["HC_SelectIndel"]
@@ -241,7 +241,7 @@ rule HC_SelectIndel:
 
 rule HC_FileterSNVHard:
     input:
-         rules.HC_JointCall_SelectSNV.output
+         rules.HC_SelectSNV.output
     output:
           path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.SNV.passh.vcf.gz"
     threads: config["threads"]["HC_FileterSNVHard"]
@@ -264,7 +264,7 @@ rule HC_FileterSNVHard:
 
 rule HC_FileterINDElHard:
     input:
-         rules.HC_JointCall_SelectSNV.output
+         rules.HC_SelectIndel.output
     output:
           path_data + "germlineVar/HC/perSample/{bam_sample}/{bam_sample}.HC.INDEL.passh.vcf.gz"
 
