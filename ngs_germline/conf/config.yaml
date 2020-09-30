@@ -3,7 +3,6 @@ project:
   name: preTest
 ########################################################################################################################
 ### software path
-
 #wrapper:  "file:/home/pengjia/ProjectSnake/snake-wrappers/bio/"
 #mainEnv:  "/home/pengjia/miniconda3/envs/PQsnake/bin/" #path of software
 #qcEnv:  "/home/pengjia/miniconda3/envs/ngsqc/bin/" #path of software

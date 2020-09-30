@@ -72,7 +72,6 @@ def getHQbamsample(wildcards):
         sampleinfo = pd.read_csv(config["bamsample"], index_col=0)
         bam = sampleinfo.loc[wildcards.bam_sample, "path"]
         return {"bam": bam, "bai": bam + ".bai"}
-
     else:
         bam = path_data + "HQbam/{bam_sample}.bam".format(bam_sample=wildcards.bam_sample)
 
