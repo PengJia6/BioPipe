@@ -8,5 +8,5 @@
 # ======================================================================================================================
 include: "bwa_gatk.smk"
 
-path_HQbamList = expand([path_data + "HQbam/{u.case}_{u.sample}.bam.bai"], u=caseinfo.itertuples())
+path_HQbamList = expand([path_data + "HQbam/{u.sample}.bam.bai"], u=caseinfo.itertuples())
 

@@ -15,7 +15,7 @@ path_bm = os.path.abspath(config["path_bm"]).rstrip("/") + "/"
 
 
 # validate(config, schema="../schemas/config.schema.yaml")
-caseinfo = pd.read_csv(config["caseinfo"]).set_index(["case", "sample", "unit"], drop=False)
+caseinfo = pd.read_csv(config["sample_info"]).set_index(["sample", "unit"], drop=False)
 # sampleinfo= pd.read_csv(config["caseinfo"]).set_index(["case","sample"], drop=False)
 # validate(samples, schema="../schemas/samples.schema.yaml")
 
@@ -62,7 +62,7 @@ if config["loadBamFormat"] == "csv":
     sampleinfo = pd.read_csv(config["bamsample"], index_col=0)
     bam_sample_list = list(sampleinfo.index)
 else:
-    bam_sample_list = list(set(expand(["{u.case}_{u.sample}"], u=caseinfo.itertuples())))
+    bam_sample_list = list(set(expand(["{u.sample}"], u=caseinfo.itertuples())))
     for one in bam_sample_list:
         sampleinfo.loc[one, "path"] = path_data + "HQbam/{bamsample}.bam.bai".format(bamsample=one)
 
@@ -124,7 +124,7 @@ wildcard_constraints:
                     leftAlign="noneLeftAlign|LeftAlign",
                     fixMate="noneFixMate|FixMate",
                     R="1|2",
-                    case="|".join(caseinfo["case"]),
+                    # case="|".join(caseinfo["case"]),
                     sample="|".join(caseinfo["sample"]),
                     unit="|".join(caseinfo["unit"]),
                     LB="|".join(caseinfo["LB"]),
@@ -137,7 +137,7 @@ wildcard_constraints:
 
 def get_fastq(wildcards):
     """Get fastq files of given sample-unit."""
-    fastqs = caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
+    fastqs = caseinfo.loc[(wildcards.sample, wildcards.unit), ["fq1", "fq2"]].dropna()
     if len(fastqs) == 2:
         return {"R1": fastqs.fq1, "R2": fastqs.fq2}
     return {"R1": fastqs.fq1, "R2": fastqs.fq2}
@@ -145,19 +145,19 @@ def get_fastq(wildcards):
 
 def get_read_group(wildcards):
     """Denote sample name and platform in read group."""
-    return r"-R '@RG\tID:{case}_{sample}\tSM:{case}_{sample}\tPL:{platform}\tLB:{LB}'".format(
+    return r"-R '@RG\tID:{sample}\tSM:{sample}\tPL:{platform}\tLB:{LB}'".format(
         sample=wildcards.sample,
-        case=wildcards.case,
-        platform=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "PL"],
-        LB=caseinfo.loc[(wildcards.case, wildcards.sample, wildcards.unit), "LB"])
+        # case=wildcards.case,
+        platform=caseinfo.loc[( wildcards.sample, wildcards.unit), "PL"],
+        LB=caseinfo.loc[(wildcards.sample, wildcards.unit), "LB"])
 
 
 # for bam_merge input
-def get_sample_bam(wildcards):
-    units = list(set(caseinfo.loc[(wildcards.case, wildcards.sample), "unit"]))
+def get_sample_bams(wildcards):
+    units = list(set(caseinfo.loc[(wildcards.sample), "unit"]))
     aligner = wildcards.aligner
-    case = wildcards.case
+    # case = wildcards.case
     sample = wildcards.sample
     qcpipe = wildcards.qcpipe
-    return [path_data + "align/" + case + "/" + sample + "/" + case + "_" + sample + "_" + str(
+    return [path_data + "align/"  + sample + "/" + sample + "_" + str(
         i) + "_" + qcpipe + "_" + aligner + "_sorted.bam" for i in units]

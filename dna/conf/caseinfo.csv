@@ -1,6 +1,0 @@
-case,sample,LB,unit,fq1,fq2,PL
-HG001,N,giab,L1,/home/DATA/NA12878/pipelineTest/fastq/HG001_GIAB_chr20_1.fq,/home/DATA/NA12878/pipelineTest/fastq/HG001_GIAB_chr20_2.fq,ILM
-HG001,N1,1000G,L1,/home/DATA/NA12878/pipelineTest/fastq/HG001_1000G_chr20_1.fq,/home/DATA/NA12878/pipelineTest/fastq/HG001_1000G_chr20_2.fq,ILM
-HG001,N1,1000GDeep,L2,/home/DATA/NA12878/pipelineTest/fastq/HG001_1000GDeep_chr20_1.fq.gz,/home/DATA/NA12878/pipelineTest/fastq/HG001_1000GDeep_chr20_2.fq.gz,ILM
-
-    

@@ -1,0 +1,4 @@
+sample,LB,unit,fq1,fq2,PL
+N,giab,L1,/home/pengjia/ProjectSnake/pipelineTest/fastq/HG001_GIAB_chr20_1.fq,/home/pengjia/ProjectSnake/pipelineTest/fastq/HG001_GIAB_chr20_2.fq,ILM
+N1,1000G,L1,/home/pengjia/ProjectSnake/pipelineTest/fastq/HG001_1000G_chr20_1.fq,/home/pengjia/ProjectSnake/pipelineTest/fastq/HG001_1000G_chr20_2.fq,ILM
+N1,1000GDeep,L2,/home/pengjia/ProjectSnake/pipelineTest/fastq/HG001_1000GDeep_chr20_1.fq.gz,/home/pengjia/ProjectSnake/pipelineTest/fastq/HG001_1000GDeep_chr20_2.fq.gz,ILM

@@ -1,4 +1,4 @@
-caseinfo: conf/caseinfo.csv
+sample_info: conf/sample_info.csv
 project:
   name: preTest
 ########################################################################################################################
@@ -11,9 +11,9 @@ project:
 
 ########################################################################################################################
 ### output path
-path_data: "../../ngs_test_data/data2/"
-path_log:  "../../ngs_test_data/logs/"
-path_bm: "../../ngs_test_data/benchmark/"
+path_data: "../../ngs_test_data/data3/"
+path_log:  "../../ngs_test_data/logs2/"
+path_bm: "../../ngs_test_data/benchmark2/"
 
 ########################################################################################################################
 ### pipeline
@@ -22,7 +22,7 @@ bamsample: "conf/bamsample.csv"  # if loadBamFormat is csv, you need to provide 
 
 pipe:
   ## raw_read_qc
-  trim: fastp # fastp, trim, passqc
+  trim: passqc # fastp, trim, passqc
 
   ## align
   aligner: bwa  #bwa, bowtie, bowtie2
