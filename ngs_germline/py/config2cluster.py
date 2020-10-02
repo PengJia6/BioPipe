@@ -11,7 +11,7 @@ parser.add_argument('--cluster', required=True, type=str, nargs=1,
 args = parser.parse_args()
 configfile = args.config[0]
 cluster_configfile = args.cluster[0]
-configfile_yaml = yaml.load(open(configfile))
+configfile_yaml = yaml.load(open(configfile),Loader=yaml.FullLoader)
 path_log = os.path.abspath(configfile_yaml["path_log"].rstrip("/") + "/cluster_oe/").rstrip("/")
 if not os.path.exists(path_log):
     os.makedirs(path_log)

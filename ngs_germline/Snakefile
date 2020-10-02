@@ -4,7 +4,7 @@ include: "smk/software.smk"  # software path
 include: "smk/genome/genome.smk"  # genome and genome index
 include: "smk/raw_read_qc/raw_read_qc_output.smk"  # raw read qc pipeline
 include: "smk/align/align_output.smk"  # reads alignment pipeline
-# include: "smk/var/var_output.smk"  # variants detection pipeline
+include: "smk/var/var_output.smk"  # variants detection pipeline
 
 SNPINDEL = ""
 ##### Target rules #####
@@ -18,7 +18,7 @@ rule all:
          # expand([path_data + "HQbam/{u.case}-{u.sample}.bam.bai"], u=caseinfo.itertuples()),
          # path_dict,
          # path_genome_list,
-         # path_raw_vcf,
+         path_raw_vcf,
          path_raw_qc,
          path_HQbamList,
          # path_CNVcaller_ref_index,

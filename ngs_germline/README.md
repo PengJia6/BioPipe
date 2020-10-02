@@ -29,7 +29,13 @@
    fq1: path of the read1 for paired-end sequencing 
    fq2: path of the read2 for paired-end sequencing 
    * if you have high quality
-    sequencing config the input data in conf/sample_info.csv  
+    sequencing config the input data in conf/sample_info.csv
+      
+   |case|path|  
+   | ---- |  ----|   
+   | HG001 | /path/to/HG001.HQ.bam|
+   | HG003 | /path/to/HG003.HQ.bam|
+  
 
      
    

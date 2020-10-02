@@ -19,7 +19,7 @@ rule loadrawData:
     run:
         inR1 = input.R1
         inR2 = input.R2
-        if inR1.endswith("gz"):
+        if str(inR1).endswith("gz"):
             shell("ln -sr {input.R1} {output.R1} 2>>{log} 1>>{log}")
             shell("echo file is compressed, make soft link 1>>{log} 2>>{log}")
         else:
