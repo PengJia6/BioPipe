@@ -1,0 +1,96 @@
+samples = ["HG00731", "HG00732", "HG00733"]
+refs = ["GRCh38", "T2T"]
+ref_GRCh38 = "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+ref_T2T = "/home/DATA/REFGENOMEDB/human/T2T_genome/chm13_v1.0_virus.fasta"
+whatshap = "/home/pengjia/miniconda3/envs/default/bin/whatshap"
+tabix = "/home/pengjia//miniconda3/envs/default/bin/tabix"
+samtools = "/home/pengjia//miniconda3/envs/default/bin/samtools"
+threads_dp = 30
+
+rule all:
+    input:
+         expand("/home/DATA/CCS/{sample}/bams_haptag/{sample}.pbmm2.sorted.{ref}.haptag.bam.bai", sample=samples,
+                ref=refs),  # phased bam file with HP tag
+
+rule dv_GRCh38:
+    input:
+         bam="/home/DATA/CCS/{sample}/pbmm2/{sample}.pbmm2_sorted.bam",
+         ref=ref_GRCh38
+    output:
+          vcf="/home/DATA/CCS/{sample}/deepvariant/{sample}.pbmm2.GRCh38.dv.vcf.gz"
+    log:
+       "/home/DATA/CCS/reads_phasing/logs/dv/{sample}_GRCH38.log"
+    threads: threads_dp
+    run:
+        #        input="/home/DATA/CCS/{wildcards.sample}"
+        ref = "/home/DATA/REFGENOMEDB/human/GRCh38_full_analysis_set_plus_decoy_hla/genome/"
+        shell(
+            'docker run -v "/home/DATA/CCS/{wildcards.sample}":"/input" -v {ref}:"/ref" google/deepvariant:0.10.0 /opt/deepvariant/bin/run_deepvariant --model_type=PACBIO --ref=/ref/GRCh38_full_analysis_set_plus_decoy_hla.fa --reads="/input/pbmm2/{wildcards.sample}.pbmm2_sorted.bam" --output_vcf=/input/deepvariant/{wildcards.sample}.pbmm2.GRCH38.dv.vcf.gz --output_gvcf=/input/deepvariant/{wildcards.sample}.pbmm2.GRCh38.dv.g.vcf.gz --num_shards={threads} 1>{log} 2>{log}')
+        shell("{tabix} {output.vcf}.vcf.gz")
+        shell("touch {output.vcf}")
+
+rule dv_T2T:
+    input:
+         bam="/home/DATA/CCS/{sample}/pbmm2_t2t/{sample}.pbmm2_sorted.bam",
+         ref=ref_T2T
+    output:
+          vcf="/home/DATA/CCS/{sample}/deepvariant/{sample}.pbmm2.T2T.dv.vcf.gz"
+    log:
+       "/home/DATA/CCS/reads_phasing/logs/dv/{sample}_T2T.log"
+    threads: threads_dp
+    run:
+        #        input="/home/DATA/CCS/{wildcards.sample}"
+        ref = "/home/DATA/REFGENOMEDB/human/T2T_genome"
+        shell(
+            'docker run -v "/home/DATA/CCS/{wildcards.sample}":"/input" -v {ref}:"/ref" google/deepvariant:0.10.0 /opt/deepvariant/bin/run_deepvariant --model_type=PACBIO --ref=/ref/chm13_v1.0_virus.fasta --reads="/input/pbmm2_t2t/{wildcards.sample}.pbmm2_sorted.bam" --output_vcf=/input/deepvariant/{wildcards.sample}.pbmm2.T2T.dv.vcf.gz --output_gvcf=/input/deepvariant/{wildcards.sample}.pbmm2.T2T.dv.g.vcf.gz --num_shards={threads} 1>{log} 2>{log}')
+shell("{tabix} {output.vcf}.vcf.gz")
+shell("touch {output.vcf}")
+
+
+def get_bam(wildcards):
+    if wildcards.ref == "T2T":
+        return "/home/DATA/CCS/{sample}/pbmm2_t2t/{sample}.pbmm2_sorted.bam".format(sample=wildcards.sample)
+    else:
+        return "/home/DATA/CCS/{sample}/pbmm2/{sample}.pbmm2_sorted.bam".format(sample=wildcards.sample)
+
+
+def get_ref(wildcards):
+    if wildcards.ref == "T2T":
+        return ref_T2T
+    else:
+        return ref_GRCh38
+
+
+rule variant_phasing:
+    input:
+         bam=get_bam,
+         ref=get_ref,
+         vcf="/home/DATA/CCS/{sample}/deepvariant/{sample}.pbmm2.{ref}.dv.vcf.gz"
+    output:
+          vcf="/home/DATA/CCS/{sample}/deepvariant/{sample}.pbmm2.{ref}.dv.phased.vcf.gz"
+    log:"/home/DATA/CCS/reads_phasing/logs/variant_phasing/{sample}_{ref}.dv.log"
+    threads: 1
+    run:
+        shell("{whatshap} phase --output {output.vcf} --reference {input.ref} {input.vcf} {input.bam} 1>{log} 2>{log}")
+        shell("{tabix} -p vcf {output.vcf}")
+
+rule read_phasing:
+    input:
+         bam=get_bam,
+         ref=get_ref,
+         vcf="/home/DATA/CCS/{sample}/deepvariant/{sample}.pbmm2.{ref}.dv.phased.vcf.gz"
+    output:
+          bam="/home/DATA/CCS/{sample}/bams_haptag/{sample}.pbmm2.sorted.{ref}.haptag.bam"
+    log:"/home/DATA/CCS/reads_phasing/logs/reads_phasing/{sample}_{ref}.dv.log"
+    threads: 1
+    run:
+        shell(
+            "{whatshap} haplotag --output {output.bam} --reference {input.ref} {input.vcf} {input.bam} 1>{log} 2>{log}")
+
+rule bam_index:
+    input:
+         "{prefix}.bam"
+    output:
+          "{prefix}.bam.bai"
+    shell:
+         "{samtools} index {input}"
