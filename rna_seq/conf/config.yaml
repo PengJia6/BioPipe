@@ -1,0 +1,21 @@
+path_log: "logs"
+qc: fastp
+qc_report:
+  - fastp
+  - fastqc
+  - multiqc
+align:
+  - STAR
+  - tophat
+fusion:
+  - STARfusion
+
+
+threads:
+  loadrawData: 1
+  fastp: 18
+  STAR_Index: 28
+  STAR: 18
+  MergeBam: 8
+  MergeJunction: 1
+  STARfusion: 2

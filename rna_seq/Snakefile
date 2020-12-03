@@ -1,0 +1,20 @@
+# ======================================================================================================================
+# Project: BioPipe
+# Script : Snakefile TODO check
+# Author : Peng Jia
+# Date   : 2020.11.26
+# Email  : pengjia@stu.xjtu.edu.cn
+# Description: TODO
+# ======================================================================================================================
+
+include: "common.smk"
+# localrules: a
+# ruleorder: a > b
+print(path_fusion)
+print(path_align)
+rule all:
+    input:
+        output_files_genomes,
+        path_align,
+        path_fusion
+
