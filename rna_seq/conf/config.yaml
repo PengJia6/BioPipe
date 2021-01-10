@@ -19,3 +19,4 @@ threads:
   MergeBam: 8
   MergeJunction: 1
   STARfusion: 2
+  Tophat2_Index: 2

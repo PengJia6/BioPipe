@@ -18,3 +18,5 @@ path_genome = "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.f
 path_gtf = "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/annotation/GRCh38.96/gtf/Homo_sapiens.GRCh38.96.addChr.gtf"
 path_gff = "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/annotation/GRCh38.96/gff/Homo_sapiens.GRCh38.96.addChr.gff"
 path_STAR_index = path_data + "genome/star/index"
+
+path_tophat2_index = path_data + "genome/tophat2/genome"

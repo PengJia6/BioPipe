@@ -1,0 +1,11 @@
+species: human
+reference:
+  #  path: /home/pengjia/reference_db/test/chr20.fa
+  path: /home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/genome/GRCh38.d1.vd1.fa
+  version: GRCh38
+annotation:
+  gtf: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/annotation/GRCh38.96/gtf/Homo_sapiens.GRCh38.96.addChr.gtf"
+  gff: "/home/DATA/REFGENOMEDB/human/GRCh38.d1.vd1/annotation/GRCh38.96/gff/Homo_sapiens.GRCh38.96.addChr.gff"
+  version: "ensembl.GRCh38.96.addChr"
+
+

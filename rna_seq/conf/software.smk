@@ -12,3 +12,5 @@ default = default.rstrip("/") + "/"
 path_star = default + "STAR "
 path_star_fusion = default + "STAR-Fusion "  # offline installation
 path_fastp = default + "fastp "
+
+path_tophat2 = "/home/pengjia/miniconda3/envs/tophat/bin/tophat2"

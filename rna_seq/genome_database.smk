@@ -35,6 +35,26 @@ rule STAR_Index:
                           "--genomeDir {output.index_dir} --genomeFastaFiles {input.fasta} "
                           "--sjdbGTFfile {input.gtf} --sjdbOverhang {wildcards.read_len} 2>{log} 1>{log}")
         shell("touch {output.index_tag}")
-        # shell("command 2")
+# shell("command 2")
 
 # ======================================================================================================================
+
+rule tophat2_index:
+    input:
+         fasta=path_genome,
+         gtf=path_gtf,
+         gff=path_gff,
+    output:
+          tag=path_tophat2_index,
+    log:
+       path_log + "genome/tophat2_index.log"
+    benchmark:
+             path_log + "genome/tophat2_index.tsv"
+    threads: config["threads"]["Tophat2_Index"]
+    params:
+          extra="",
+    run:
+        shell("ln -sf {input.fasta} {output.tag}.fa")
+        shell("{path_tophat2} -G {input.gtf} --transcriptome-index={output.tag} {output.tag} "
+              " 2>{log} 1>{log}")
+        shell("touch {output.tag}")

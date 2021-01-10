@@ -47,4 +47,6 @@ if "STARfusion" in config["fusion"]:
     for sample in sample_list:
         path_fusion.append(path_data +  "fusion/STARfusion/{sample}/{sample}_{qcpipe}_STAR.STARfusion".format(sample=sample,
                                                                                                qcpipe=qc_pipe))
+if "tophat2" in config["align"]:
+    path_align.append(path_tophat2_index)
 
